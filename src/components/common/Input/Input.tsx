@@ -7,9 +7,10 @@ interface Props {
   value: string | number;
   change: (name: string, value: string | number) => void;
   blur?: () => void;
+  required?:boolean
 }
 
-export const Input = ({ type, className, placeholder, value, change, blur }: Props) => {
+export const Input = ({ type, className, placeholder, value, change, blur,required }: Props) => {
   return (
     <input
       type={type}
@@ -18,6 +19,7 @@ export const Input = ({ type, className, placeholder, value, change, blur }: Pro
       value={value}
       onChange={e => change(placeholder, e.target.value)}
       onBlur={blur}
+      required={required}
     >
     </input>
   )
