@@ -1,25 +1,22 @@
 import React from 'react';
 
 interface Props {
-  type: 'button' | 'submit';
-  className:string;
-  textName: string;
-  click?: () => void;
-  submit?: (e: React.SyntheticEvent) => void;
+    type?: 'button' | 'submit';
+    className?: string;
+    textName: string;
+    click?: () => void;
+    disabled?: boolean;
 }
 
-export const Button = ({type, className, textName, click, submit}: Props) => {
-  return type === 'submit'
-    ? <button
-      type={type}
-      className={className}
-      onClick={submit}
-    >{textName}
-    </button>
-    : <button
-      type={type}
-      className={className}
-      onClick={click}
-    >{textName}
-    </button>;
+export const Button = ({type, className, textName, click, disabled}: Props) => {
+    return (
+        <button
+            type={type}
+            className={`button ${className ? className : ''}`}
+            onClick={click}
+            disabled={disabled}
+        >
+            {textName}
+        </button>
+    );
 };
