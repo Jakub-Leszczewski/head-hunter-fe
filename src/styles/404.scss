@@ -1,0 +1,33 @@
+.not_found {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  text-align: center;
+
+  &_img {
+    max-width: 600px;
+    display: block;
+    margin: 60px auto;
+  }
+
+  h3 {
+    margin-bottom: 5px;
+  }
+
+  a {
+    color: red;
+    text-decoration: underline;
+    text-transform: capitalize;
+    margin-top: 30px;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .not_found {
+      &_img {
+        max-width: 300px;
+      }
+    }
+  }
+}
