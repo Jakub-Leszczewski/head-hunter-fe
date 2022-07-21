@@ -74,7 +74,7 @@ export const fetchApiTool = async (path: string): Promise<ClientApiResponse> => 
     try {
         const response = await fetch(`${apiUrl}/${path}`);
         const res = await response.json();
-        if (response.ok) return { results: res, status: true };
+        if (response.ok) return res?.results ? { ...res, status: true } : { results: res, status: true };
         return showProblem(res);
     } catch (e) {
         return { error: 'Wystąpił błąd. Spróbuj jeszcze raz.', status: false };
