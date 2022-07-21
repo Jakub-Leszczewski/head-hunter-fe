@@ -8,8 +8,11 @@ export const Forgot = () => {
         <FiKey className='forgot_icon_key' />
       </div>
       <div className='forgot_text'>
-        <h2>Forgot password?</h2>
-        <small>No worries, we'll send you reset instructions.</small>
+        <h2>Nie pamiętasz hasła?</h2>
+        <small>
+          Proszę wpisz adres email podany podczas rejestracji. Otrzymasz
+          tymczasowy link do zresetowania hasła.
+        </small>
       </div>
       <form className='forgot_form'>
         <label htmlFor='email' className='forgot_form_label'>
@@ -19,14 +22,14 @@ export const Forgot = () => {
           className='forgot_form_input'
           name='email'
           type='email'
-          placeholder='Enter your email'
+          placeholder='Wpisz swój emaill'
         />
         <button type='submit' className='forgot_form_btn'>
-          Reset password
+          Resetuj hasło
         </button>
       </form>
       <Link to='/login' className='forgot_link'>
-        ← Back to login
+        ← Wróć do logowania
       </Link>
     </div>
   );
