@@ -1,5 +1,7 @@
 import { FiKey } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { Button } from '../common/Button/Button';
+import { Input } from '../common/Input/Input';
 
 export const Forgot = () => {
   return (
@@ -18,15 +20,15 @@ export const Forgot = () => {
         <label htmlFor='email' className='forgot_form_label'>
           Email
         </label>
-        <input
+        <Input
           className='forgot_form_input'
           name='email'
           type='email'
-          placeholder='Wpisz swój emaill'
+          placeholder='Wpisz swój email'
         />
-        <button type='submit' className='forgot_form_btn'>
+        <Button type='submit' className='forgot_form_btn'>
           Resetuj hasło
-        </button>
+        </Button>
       </form>
       <Link to='/login' className='forgot_link'>
         ← Wróć do logowania
