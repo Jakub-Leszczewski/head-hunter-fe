@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { NotFound } from '../../pages/NotFound';
+import { NotFound } from '../views/NotFound/NotFound';
 import { Profile } from '../views/Profile/Profile';
 
 export const Main = () => {
