@@ -15,6 +15,7 @@ interface Props {
   maxLength?: number;
 }
 
+
 export const Input = ({
   type,
   placeholder,
@@ -46,3 +47,4 @@ export const Input = ({
     />
   );
 };
+
