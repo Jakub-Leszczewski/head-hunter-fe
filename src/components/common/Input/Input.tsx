@@ -2,6 +2,7 @@ import React from 'react';
 
 interface Props {
   type?: 'text' | 'number' | 'password' | 'date' | 'email';
+  placeholder?: string;
   className?: string;
   name: string;
   value: string | number;
@@ -16,6 +17,7 @@ interface Props {
 
 export const Input = ({
   type,
+  placeholder,
   className,
   name,
   value,
@@ -30,8 +32,9 @@ export const Input = ({
   return (
     <input
       type={type}
+      placeholder={placeholder || ''}
       className={`input ${className ? className : ''}`}
-      placeholder={name}
+      name={name}
       value={value}
       onChange={(e) => change(name, e.target.value)}
       onBlur={blur}
@@ -40,6 +43,6 @@ export const Input = ({
       max={max}
       minLength={minLength}
       maxLength={maxLength}
-    ></input>
+    />
   );
 };
