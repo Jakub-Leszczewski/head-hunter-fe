@@ -18,6 +18,7 @@ export const Input = ({type, className, name, value, change, blur, required, min
     return (
         <input
             type={type}
+            name={name}
             className={`input ${className ? className : ''}`}
             placeholder={name}
             value={value}
