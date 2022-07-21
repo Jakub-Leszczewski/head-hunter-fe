@@ -25,10 +25,14 @@ export const Forgot = () => {
           name='email'
           type='email'
           placeholder='Wpisz swój email'
+          value={''}
+          change={() => {}}
         />
-        <Button type='submit' className='forgot_form_btn'>
-          Resetuj hasło
-        </Button>
+        <Button
+          type='submit'
+          className='forgot_form_btn'
+          textName='Resetuj hasło'
+        />
       </form>
       <Link to='/login' className='forgot_link'>
         ← Wróć do logowania
