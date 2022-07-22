@@ -8,7 +8,7 @@ import { Label } from '../../common/Label/Label';
 import { Select } from '../../common/Select/Select';
 import { Textarea } from '../../common/Textarea/Textarea';
 
-interface Trainee {
+interface Student {
   password: string;
   phone: string;
   firstName: string;
@@ -21,17 +21,17 @@ interface Trainee {
   targetWorkCity: string;
   expectedContractType: string;
   expectedSalary: string;
-  canTakeApprenticeship: 'TAK' | 'NIE' | '';
+  canTakeApprenticeship: string;
   monthsOfCommercialExp: string;
   education: string;
   workExperience: string;
   courses: string;
 }
 
-export const TraineeRegistration = () => {
+export const StudentRegistration = () => {
 
   const [passwordView, setPasswordView] = useState(false);
-  const [trainee, setTrainee] = useState<Trainee>({
+  const [student, setstudent] = useState<Student>({
     password: '',
     phone: '',
     firstName: '',
@@ -51,133 +51,133 @@ export const TraineeRegistration = () => {
     courses: '',
   });
 
-  const changeTrainee = (name: string, value: string | number) => {
-    (setTrainee(trainee => ({
-        ...trainee,
+  const changestudent = (name: string, value: string | number) => {
+    (setstudent(student => ({
+        ...student,
         [name]: value,
       }))
     );
   };
 
   return (
-    <div className="trainee-registration">
-      <img className="trainee-registration__image" src={logo} alt="MegaK logo"/>
-      <h2 className="trainee-registration__title">
+    <div className="student-registration">
+      <img className="student-registration__image" src={logo} alt="MegaK logo"/>
+      <h2 className="student-registration__title">
         Rejestracja Kursanta
       </h2>
-      <form className="trainee-registration__form">
-        <div className="trainee-registration__form-input">
+      <form className="student-registration__form">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="password"
             textName="Hasło"
           />
           <Input
             name="password"
-            value={trainee.password}
-            change={changeTrainee}
+            value={student.password}
+            change={changestudent}
             type={passwordView ? 'text' : 'password'}
           />
           <div
-            className="trainee-registration__form-icon-box"
+            className="student-registration__form-icon-box"
             onClick={() => setPasswordView(!passwordView)}
           >
             {passwordView
               ? <BsEyeSlash
-                className="trainee-registration__form-icon"
+                className="student-registration__form-icon"
               />
               : <BsEye
-                className="trainee-registration__form-icon"
+                className="student-registration__form-icon"
               />
             }
           </div>
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="phone"
             textName="Telefon"
           />
           <Input
             name="phone"
-            value={trainee.phone}
-            change={changeTrainee}
+            value={student.phone}
+            change={changestudent}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="firstName"
             textName="Imię"
           />
           <Input
             name="firstName"
-            value={trainee.firstName}
-            change={changeTrainee}
+            value={student.firstName}
+            change={changestudent}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="lastName"
             textName="Nazwisko"
           />
           <Input
             name="lastName"
-            value={trainee.lastName}
-            change={changeTrainee}
+            value={student.lastName}
+            change={changestudent}
             placeholder="Nazwisko"
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="githubUsername"
             textName="Login GitHuba"
           />
           <Input
             name="githubUsername"
-            value={trainee.githubUsername}
-            change={changeTrainee}
+            value={student.githubUsername}
+            change={changestudent}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="portfolioUrls"
             textName="Adresy portfolio"
           />
           <Input
             name="portfolioUrls"
-            value={trainee.portfolioUrls}
-            change={changeTrainee}
+            value={student.portfolioUrls}
+            change={changestudent}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="projectUrls"
             textName="Adresy projektów na githubie"
           />
           <Input
             name="projectUrls"
-            value={trainee.projectUrls}
-            change={changeTrainee}
+            value={student.projectUrls}
+            change={changestudent}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="bio"
             textName="Krutkie bio"
           />
           <Input
             name="bio"
-            value={trainee.bio}
-            change={changeTrainee}
+            value={student.bio}
+            change={changestudent}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="expectedTypeWork"
             textName="Wybór preferowanego miejsca pracy"
           />
           <Select
             name="expectedTypeWork"
-            value={trainee.expectedTypeWork}
-            change={changeTrainee}
+            value={student.expectedTypeWork}
+            change={changestudent}
             options={[
               'Bez znaczenia',
               'Na miejscu',
@@ -187,26 +187,26 @@ export const TraineeRegistration = () => {
             ]}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="targetWorkCity"
             textName="Docelowe miasto, gdzie chce pracować kandydat"
           />
           <Input
             name="targetWorkCity"
-            value={trainee.targetWorkCity}
-            change={changeTrainee}
+            value={student.targetWorkCity}
+            change={changestudent}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="expectedContractType"
             textName="Oczekiwany typ kontraktu"
           />
           <Select
             name="expectedContractType"
-            value={trainee.expectedContractType}
-            change={changeTrainee}
+            value={student.expectedContractType}
+            change={changestudent}
             options={[
               'Brak preferencji',
               'Tylko UoP',
@@ -215,81 +215,81 @@ export const TraineeRegistration = () => {
             ]}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="expectedSalary"
             textName="Oczekiwane wynagrodzenie miesięczne netto"
           />
           <Input
             name="expectedSalary"
-            value={trainee.expectedSalary}
-            change={changeTrainee}
+            value={student.expectedSalary}
+            change={changestudent}
             type="number"
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="canTakeApprenticeship"
             textName="Zgoda na bespłatne praktyki"
           />
           <Select
             name="canTakeApprenticeship"
-            value={trainee.canTakeApprenticeship}
-            change={changeTrainee}
+            value={student.canTakeApprenticeship}
+            change={changestudent}
             options={[
               'NIE',
               'TAK',
             ]}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="monthsOfCommercialExp"
             textName="Ilość miesięcy doświadczenia komercyjnego w programowaniu"
           />
           <Input
             name="monthsOfCommercialExp"
-            value={trainee.monthsOfCommercialExp}
-            change={changeTrainee}
+            value={student.monthsOfCommercialExp}
+            change={changestudent}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="education"
             textName="Przebieg edukacji"
           />
           <Textarea
             name="education"
-            value={trainee.education}
-            change={changeTrainee}
+            value={student.education}
+            change={changestudent}
             rows={4}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="workExperience"
             textName="Przebieg doświadczenia zawodowego"
           />
           <Textarea
             name="workExperience"
-            value={trainee.workExperience}
-            change={changeTrainee}
+            value={student.workExperience}
+            change={changestudent}
             rows={4}
           />
         </div>
-        <div className="trainee-registration__form-input">
+        <div className="student-registration__form-input">
           <Label
             htmlFor="courses"
             textName="Kursy i certyfikaty związane z programowaniem"
           />
           <Textarea
             name="courses"
-            value={trainee.courses}
-            change={changeTrainee}
+            value={student.courses}
+            change={changestudent}
             rows={4}
           />
         </div>
-        <div className="trainee-registration__form-button">
+        <div className="student-registration__form-button">
           <Button
             textName="Potwierdz"
           />

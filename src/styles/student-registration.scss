@@ -1,4 +1,4 @@
-.trainee-registration {
+.student-registration {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,26 +6,26 @@
   width: 100%;
   height: 100vh;
 
-  .trainee-registration__image {
+  .student-registration__image {
     width: 100px;
     margin-bottom: 10px;
   }
-  .trainee-registration__title {
+  .student-registration__title {
     font-size: 32px;
   }
 
-  .trainee-registration__form {
+  .student-registration__form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: 80%;
-    .trainee-registration__form-input {
+    .student-registration__form-input {
       position: relative;
       display: flex;
       flex-direction: column;
       width: 400px;
       margin-bottom: 10px;
-      .trainee-registration__form-icon-box{
+      .student-registration__form-icon-box{
         position: absolute;
         right:0;
         bottom: 0;
@@ -35,13 +35,13 @@
         width: 50px;
         height: 50px;
         cursor: pointer;
-        .trainee-registration__form-icon{
+        .student-registration__form-icon{
           width: 30px;
           height: 30px;
         }
       }
     }
-    .trainee-registration__form-button{
+    .student-registration__form-button{
       display: flex;
       justify-content: center;
       width: 100%;
