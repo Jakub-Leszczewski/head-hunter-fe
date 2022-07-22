@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 interface Props {
-  type?: 'text' | 'number' | 'password' | 'date' | 'email';
-  placeholder?: string;
-  className?: string;
   name: string;
   value: string | number;
   change: (name: string, value: string | number) => void;
+  type?: 'text' | 'number' | 'password' | 'date' | 'email';
+  placeholder?: string;
+  className?: string;
   blur?: () => void;
   required?: boolean;
   min?: string;
@@ -16,12 +16,12 @@ interface Props {
 }
 
 export const Input = ({
-  type,
-  placeholder,
-  className,
   name,
   value,
   change,
+  type,
+  placeholder,
+  className,
   blur,
   required,
   min,
@@ -30,19 +30,20 @@ export const Input = ({
   maxLength,
 }: Props) => {
   return (
-    <input
-      type={type}
-      placeholder={placeholder || ''}
-      className={`input ${className ? className : ''}`}
-      name={name}
-      value={value}
-      onChange={(e) => change(name, e.target.value)}
-      onBlur={blur}
-      required={required}
-      min={min}
-      max={max}
-      minLength={minLength}
-      maxLength={maxLength}
-    />
-  );
-};
+
+      <input
+        type={type}
+        placeholder={placeholder || ''}
+        className={`input ${className ? className : ''}`}
+        name={name}
+        value={value}
+        onChange={(e) => change(name, e.target.value)}
+        onBlur={blur}
+        required={required}
+        min={min}
+        max={max}
+        minLength={minLength}
+        maxLength={maxLength}
+      />
+  )
+}
