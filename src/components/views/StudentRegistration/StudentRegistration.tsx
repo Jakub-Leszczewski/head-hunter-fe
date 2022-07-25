@@ -31,7 +31,7 @@ interface Student {
 export const StudentRegistration = () => {
 
   const [passwordView, setPasswordView] = useState(false);
-  const [student, setstudent] = useState<Student>({
+  const [student, setStudent] = useState<Student>({
     password: '',
     phone: '',
     firstName: '',
@@ -51,8 +51,8 @@ export const StudentRegistration = () => {
     courses: '',
   });
 
-  const changestudent = (name: string, value: string | number) => {
-    (setstudent(student => ({
+  const changeStudent = (name: string, value: string | number) => {
+    (setStudent(student => ({
         ...student,
         [name]: value,
       }))
@@ -74,7 +74,7 @@ export const StudentRegistration = () => {
           <Input
             name="password"
             value={student.password}
-            change={changestudent}
+            change={changeStudent}
             type={passwordView ? 'text' : 'password'}
           />
           <div
@@ -99,7 +99,7 @@ export const StudentRegistration = () => {
           <Input
             name="phone"
             value={student.phone}
-            change={changestudent}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -110,7 +110,7 @@ export const StudentRegistration = () => {
           <Input
             name="firstName"
             value={student.firstName}
-            change={changestudent}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -121,7 +121,7 @@ export const StudentRegistration = () => {
           <Input
             name="lastName"
             value={student.lastName}
-            change={changestudent}
+            change={changeStudent}
             placeholder="Nazwisko"
           />
         </div>
@@ -133,7 +133,7 @@ export const StudentRegistration = () => {
           <Input
             name="githubUsername"
             value={student.githubUsername}
-            change={changestudent}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -144,7 +144,7 @@ export const StudentRegistration = () => {
           <Input
             name="portfolioUrls"
             value={student.portfolioUrls}
-            change={changestudent}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -155,7 +155,7 @@ export const StudentRegistration = () => {
           <Input
             name="projectUrls"
             value={student.projectUrls}
-            change={changestudent}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -166,7 +166,7 @@ export const StudentRegistration = () => {
           <Input
             name="bio"
             value={student.bio}
-            change={changestudent}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -177,7 +177,7 @@ export const StudentRegistration = () => {
           <Select
             name="expectedTypeWork"
             value={student.expectedTypeWork}
-            change={changestudent}
+            change={changeStudent}
             options={[
               'Bez znaczenia',
               'Na miejscu',
@@ -195,7 +195,7 @@ export const StudentRegistration = () => {
           <Input
             name="targetWorkCity"
             value={student.targetWorkCity}
-            change={changestudent}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -206,7 +206,7 @@ export const StudentRegistration = () => {
           <Select
             name="expectedContractType"
             value={student.expectedContractType}
-            change={changestudent}
+            change={changeStudent}
             options={[
               'Brak preferencji',
               'Tylko UoP',
@@ -223,7 +223,7 @@ export const StudentRegistration = () => {
           <Input
             name="expectedSalary"
             value={student.expectedSalary}
-            change={changestudent}
+            change={changeStudent}
             type="number"
           />
         </div>
@@ -235,7 +235,7 @@ export const StudentRegistration = () => {
           <Select
             name="canTakeApprenticeship"
             value={student.canTakeApprenticeship}
-            change={changestudent}
+            change={changeStudent}
             options={[
               'NIE',
               'TAK',
@@ -250,7 +250,7 @@ export const StudentRegistration = () => {
           <Input
             name="monthsOfCommercialExp"
             value={student.monthsOfCommercialExp}
-            change={changestudent}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -261,7 +261,7 @@ export const StudentRegistration = () => {
           <Textarea
             name="education"
             value={student.education}
-            change={changestudent}
+            change={changeStudent}
             rows={4}
           />
         </div>
@@ -273,7 +273,7 @@ export const StudentRegistration = () => {
           <Textarea
             name="workExperience"
             value={student.workExperience}
-            change={changestudent}
+            change={changeStudent}
             rows={4}
           />
         </div>
@@ -285,7 +285,7 @@ export const StudentRegistration = () => {
           <Textarea
             name="courses"
             value={student.courses}
-            change={changestudent}
+            change={changeStudent}
             rows={4}
           />
         </div>
