@@ -7,18 +7,21 @@ import { Input } from '../../common/Input/Input';
 
 interface NewPassword {
   password: string;
+  confirmPassword:string;
 }
 
 export const NewPassword = () => {
+
   const navigate = useNavigate();
 
   const [newPassword, setNewPassword] = useState<NewPassword>({
     password: '',
+    confirmPassword:'',
   });
 
   const newPasswordHandler = (name: string, value: string | number) => {
-    setNewPassword((password) => ({
-      ...password,
+    setNewPassword((newPassword) => ({
+      ...newPassword,
       [name]: value,
     }));
   };
@@ -57,10 +60,10 @@ export const NewPassword = () => {
         </label>
         <Input
           className='forgot__form-input'
-          name='confirm_password'
+          name='confirmPassword'
           type='password'
           placeholder='Potwierdź nowe hasło'
-          value={newPassword.password}
+          value={newPassword.confirmPassword}
           change={newPasswordHandler}
         />
         <Button type='submit' className='forgot__form-btn' textName='Resetuj' />
