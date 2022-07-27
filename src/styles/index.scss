@@ -3,8 +3,14 @@
 @import 'forgot';
 @import '404';
 @import 'button';
+@import 'label';
 @import 'input';
+@import 'select';
+@import "textarea";
 @import 'login';
+@import 'student-registration';
+@import 'hr-registration';
+
 
 // Prosta instrukcja jak dołączyć swoje style:
 // 1. Stwórz nowy plik w katalogu /styles np. cośtam.scss
