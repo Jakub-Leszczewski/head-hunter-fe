@@ -10,7 +10,7 @@
   font-family: $main-font;
   color: $font-color;
 
-  &_icon {
+  &__icon {
     width: 50px;
     height: 50px;
     margin-bottom: 10px;
@@ -21,14 +21,14 @@
     align-items: center;
     justify-content: center;
 
-    &_key {
+    &-key {
       width: 30px;
       height: 30px;
       color: #e02735;
     }
   }
 
-  &_text {
+  &__text {
     text-align: center;
     width: 80%;
 
@@ -37,11 +37,11 @@
     }
   }
 
-  &_form {
+  &__form {
     width: 80%;
     margin: 30px 0 40px 0;
 
-    &_input {
+    &-input {
       font-family: $main-font;
       font-size: 16px;
       background-color: #292a2b;
@@ -54,7 +54,7 @@
       width: 100%;
     }
 
-    &_btn {
+    &-btn {
       width: 100%;
       font-family: $main-font;
       font-size: inherit;
@@ -67,7 +67,7 @@
     }
   }
 
-  &_link {
+  &__link {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
