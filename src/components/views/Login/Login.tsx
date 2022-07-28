@@ -1,7 +1,7 @@
-import React, {FormEvent, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Button} from '../../common/Button/Button';
-import {Input} from '../../common/Input/Input';
+import React, { FormEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '../../common/Button/Button';
+import { Input } from '../../common/Input/Input';
 import logo from '../../../assets/images/logo.png';
 
 interface Consumer {
@@ -10,7 +10,10 @@ interface Consumer {
 }
 
 export const Login = () => {
-  const [consumer, setConsumer] = useState<Consumer>({email: '', password: ''});
+  const [consumer, setConsumer] = useState<Consumer>({
+    email: '',
+    password: '',
+  });
 
   const editConsumer = (name: string, value: string | number) => {
     setConsumer((consumer) => ({
