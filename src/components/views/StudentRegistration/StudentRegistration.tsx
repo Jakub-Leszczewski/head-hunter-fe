@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BsEyeSlash, BsEye } from 'react-icons/bs';
 
-import logo from '../../../assets/images/logo.png';
 import { Input } from '../../common/Input/Input';
 import { Button } from '../../common/Button/Button';
 import { Label } from '../../common/Label/Label';
@@ -28,9 +27,14 @@ interface Student {
   courses: string;
 }
 
+interface Password {
+  confirmPassword: string;
+  passwordView: boolean;
+  confirmPasswordView: boolean;
+}
+
 export const StudentRegistration = () => {
 
-  const [passwordView, setPasswordView] = useState(false);
   const [student, setStudent] = useState<Student>({
     password: '',
     phone: '',
@@ -50,6 +54,11 @@ export const StudentRegistration = () => {
     workExperience: '',
     courses: '',
   });
+  const [password, setPassword] = useState<Password>({
+    confirmPassword: '',
+    passwordView: false,
+    confirmPasswordView: false,
+  });
 
   const changeStudent = (name: string, value: string | number) => {
     (setStudent(student => ({
@@ -59,9 +68,16 @@ export const StudentRegistration = () => {
     );
   };
 
+  const changePassword = (name: string, value: string | number | boolean) => {
+    (setPassword(password => ({
+        ...password,
+        [name]: value,
+      }))
+    );
+  };
+
   return (
     <div className="student-registration">
-      <img className="student-registration__image" src={logo} alt="MegaK logo"/>
       <h2 className="student-registration__title">
         Rejestracja Kursanta
       </h2>
@@ -75,32 +91,46 @@ export const StudentRegistration = () => {
             name="password"
             value={student.password}
             change={changeStudent}
-            type={passwordView ? 'text' : 'password'}
+            type={password.passwordView ? 'text' : 'password'}
           />
           <div
-            className="student-registration__form-icon-box"
-            onClick={() => setPasswordView(!passwordView)}
+            className="student-registration__form-input-icon-box"
+            onClick={() => changePassword('passwordView', !password.passwordView)}
           >
-            {passwordView
+            {password.passwordView
               ? <BsEyeSlash
-                className="student-registration__form-icon"
+                className="student-registration__form-input-icon-box-icon"
               />
               : <BsEye
-                className="student-registration__form-icon"
+                className="student-registration__form-input-icon-box-icon"
               />
             }
           </div>
         </div>
         <div className="student-registration__form-input">
           <Label
-            htmlFor="phone"
-            textName="Telefon"
+            htmlFor="confirmPassword"
+            textName="Powtórz hasło"
           />
           <Input
-            name="phone"
-            value={student.phone}
-            change={changeStudent}
+            name="confirmPassword"
+            value={password.confirmPassword}
+            change={changePassword}
+            type={password.confirmPasswordView ? 'text' : 'password'}
           />
+          <div
+            className="student-registration__form-input-icon-box"
+            onClick={() => changePassword('confirmPasswordView', !password.confirmPasswordView)}
+          >
+            {password.confirmPasswordView
+              ? <BsEyeSlash
+                className="student-registration__form-input-icon-box-icon"
+              />
+              : <BsEye
+                className="student-registration__form-input-icon-box-icon"
+              />
+            }
+          </div>
         </div>
         <div className="student-registration__form-input">
           <Label
@@ -122,7 +152,17 @@ export const StudentRegistration = () => {
             name="lastName"
             value={student.lastName}
             change={changeStudent}
-            placeholder="Nazwisko"
+          />
+        </div>
+        <div className="student-registration__form-input">
+          <Label
+            htmlFor="phone"
+            textName="Telefon"
+          />
+          <Input
+            name="phone"
+            value={student.phone}
+            change={changeStudent}
           />
         </div>
         <div className="student-registration__form-input">
@@ -155,17 +195,6 @@ export const StudentRegistration = () => {
           <Input
             name="projectUrls"
             value={student.projectUrls}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="bio"
-            textName="Krutkie bio"
-          />
-          <Input
-            name="bio"
-            value={student.bio}
             change={changeStudent}
           />
         </div>
@@ -253,40 +282,56 @@ export const StudentRegistration = () => {
             change={changeStudent}
           />
         </div>
-        <div className="student-registration__form-input">
+        <div className="student-registration__form-textarea">
+          <Label
+            htmlFor="bio"
+            textName="Krutkie bio"
+          />
+          <Textarea
+            className="textarea"
+            name="bio"
+            value={student.bio}
+            change={changeStudent}
+            rows={3}
+          />
+        </div>
+        <div className="student-registration__form-textarea">
           <Label
             htmlFor="education"
             textName="Przebieg edukacji"
           />
           <Textarea
+            className="textarea"
             name="education"
             value={student.education}
             change={changeStudent}
-            rows={4}
+            rows={3}
           />
         </div>
-        <div className="student-registration__form-input">
+        <div className="student-registration__form-textarea">
           <Label
             htmlFor="workExperience"
             textName="Przebieg doświadczenia zawodowego"
           />
           <Textarea
+            className="textarea"
             name="workExperience"
             value={student.workExperience}
             change={changeStudent}
-            rows={4}
+            rows={3}
           />
         </div>
-        <div className="student-registration__form-input">
+        <div className="student-registration__form-textarea">
           <Label
             htmlFor="courses"
             textName="Kursy i certyfikaty związane z programowaniem"
           />
           <Textarea
+            className="textarea"
             name="courses"
             value={student.courses}
             change={changeStudent}
-            rows={4}
+            rows={3}
           />
         </div>
         <div className="student-registration__form-button">
@@ -295,7 +340,6 @@ export const StudentRegistration = () => {
           />
         </div>
       </form>
-
     </div>
-  )
+  );
 };
