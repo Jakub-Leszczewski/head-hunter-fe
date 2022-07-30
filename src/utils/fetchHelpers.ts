@@ -11,9 +11,9 @@ export type Method = 'POST' | 'DELETE' | 'PATCH' | 'PUT' | 'GET';
 
 
 
-export interface ClientResponseOk {
+export interface ClientResponseOk<T> {
     status: true;
-    results: any;
+    results: T;
 }
 
 export interface ClientResponseError {
@@ -22,13 +22,13 @@ export interface ClientResponseError {
     message?: string | string[];
 }
 
-export type ClientResponse = ClientResponseOk | ClientResponseError;
+export type ClientResponse<T> = ClientResponseOk<T> | ClientResponseError;
 
 
 
-export interface ClientApiResponseOk {
+export interface ClientApiResponseOk<T> {
     status: true;
-    results: any;
+    results: T;
     amount?: number;
 }
 
@@ -37,7 +37,7 @@ export interface ClientApiResponseError {
     error: string;
 }
 
-export type ClientApiResponse = ClientApiResponseOk | ClientApiResponseError;
+export type ClientApiResponse<T> = ClientApiResponseOk<T> | ClientApiResponseError;
 
 //
 
@@ -51,7 +51,7 @@ const showProblem = (res: ResponseProblem): ClientResponseError => {
 
 // fetchTool używacie do wszystkich fetchy, które nie mają na celu pobrania danych
 
-export const fetchTool = async (path: string, method: Method = 'GET', body: any = undefined): Promise<ClientResponse> => {
+export const fetchTool = async <T>(path: string, method: Method = 'GET', body: any = undefined): Promise<ClientResponse<T>> => {
     try {
         const response = await fetch(`${apiUrl}/${path}`, {
             method,
@@ -70,7 +70,7 @@ export const fetchTool = async (path: string, method: Method = 'GET', body: any 
 
 // fetchApiTool uzywacie do pobierania danych z backendu np. kiedy potrzebujecie pobrać listę kursantów, albo dane dotyczące konkretnego kursanta
 
-export const fetchApiTool = async (path: string): Promise<ClientApiResponse> => {
+export const fetchApiTool = async <T>(path: string): Promise<ClientApiResponse<T>> => {
     try {
         const response = await fetch(`${apiUrl}/${path}`);
         const res = await response.json();
