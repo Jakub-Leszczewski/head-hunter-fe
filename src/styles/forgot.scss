@@ -1,0 +1,75 @@
+.forgot {
+  max-width: 500px;
+  height: 100vh;
+  display: flex;
+  padding: 0 10px;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: $main-font;
+  color: $font-color;
+
+  &__icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    border: none;
+    background: #7e7e7e83;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-key {
+      width: 30px;
+      height: 30px;
+      color: #e02735;
+    }
+  }
+
+  &__text {
+    text-align: center;
+    width: 80%;
+
+    h2 {
+      letter-spacing: 0.8px;
+    }
+  }
+
+  &__form {
+    width: 80%;
+    margin: 30px 0 40px 0;
+
+    &-input {
+      font-family: $main-font;
+      font-size: 16px;
+      background-color: #292a2b;
+      color: white;
+      border-radius: 2px;
+      margin: 4px 0 18px 0;
+      padding: 10px;
+      border: none;
+      outline: none;
+      width: 100%;
+    }
+
+    &-btn {
+      width: 100%;
+      font-family: $main-font;
+      font-size: inherit;
+      background-color: #e02735;
+      border: none;
+      color: $font-color;
+      padding: 10px;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+}
