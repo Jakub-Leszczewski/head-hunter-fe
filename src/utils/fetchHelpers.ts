@@ -55,7 +55,7 @@ export const fetchTool = async <T>(path: string, method: Method = 'GET', body: a
     try {
         const response = await fetch(`${apiUrl}/${path}`, {
             method,
-            headers: ['POST', 'PATCH', 'PUT'].includes(method) ? { 'Content-Type': 'application/json' } : undefined,
+            headers: ['POST', 'PATCH', 'PUT', 'DELETE'].includes(method) ? { 'Content-Type': 'application/json' } : undefined,
             body: body && JSON.stringify(body),
         });
         const res = await response.json();
