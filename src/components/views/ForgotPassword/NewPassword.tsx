@@ -49,7 +49,7 @@ export const NewPassword = () => {
         </label>
         <Input
           className='forgot__form-input'
-          name='new-password'
+          name='password'
           type='password'
           placeholder='Wpisz nowe hasło'
           value={newPassword.password}
