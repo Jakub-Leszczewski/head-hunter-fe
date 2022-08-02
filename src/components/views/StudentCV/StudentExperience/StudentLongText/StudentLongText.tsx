@@ -5,7 +5,7 @@ interface Props {
   description:string;
 }
 
-export const StudentEducation = ({title,description}:Props)=>{
+export const StudentLongText = ({title,description}:Props)=>{
 
   return(
     <>

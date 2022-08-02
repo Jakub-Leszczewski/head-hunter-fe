@@ -5,7 +5,7 @@ interface Props{
   rating:number;
 }
 
-export const Rating = ({rating}:Props) => {
+export const RatingsStars = ({rating}:Props) => {
 
   return (
     <>

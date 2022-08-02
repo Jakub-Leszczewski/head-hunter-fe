@@ -6,7 +6,7 @@ interface Props {
   suffix?:string;
 }
 
-export const EmploymentExpectationsList = ({title,text,suffix}:Props)=>{
+export const EmploymentExpectationsItem = ({title,text,suffix}:Props)=>{
 
   return(
     <div className="employment__container">

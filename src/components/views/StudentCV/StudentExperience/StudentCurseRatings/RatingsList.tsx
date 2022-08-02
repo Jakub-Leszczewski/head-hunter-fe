@@ -1,21 +1,32 @@
 import React from 'react';
-import { Rating } from './Rating';
+import { RatingsItem } from './RatingsItem';
 
-interface Props {
+interface RatingsList {
   title: string;
   rating: number;
 }
 
-export const RatingsList = ({ title, rating }: Props) => {
+interface Props {
+  curseRatingsList: RatingsList[];
+}
+
+export const StudentCurseRatings = ({ curseRatingsList }: Props) => {
+
+  const ratings = curseRatingsList.map(item =>
+    <RatingsItem
+      title={item.title}
+      rating={item.rating}
+    />
+  );
 
   return (
-    <div className="ratings__container">
-      <h3 className="ratings__container-title">{title}</h3>
-      <div className="ratings__container-box">
-        <Rating
-          rating={rating}
-        />
+    <>
+      <div className="title">
+        <h2 className="title__title">Oceny</h2>
       </div>
-    </div>
+      <div className="ratings">
+        {ratings}
+      </div>
+    </>
   );
 };
