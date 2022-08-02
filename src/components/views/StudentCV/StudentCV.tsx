@@ -3,7 +3,7 @@ import { FaChevronLeft } from 'react-icons/fa';
 import { StudentDetails } from './StudentDetails/StudentDetails';
 import { StudentExperience } from './StudentExperience/StudentExperience';
 
-interface Student {
+export interface Student {
   firstName: string;
   lastName: string;
   email: string;
@@ -57,36 +57,10 @@ export const StudentCV = () => {
     bonusProjectUrls: ['https://github.com'],
   });
 
-  const {
-    projectUrls,
-    targetWorkCity,
-    portfolioUrls,
-    phoneNumber,
-    canTakeApprenticeship,
-    courseEngagement,
-    projectDegree,
-    role,
-    email,
-    monthsOfCommercialExp,
-    teamProjectDegree,
-    githubUsername,
-    education,
-    expectedContractType,
-    firstName,
-    expectedSalary,
-    bio,
-    courses,
-    workExperience,
-    bonusProjectUrls,
-    expectedTypeWork,
-    lastName,
-    courseCompletion
-  } = student;
-
   return (
     <div className="student-cv">
       <div className="main">
-        {role === 'student'
+        {student.role === 'student'
           ? null
           : <div className="main__go-back">
             <FaChevronLeft/>
@@ -94,31 +68,10 @@ export const StudentCV = () => {
           </div>
         }
         <StudentDetails
-          firstName={firstName}
-          lastName={lastName}
-          githubUsername={githubUsername}
-          phoneNumber={phoneNumber}
-          email={email}
-          role={role}
-          bio={bio}
+          student={student}
         />
         <StudentExperience
-          courseCompletion={courseCompletion}
-          courseEngagement={courseEngagement}
-          projectDegree={projectDegree}
-          teamProjectDegree={teamProjectDegree}
-          education={education}
-          courses={courses}
-          monthsOfCommercialExp={monthsOfCommercialExp}
-          workExperience={workExperience}
-          targetWorkCity={targetWorkCity}
-          expectedSalary={expectedSalary}
-          expectedContractType={expectedContractType}
-          expectedTypeWork={expectedTypeWork}
-          canTakeApprenticeship={canTakeApprenticeship}
-          portfolioUrls={portfolioUrls}
-          projectUrls={projectUrls}
-          bonusProjectUrls={bonusProjectUrls}
+          student={student}
         />
       </div>
     </div>

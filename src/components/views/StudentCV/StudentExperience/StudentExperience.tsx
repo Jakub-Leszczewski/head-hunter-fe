@@ -1,46 +1,36 @@
 import React from 'react';
+
+import { Student } from '../StudentCV';
+
 import { StudentCurseRatings } from './StudentCurseRatings/StudentCurseRatings';
 import { StudentLinks } from './StudentLinks/StudentLinks';
 import { StudentEducation } from './StudentEducation/StudentEducation';
 import { StudentEmploymentExpectations } from './StudentEmploymentExpectations/StudentEmploymentExpectations';
 
 interface Props {
-  courseCompletion: number;
-  courseEngagement: number;
-  projectDegree: number;
-  teamProjectDegree: number;
-  education: string;
-  courses: string;
-  monthsOfCommercialExp: number;
-  workExperience: string;
-  targetWorkCity: string;
-  expectedSalary: number;
-  expectedContractType: string;
-  expectedTypeWork: string;
-  canTakeApprenticeship: number;
-  portfolioUrls: string[];
-  projectUrls: string[];
-  bonusProjectUrls: string[];
+  student: Student;
 }
 
-export const StudentExperience = ({
-  courseCompletion,
-  courseEngagement,
-  projectDegree,
-  teamProjectDegree,
-  education,
-  courses,
-  monthsOfCommercialExp,
-  workExperience,
-  targetWorkCity,
-  expectedSalary,
-  expectedContractType,
-  expectedTypeWork,
-  canTakeApprenticeship,
-  portfolioUrls,
-  projectUrls,
-  bonusProjectUrls,
-}: Props) => {
+export const StudentExperience = ({ student }: Props) => {
+
+  const {
+    courseCompletion,
+    courseEngagement,
+    projectDegree,
+    teamProjectDegree,
+    expectedTypeWork,
+    targetWorkCity,
+    expectedContractType,
+    expectedSalary,
+    canTakeApprenticeship,
+    monthsOfCommercialExp,
+    education,
+    courses,
+    workExperience,
+    portfolioUrls,
+    projectUrls,
+    bonusProjectUrls,
+  } = student;
 
   const curseRatingsList = [
     { title: 'Ocena przejścia kursu', rating: courseCompletion },
@@ -63,27 +53,27 @@ export const StudentExperience = ({
         monthsOfCommercialExp={monthsOfCommercialExp}
       />
       <StudentEducation
-        title='Edukacja'
+        title="Edukacja"
         description={education}
-        />
+      />
       <StudentEducation
-        title='Kursy'
+        title="Kursy"
         description={courses}
       />
       <StudentEducation
-        title='Doświadczenie zawodowe'
+        title="Doświadczenie zawodowe"
         description={workExperience}
       />
       <StudentLinks
-      title='Portfolio'
-      urls={portfolioUrls}
+        title="Portfolio"
+        urls={portfolioUrls}
       />
       <StudentLinks
-        title='Projekt w zespole Scrum'
+        title="Projekt w zespole Scrum"
         urls={projectUrls}
       />
       <StudentLinks
-        title='Projekt na zaliczenie'
+        title="Projekt na zaliczenie"
         urls={bonusProjectUrls}
       />
     </div>
