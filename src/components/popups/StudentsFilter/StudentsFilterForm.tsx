@@ -9,18 +9,18 @@ import { FreeInternshipFormPart } from "./FreeInternshipFormPart";
 import { CommercialExperienceFormPart } from "./CommercialExperienceFormPart";
 
 const studentsFilterDefault: StudentsFilterState = {
-    activityRate: 0,
-    codeQualityRate: 0,
-    commercialExperience: '',
-    contractType: [''],
-    courseRate: 0,
-    freeInternship: '',
-    salary: {
+    courseEngagment: 0,
+    projectDegree: 0,
+    monthsOfCommercialExp: '',
+    expectedContractType: [''],
+    courseCompletion: 0,
+    canTakeApprenticeship: '',
+    expectedSalary: {
         max: '',
         min: '',
     },
-    workInScrumRate: 0,
-    workplace: [''],
+    teamProjectDegree: 0,
+    expectedTypeWork: [''],
 }
 
 export const StudentsFilterForm = () => {
@@ -34,15 +34,15 @@ export const StudentsFilterForm = () => {
     };
     //
 
-    const courseRateComponent = useMemo(() => <FilterRateFormPart dispatch={dispatch} title="Ocena przejścia kursu" value={state.courseRate} actionType="COURSE_RATE_CHANGE" />, [state.courseRate]);
-    const activityRateComponent = useMemo(() => <FilterRateFormPart dispatch={dispatch} title="Ocena aktywności i zaangażowania na kursie" value={state.activityRate} actionType="ACTIVITY_RATE_CHANGE" />, [state.activityRate]);
-    const codeQualityRateComponent = useMemo(() => <FilterRateFormPart dispatch={dispatch} title="Ocena kodu w projekcie własnym" value={state.codeQualityRate} actionType="CODE_QUALITY_RATE_CHANGE" />, [state.codeQualityRate]);
-    const workInScrumRateComponent = useMemo(() => <FilterRateFormPart dispatch={dispatch} title="Ocena pracy w zespole w Scrum" value={state.workInScrumRate} actionType="WORK_IN_SCRUM_RATE_CHANGE" />, [state.workInScrumRate]);
-    const workplaceComponent = useMemo(() => <WorkplaceFormPart dispatch={dispatch} value={state.workplace} />, [state.workplace]);
-    const contractTypeComponent = useMemo(() => <ContrackTypeFormPart dispatch={dispatch} value={state.contractType} />, [state.contractType]);
-    const salaryComponent = useMemo(() => <SalaryFormPart dispatch={dispatch} value={state.salary} />, [state.salary]);
-    const freeInternshipComponent = useMemo(() => <FreeInternshipFormPart dispatch={dispatch} value={state.freeInternship} />, [state.freeInternship]);
-    const commercialExperienceComponent = useMemo(() => <CommercialExperienceFormPart dispatch={dispatch} value={state.commercialExperience} />, [state.commercialExperience]);
+    const courseRateComponent = useMemo(() => <FilterRateFormPart dispatch={dispatch} title="Ocena przejścia kursu" value={state.courseCompletion} actionType="COURSE_RATE_CHANGE" />, [state.courseCompletion]);
+    const activityRateComponent = useMemo(() => <FilterRateFormPart dispatch={dispatch} title="Ocena aktywności i zaangażowania na kursie" value={state.courseEngagment} actionType="ACTIVITY_RATE_CHANGE" />, [state.courseEngagment]);
+    const codeQualityRateComponent = useMemo(() => <FilterRateFormPart dispatch={dispatch} title="Ocena kodu w projekcie własnym" value={state.projectDegree} actionType="CODE_QUALITY_RATE_CHANGE" />, [state.projectDegree]);
+    const workInScrumRateComponent = useMemo(() => <FilterRateFormPart dispatch={dispatch} title="Ocena pracy w zespole w Scrum" value={state.teamProjectDegree} actionType="WORK_IN_SCRUM_RATE_CHANGE" />, [state.teamProjectDegree]);
+    const workplaceComponent = useMemo(() => <WorkplaceFormPart dispatch={dispatch} value={state.expectedTypeWork} />, [state.expectedTypeWork]);
+    const contractTypeComponent = useMemo(() => <ContrackTypeFormPart dispatch={dispatch} value={state.expectedContractType} />, [state.expectedContractType]);
+    const salaryComponent = useMemo(() => <SalaryFormPart dispatch={dispatch} value={state.expectedSalary} />, [state.expectedSalary]);
+    const freeInternshipComponent = useMemo(() => <FreeInternshipFormPart dispatch={dispatch} value={state.canTakeApprenticeship} />, [state.canTakeApprenticeship]);
+    const commercialExperienceComponent = useMemo(() => <CommercialExperienceFormPart dispatch={dispatch} value={state.monthsOfCommercialExp} />, [state.monthsOfCommercialExp]);
 
     return (
         <form className="form students-filter__form" onSubmit={handleSubmit}>

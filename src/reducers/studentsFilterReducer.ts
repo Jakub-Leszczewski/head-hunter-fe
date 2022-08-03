@@ -3,18 +3,18 @@ export type ContractType = '' | 'Umowa o pracę' | 'B2B' | 'Umowa zlecenie' | 'U
 export type FreeInternship = '' | 'yes' | 'no';
 
 export interface StudentsFilterState {
-    courseRate: number;
-    activityRate: number;
-    codeQualityRate: number;
-    workInScrumRate: number;
-    workplace: WorkPreference[];
-    contractType: ContractType[];
-    salary: {
+    courseCompletion: number;
+    courseEngagment: number;
+    projectDegree: number;
+    teamProjectDegree: number;
+    expectedTypeWork: WorkPreference[];
+    expectedContractType: ContractType[];
+    expectedSalary: {
         min: number | '';
         max: number | '';
     };
-    freeInternship: FreeInternship;
-    commercialExperience: number | '';
+    canTakeApprenticeship: FreeInternship;
+    monthsOfCommercialExp: number | '';
 }
 
 interface FormSet {
@@ -82,46 +82,46 @@ export const studentsFilterReducer = (state: StudentsFilterState, action: Studen
         case 'COMMERCIAL_EXPERIENCE_CHANGE': {
             return {
                 ...state,
-                commercialExperience: action.payload,
+                monthsOfCommercialExp: action.payload,
             };
         }
 
         case 'CONTRACT_TYPE_CHANGE': {
             const { payload } = action;
-            const isHere = state.contractType.findIndex(t => t === payload) !== -1;
-            if (isHere) return { ...state, contractType: state.contractType.filter(t => t !== payload) };
-            return { ...state, contractType: [...state.contractType, payload] };
+            const isHere = state.expectedContractType.findIndex(t => t === payload) !== -1;
+            if (isHere) return { ...state, expectedContractType: state.expectedContractType.filter(t => t !== payload) };
+            return { ...state, expectedContractType: [...state.expectedContractType, payload] };
         }
 
         case 'FREE_INTERNSHIP_CHANGE': {
             return {
                 ...state,
-                freeInternship: action.payload,
+                canTakeApprenticeship: action.payload,
             };
         }
         case 'SALARY_CHANGE': {
             const { type, value } = action.payload;
-            if (type === 'MAX') return { ...state, salary: { max: value, min: state.salary.min } };
-            if (type === 'MIN') return { ...state, salary: { max: state.salary.max, min: value } };
+            if (type === 'MAX') return { ...state, expectedSalary: { max: value, min: state.expectedSalary.min } };
+            if (type === 'MIN') return { ...state, expectedSalary: { max: state.expectedSalary.max, min: value } };
             return state;
         }
         case 'WORK_PREFERENCE_CHANGE': {
             const { payload } = action;
-            const isHere = state.workplace.findIndex(t => t === payload) !== -1;
-            if (isHere) return { ...state, workplace: state.workplace.filter(t => t !== payload) };
-            return { ...state, workplace: [...state.workplace, payload] };
+            const isHere = state.expectedTypeWork.findIndex(t => t === payload) !== -1;
+            if (isHere) return { ...state, expectedTypeWork: state.expectedTypeWork.filter(t => t !== payload) };
+            return { ...state, expectedTypeWork: [...state.expectedTypeWork, payload] };
         }
         case 'ACTIVITY_RATE_CHANGE': {
-            return { ...state, activityRate: action.payload };
+            return { ...state, courseEngagment: action.payload };
         }
         case 'CODE_QUALITY_RATE_CHANGE': {
-            return { ...state, codeQualityRate: action.payload };
+            return { ...state, projectDegree: action.payload };
         }
         case 'COURSE_RATE_CHANGE': {
-            return { ...state, courseRate: action.payload };
+            return { ...state, courseCompletion: action.payload };
         }
         case 'WORK_IN_SCRUM_RATE_CHANGE': {
-            return { ...state, workInScrumRate: action.payload };
+            return { ...state, teamProjectDegree: action.payload };
         }
 
         default:
