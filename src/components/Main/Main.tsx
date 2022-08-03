@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from '../views/NotFound/NotFound';
 import { Profile } from '../views/Profile/Profile';
+import { StudentCVEdit } from '../views/StudentCVEdit/StudentCVEdit';
 
 export const Main = () => {
   return (
@@ -8,7 +9,7 @@ export const Main = () => {
       <Routes>
         {/* Ścieżki kursanta */}
         <Route path='/students/:studentId' element={<Profile />} />
-        <Route path='/students/:studentId/edit' element={<Profile />} />
+        <Route path='/students/:studentId/edit' element={<StudentCVEdit />} />
 
         {/* Ścieżki HRa */}
         <Route path='/students' element={<Profile />} />
