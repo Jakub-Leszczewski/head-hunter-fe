@@ -1,17 +1,5 @@
 @import 'reset';
 @import 'variables';
-@import 'forgot';
-@import '404';
-@import 'button';
-@import 'label';
-@import 'input';
-@import 'select';
-@import "textarea";
-@import 'login';
-@import 'student-registration';
-@import 'hr-registration';
-@import 'profile-edit';
-@import 'header';
 
 // Prosta instrukcja jak dołączyć swoje style:
 // 1. Stwórz nowy plik w katalogu /styles np. cośtam.scss
@@ -20,3 +8,16 @@
 // 4. Jeżeli chcesz dodać zmienną to zrób to w pliku /styles/variables.scss
 
 @import 'main';
+@import 'button';
+@import 'label';
+@import 'input';
+@import 'select';
+@import "textarea";
+@import 'header';
+@import '404';
+@import 'forgot';
+@import 'login';
+@import 'student-registration';
+@import 'hr-registration';
+@import 'student-cv';
+@import 'profile-edit';

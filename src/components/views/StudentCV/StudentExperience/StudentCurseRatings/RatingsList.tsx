@@ -10,7 +10,7 @@ interface Props {
   curseRatingsList: RatingsList[];
 }
 
-export const StudentCurseRatings = ({ curseRatingsList }: Props) => {
+export const RatingsList = ({ curseRatingsList }: Props) => {
 
   const ratings = curseRatingsList.map(item =>
     <RatingsItem
