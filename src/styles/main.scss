@@ -1,13 +1,29 @@
 html {
   font-family: $main-font;
   color: $font-color;
+
+  // Firefox scrollbar styles
+  scrollbar-width: thin;
+  scrollbar-color: #E02735 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #E02735;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 body {
   background-color: #222224;
 }
 
-.app {
+.main {
   max-width: 1430px;
   margin: 0 auto;
 }
