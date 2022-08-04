@@ -27,3 +27,16 @@ body {
   max-width: 1430px;
   margin: 0 auto;
 }
+
+.link {
+  color: #f7f7f7;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &--block {
+    display: block;
+    width: fit-content;
+  }
+}
