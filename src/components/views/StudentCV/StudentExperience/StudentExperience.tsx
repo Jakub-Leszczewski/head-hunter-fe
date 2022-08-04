@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Student } from '../StudentCV';
 
-import { StudentCurseRatings } from './StudentCurseRatings/StudentCurseRatings';
+import { RatingsList } from './StudentCurseRatings/RatingsList';
 import { StudentLinks } from './StudentLinks/StudentLinks';
-import { StudentEducation } from './StudentEducation/StudentEducation';
+import { StudentLongText } from './StudentLongText/StudentLongText';
 import { StudentEmploymentExpectations } from './StudentEmploymentExpectations/StudentEmploymentExpectations';
 
 interface Props {
@@ -41,7 +41,7 @@ export const StudentExperience = ({ student }: Props) => {
 
   return (
     <div className="main__right">
-      <StudentCurseRatings
+      <RatingsList
         curseRatingsList={curseRatingsList}
       />
       <StudentEmploymentExpectations
@@ -52,15 +52,15 @@ export const StudentExperience = ({ student }: Props) => {
         canTakeApprenticeship={canTakeApprenticeship}
         monthsOfCommercialExp={monthsOfCommercialExp}
       />
-      <StudentEducation
+      <StudentLongText
         title="Edukacja"
         description={education}
       />
-      <StudentEducation
+      <StudentLongText
         title="Kursy"
         description={courses}
       />
-      <StudentEducation
+      <StudentLongText
         title="Doświadczenie zawodowe"
         description={workExperience}
       />
