@@ -1,0 +1,24 @@
+.table {
+    &__head {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        background-color: #111;
+        
+        &-item {
+            padding: 10px;
+        }
+    }
+
+    &__body {
+        &-row {
+            &:nth-child(2n - 1) {
+                background-color: #444;
+            }
+        }
+        &-item {
+            padding: 10px;
+            text-align: center;
+        }
+    }
+}
