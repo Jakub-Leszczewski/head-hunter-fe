@@ -13,6 +13,7 @@ interface Props {
   max?: string;
   minLength?: number;
   maxLength?: number;
+  step?: number;
 }
 
 
@@ -29,22 +30,24 @@ export const Input = ({
   max,
   minLength,
   maxLength,
+  step
 }: Props) => {
   return (
-      <input
-        type={type}
-        placeholder={placeholder || ''}
-        className={`input ${className ? className : ''}`}
-        name={name}
-        value={value}
-        onChange={(e) => change(name, e.target.value)}
-        onBlur={blur}
-        required={required}
-        min={min}
-        max={max}
-        minLength={minLength}
-        maxLength={maxLength}
-      />
+    <input
+      type={type}
+      placeholder={placeholder || ''}
+      className={`input ${className ? className : ''}`}
+      name={name}
+      value={value}
+      onChange={(e) => change(name, e.target.value)}
+      onBlur={blur}
+      required={required}
+      min={min}
+      max={max}
+      minLength={minLength}
+      maxLength={maxLength}
+      step={step}
+    />
   )
 };
 
