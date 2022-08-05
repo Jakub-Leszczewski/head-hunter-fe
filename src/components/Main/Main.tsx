@@ -3,6 +3,7 @@ import { NotFound } from '../views/NotFound/NotFound';
 import { Profile } from '../views/Profile/Profile';
 import { StudentCVEdit } from '../views/StudentCVEdit/StudentCVEdit';
 import { StudentCV } from '../views/StudentCV/StudentCV';
+import { AddStudents } from '../views/AddStudents/AddStudents';
 
 export const Main = () => {
   return (
@@ -18,7 +19,7 @@ export const Main = () => {
         <Route path='/students-on-interview' element={<Profile />} />
 
         {/* Ścieżki Admina */}
-        <Route path='/add-students' element={<Profile />} />
+        <Route path='/add-students' element={<AddStudents />} />
         <Route path='/add-hr' element={<Profile />} />
         <Route path='/password-edit' element={<Profile />} />
         <Route path='/notifications' element={<Profile />} />
