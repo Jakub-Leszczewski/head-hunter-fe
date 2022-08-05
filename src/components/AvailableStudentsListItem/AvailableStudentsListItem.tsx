@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Button} from '../common/Button/Button';
 import {BsChevronDown, BsChevronUp} from 'react-icons/bs';
 import {AvailableStudentsPreferences} from '../AvailableStudentsPreferences/AvailableStudentsPreferences';
+import {AvailableStudentsBio} from '../AvailableStudentsBio/AvailableStudentsBio';
 
 interface Props {
   item: any;
@@ -29,21 +30,11 @@ export const AvailableStudentsListItem = ({item}: Props) => {
 
   return (
     <li className='list-item'>
-      <div className='list-item-container'>
-        <p>{item.name}</p>
-        <div className='list-item-container__right-section'>
-          <Button
-            type='submit'
-            className='list-item-container__button'
-            textName={'Zarezerwuj rozmowę'}
-          />
-          {isStudentInfoOpen ? (
-            <BsChevronUp onClick={handleIsInfoOpen} className='arrow-icon' />
-          ) : (
-            <BsChevronDown onClick={handleIsInfoOpen} className='arrow-icon' />
-          )}
-        </div>
-      </div>
+      <AvailableStudentsBio
+        itemName={item.name}
+        isStudentInfoOpen={isStudentInfoOpen}
+        handleIsInfoOpen={handleIsInfoOpen}
+      />
       {/* INFO */}
       {isStudentInfoOpen && (
         <div className='list-item-info-container'>

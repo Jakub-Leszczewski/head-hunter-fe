@@ -59,13 +59,6 @@ export const AvailableStudentsList = () => {
     }));
   };
 
-  // const editConsumer = (name: string, value: string | number) => {
-  //   setConsumer((consumer) => ({
-  //     ...consumer,
-  //     [name]: value,
-  //   }));
-  // };
-
   return (
     <div className='container'>
       <div className='search-area'>
