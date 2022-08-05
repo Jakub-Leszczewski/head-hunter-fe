@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import {Button} from '../common/Button/Button';
-import {BsChevronDown, BsChevronUp} from 'react-icons/bs';
-import {AvailableStudentsPreferences} from '../AvailableStudentsPreferences/AvailableStudentsPreferences';
 import {AvailableStudentsBio} from '../AvailableStudentsBio/AvailableStudentsBio';
+import {AvailableStudentsPreferences} from '../AvailableStudentsPreferences/AvailableStudentsPreferences';
 
 interface Props {
   item: any;
@@ -35,47 +33,8 @@ export const AvailableStudentsListItem = ({item}: Props) => {
         isStudentInfoOpen={isStudentInfoOpen}
         handleIsInfoOpen={handleIsInfoOpen}
       />
-      {/* INFO */}
       {isStudentInfoOpen && (
-        <div className='list-item-info-container'>
-          <AvailableStudentsPreferences
-            titles={titles.courseRating}
-            val={item.courseRating}
-          />
-          <AvailableStudentsPreferences
-            titles={titles.activityRating}
-            val={item.activityRating}
-          />
-          <AvailableStudentsPreferences
-            titles={titles.codeRating}
-            val={item.codeRating}
-          />
-          <AvailableStudentsPreferences
-            titles={titles.scrumRating}
-            val={item.scrumRating}
-          />
-          <AvailableStudentsPreferences
-            titles={titles.preferredPlace}
-            val={item.preferredPlace}
-          />
-          <AvailableStudentsPreferences titles={titles.city} val={item.city} />
-          <AvailableStudentsPreferences
-            titles={titles.contractType}
-            val={item.contractType}
-          />
-          <AvailableStudentsPreferences
-            titles={titles.salary}
-            val={item.salary}
-          />
-          <AvailableStudentsPreferences
-            titles={titles.internship}
-            val={item.internship}
-          />
-          <AvailableStudentsPreferences
-            titles={titles.commercialExp}
-            val={item.commercialExp}
-          />
-        </div>
+        <AvailableStudentsPreferences titles={titles} item={item} />
       )}
       <div className='list-item-separator' />
     </li>
