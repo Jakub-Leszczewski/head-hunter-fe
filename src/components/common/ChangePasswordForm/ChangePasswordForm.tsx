@@ -41,6 +41,7 @@ export const ChangePasswordForm = () => {
                         required
                         value={changePassword.newPassword}
                         change={handleChange}
+                        type="password"
                     />
                 </InputFormPart>
                 <InputFormPart title="Powtórz nowe hasło">
@@ -50,6 +51,7 @@ export const ChangePasswordForm = () => {
                         required
                         value={changePassword.newPasswordRepeat}
                         change={handleChange}
+                        type="password"
                     />
                 </InputFormPart>
                 <InputFormPart title="Aktualne hasło">
@@ -59,6 +61,7 @@ export const ChangePasswordForm = () => {
                         required
                         value={changePassword.actualPassword}
                         change={handleChange}
+                        type="password"
                     />
                 </InputFormPart>
             </div>

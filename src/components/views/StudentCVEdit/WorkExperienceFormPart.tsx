@@ -8,12 +8,14 @@ interface Props {
 
 export const WorkExperienceFormPart = ({ handleChange, value }: Props) => {
     return (
-        <InputFormPart title="Doświadczenie zawodowe" className="profile-edit__form-flex-item">
+        <InputFormPart title="Doświadczenie zawodowe" className="profile-edit__form-flex-item profile-edit__form-flex-item--x2">
             <Textarea
                 name="workExperience"
-                // placeholder="Ilość miesięcy komercyjnego doświadczenia"
+                placeholder="Przebieg doświadczenia zawodowego"
                 value={value}
                 change={handleChange}
+                className="profile-edit__form-textarea"
+                rows={6}
             />
         </InputFormPart>
     );

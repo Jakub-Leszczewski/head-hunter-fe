@@ -16,6 +16,8 @@ export const MonthsOfCommercialExpFormPart = ({ handleChange, value }: Props) =>
                 value={value}
                 change={handleChange}
                 type="number"
+                max="9999"
+                min="0"
             />
         </InputFormPart>
     );

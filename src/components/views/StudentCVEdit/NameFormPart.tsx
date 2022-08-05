@@ -17,6 +17,8 @@ export const NameFormPart = ({ handleChange, firstName, lastName }: Props) => {
                     placeholder="Imię"
                     value={firstName}
                     change={handleChange}
+                    minLength={1}
+                    maxLength={60}
                 />
             </InputFormPart>
             <InputFormPart title="Nazwisko" className="profile-edit__form-flex-item">
@@ -26,6 +28,8 @@ export const NameFormPart = ({ handleChange, firstName, lastName }: Props) => {
                     placeholder="Nazwisko"
                     value={lastName}
                     change={handleChange}
+                    minLength={1}
+                    maxLength={60}
                 />
             </InputFormPart>
         </>

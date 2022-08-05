@@ -153,10 +153,14 @@ export const ProfileEditForm = () => {
             </div>
             <div className="profile-edit__form-section profile-edit__form-section--flex">
                 {bioComponent}
+            </div>
+            <div className="profile-edit__form-section profile-edit__form-section--flex">
                 {educationComponent}
             </div>
             <div className="profile-edit__form-section profile-edit__form-section--flex">
                 {workExperienceComponent}
+            </div>
+            <div className="profile-edit__form-section profile-edit__form-section--flex">
                 {coursesComponent}
             </div>
             <Button textName="Zapisz" className="profile-edit__button" />

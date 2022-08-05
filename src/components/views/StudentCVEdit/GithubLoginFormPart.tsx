@@ -15,6 +15,8 @@ export const GithubLoginFormPart = ({ handleChange, value }: Props) => {
                 placeholder="Github login"
                 value={value}
                 change={handleChange}
+                minLength={1}
+                maxLength={39}
             />
         </InputFormPart>
     );

@@ -14,6 +14,7 @@ export const TargetWorkCityFormPart = ({ handleChange, value }: Props) => {
                 placeholder="Docelowe miasto pracy"
                 value={value}
                 change={handleChange}
+                maxLength={50}
             />
         </InputFormPart>
     );

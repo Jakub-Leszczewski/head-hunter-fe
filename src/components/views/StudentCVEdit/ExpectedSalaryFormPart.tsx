@@ -15,6 +15,9 @@ export const ExpectedSalaryFormPart = ({ handleChange, value }: Props) => {
                 value={value}
                 change={handleChange}
                 type="number"
+                max="9999999"
+                min="0"
+                step={100}
             />
         </InputFormPart>
     );

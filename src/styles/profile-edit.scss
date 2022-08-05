@@ -15,6 +15,10 @@
 
         &-flex-item {
             flex-basis: calc(25% - 13px);
+
+            &--x2 {
+                flex-basis: 100%;
+            }
         }
 
         &-input-item {
@@ -22,6 +26,11 @@
             align-items: center;
             gap: 6px;
             margin-bottom: 6px;
+        }
+
+        &-textarea {
+            width: 100%;
+            resize: vertical;
         }
     }
 
