@@ -10,8 +10,8 @@ export const AddStudentsList = ({ addedStudents }: Props) => {
     const addedStudentsList = () => addedStudents.map(s => <AddStudentsItem key={s.email} addedStudent={s} />);
 
     return (
-        <ul className="add-students__list">
+        <tbody className="table__body">
             {addedStudentsList()}
-        </ul>
+        </tbody>
     );
 };

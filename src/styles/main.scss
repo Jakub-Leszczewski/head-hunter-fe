@@ -39,4 +39,7 @@ body {
     display: block;
     width: fit-content;
   }
+  &--center {
+    margin: 0 auto;
+  }
 }

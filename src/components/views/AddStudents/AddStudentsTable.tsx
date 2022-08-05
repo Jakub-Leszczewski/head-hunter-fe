@@ -8,9 +8,9 @@ interface Props {
 
 export const AddStudentsTable = ({ addedStudents }: Props) => {
     return (
-        <div>
+        <table className="table">
             <AddStudentsListLegend />
             <AddStudentsList addedStudents={addedStudents} />
-        </div>
+        </table>
     );
 };

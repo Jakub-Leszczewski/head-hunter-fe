@@ -1,12 +1,14 @@
 export const AddStudentsListLegend = () => {
     return (
-        <div className="add-students__legend">
-            <p className="add-students__legend-item">E-mail</p>
-            <p className="add-students__legend-item">Ocena przejścia kursu</p>
-            <p className="add-students__legend-item">Ocena projektu zaliczeniowego</p>
-            <p className="add-students__legend-item">Ocena aktywności w kursie</p>
-            <p className="add-students__legend-item">Ocena pracy w zespole</p>
-            <p className="add-students__legend-item">Odnośniki do projektu bonusowego</p>
-        </div>
+        <thead className="table__head">
+            <tr className="table__head-row">
+                <td className="table__head-item">E-mail</td>
+                <td className="table__head-item">Ocena przejścia kursu</td>
+                <td className="table__head-item">Ocena projektu zaliczeniowego</td>
+                <td className="table__head-item">Ocena aktywności w kursie</td>
+                <td className="table__head-item">Ocena pracy w zespole</td>
+                <td className="table__head-item">Odnośniki do projektu bonusowego</td>
+            </tr>
+        </thead>
     );
 };
