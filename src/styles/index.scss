@@ -1,17 +1,6 @@
 @import 'reset';
 @import 'variables';
-@import 'forgot';
-@import '404';
-@import 'button';
-@import 'label';
-@import 'input';
-@import 'select';
-@import 'textarea';
-@import 'login';
-@import 'student-registration';
-@import 'hr-registration';
-@import 'header';
-@import 'available-students';
+
 // Prosta instrukcja jak dołączyć swoje style:
 // 1. Stwórz nowy plik w katalogu /styles np. cośtam.scss
 // 2. W pliku /styles/index.scss zaimportuj plik który stworzyłeś wpisując @import 'cośtam'; WAŻNE!!! Twój import powinien znajdować się pod importem variables, bo będą błędy
@@ -40,3 +29,4 @@
 @import 'student-cv';
 @import 'add-students';
 @import 'students-filter';
+@import 'available-students';
