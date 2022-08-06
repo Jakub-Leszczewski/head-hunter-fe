@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Button } from "../Button/Button";
-import { Input } from "../Input/Input";
 import { InputFormPart } from "../InputFormPart/InputFormPart";
+import { InputPassword } from "../InputPassword/InputPassword";
 
 interface ChangePasswordState {
     actualPassword: string;
@@ -35,33 +35,27 @@ export const ChangePasswordForm = () => {
         <form className="form" onSubmit={handleSubmit}>
             <div className="profile-edit__form-section profile-edit__form-section--flex">
                 <InputFormPart title="Nowe hasło">
-                    <Input
+                    <InputPassword
                         name="newPassword"
                         placeholder="Nowe hasło"
-                        required
-                        value={changePassword.newPassword}
-                        change={handleChange}
-                        type="password"
+                        changePassword={handleChange}
+                        password={changePassword.newPassword}
                     />
                 </InputFormPart>
                 <InputFormPart title="Powtórz nowe hasło">
-                    <Input
+                    <InputPassword
                         name="newPasswordRepeat"
                         placeholder="Powtórz nowe hasło"
-                        required
-                        value={changePassword.newPasswordRepeat}
-                        change={handleChange}
-                        type="password"
+                        changePassword={handleChange}
+                        password={changePassword.newPasswordRepeat}
                     />
                 </InputFormPart>
                 <InputFormPart title="Aktualne hasło">
-                    <Input
+                    <InputPassword
                         name="actualPassword"
                         placeholder="Aktualne hasło"
-                        required
-                        value={changePassword.actualPassword}
-                        change={handleChange}
-                        type="password"
+                        changePassword={handleChange}
+                        password={changePassword.actualPassword}
                     />
                 </InputFormPart>
             </div>
