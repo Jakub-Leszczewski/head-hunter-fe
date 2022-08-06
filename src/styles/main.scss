@@ -45,3 +45,18 @@ body {
     padding: 10px;
   }
 }
+.link {
+  color: #f7f7f7;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &--block {
+    display: block;
+    width: fit-content;
+  }
+  &--center {
+    margin: 0 auto;
+  }
+}
