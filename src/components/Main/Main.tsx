@@ -1,8 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from '../views/NotFound/NotFound';
 import { Profile } from '../views/Profile/Profile';
+import { StudentCVEdit } from '../views/StudentCVEdit/StudentCVEdit';
 import { StudentCV } from '../views/StudentCV/StudentCV';
 import { AddStudents } from '../views/AddStudents/AddStudents';
+import { Notifications } from '../views/Notifications/Notifications';
 
 export const Main = () => {
   return (
@@ -10,6 +12,7 @@ export const Main = () => {
       <Routes>
         {/* Ścieżki kursanta */}
         <Route path='/students/:studentId' element={<StudentCV />} />
+        <Route path='/students/:studentId/edit' element={<StudentCVEdit />} />
         <Route path='/students/:studentId/edit' element={<Profile />} />
 
         {/* Ścieżki HRa */}
@@ -20,7 +23,7 @@ export const Main = () => {
         <Route path='/add-students' element={<AddStudents />} />
         <Route path='/add-hr' element={<Profile />} />
         <Route path='/password-edit' element={<Profile />} />
-        <Route path='/notifications' element={<Profile />} />
+        <Route path='/notifications' element={<Notifications />} />
 
         {/* Ścieżka 404 */}
         <Route path='*' element={<NotFound />} />
