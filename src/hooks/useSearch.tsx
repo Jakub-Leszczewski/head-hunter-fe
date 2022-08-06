@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import axios, { Canceler, AxiosError } from 'axios';
-import { apiUrl } from 'src/config';
+import { apiUrl } from '../config';
 
 // Wszystkie możliwe właściwoście queries w filtracji kursantów
 export interface Queries {
@@ -104,6 +104,7 @@ export function useSearch<T>(collection: string, limit: number, queries: Queries
                 delayTimeoutId.current = setTimeout(() => {
                     if (axios.isCancel(e)) return;
                     console.warn(e.message);
+                    setLoading(false);
                 }, endTime - startTime < 500 ? 500 - (endTime - startTime) : 0);
             });
 
