@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from '../views/NotFound/NotFound';
 import { Profile } from '../views/Profile/Profile';
+import { StudentCVEdit } from '../views/StudentCVEdit/StudentCVEdit';
 import { StudentCV } from '../views/StudentCV/StudentCV';
 import { AddStudents } from '../views/AddStudents/AddStudents';
 
@@ -10,6 +11,7 @@ export const Main = () => {
       <Routes>
         {/* Ścieżki kursanta */}
         <Route path='/students/:studentId' element={<StudentCV />} />
+        <Route path='/students/:studentId/edit' element={<StudentCVEdit />} />
         <Route path='/students/:studentId/edit' element={<Profile />} />
 
         {/* Ścieżki HRa */}
