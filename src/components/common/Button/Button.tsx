@@ -5,15 +5,21 @@ interface Props {
   className?: string;
   textName: string;
   click?: () => void;
+  preventDefault?: boolean;
   disabled?: boolean;
 }
 
-export const Button = ({type, className, textName, click, disabled}: Props) => {
+export const Button = ({ type, className, textName, click, disabled, preventDefault }: Props) => {
   return (
     <button
       type={type}
       className={`button ${className ? className : ''}`}
-      onClick={click}
+      onClick={(e) => {
+        if (preventDefault) {
+          e.preventDefault();
+        }
+        click && click();
+      }}
       disabled={disabled}
     >
       {textName}
