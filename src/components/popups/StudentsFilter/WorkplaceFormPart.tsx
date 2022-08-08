@@ -18,8 +18,18 @@ export const WorkplaceFormPart = ({ dispatch, value }: Props) => {
         <div className="students-filter__form-part">
             <h3 className="students-filter__form-subtitle">Preferowane miejsce pracy</h3>
             <div className="students-filter__form-container">
-                <p className={`students-filter__form-option${isActive('Praca zdalna')}`} onClick={() => handleWorkPreferenceChange('Praca zdalna')}>Praca zdalna</p>
-                <p className={`students-filter__form-option${isActive('Praca w biurze')}`} onClick={() => handleWorkPreferenceChange('Praca w biurze')}>Praca w biurze</p>
+                <p
+                  className={`students-filter__form-option${isActive('Praca zdalna')}`}
+                  onClick={() => handleWorkPreferenceChange('Praca zdalna')}>
+                  Praca zdalna
+                </p>
+
+                <p
+                  className={`students-filter__form-option${isActive('Praca w biurze')}`}
+                  onClick={() => handleWorkPreferenceChange('Praca w biurze')}
+                >
+                  Praca w biurze
+                </p>
             </div>
         </div>
     );

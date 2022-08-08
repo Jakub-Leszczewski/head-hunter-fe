@@ -1,18 +1,20 @@
 import { Route, Routes } from 'react-router-dom';
-import { NotFound } from '../views/NotFound/NotFound';
-import { Profile } from '../views/Profile/Profile';
-import { StudentCVEdit } from '../views/StudentCVEdit/StudentCVEdit';
-import { StudentCV } from '../views/StudentCV/StudentCV';
-import { AddStudents } from '../views/AddStudents/AddStudents';
-import { Notifications } from '../views/Notifications/Notifications';
-import { AddHr } from '../views/AddHr/AddHr'
+import { StudentCVEdit } from '../../views/StudentCVEdit/StudentCVEdit';
+import { StudentCV } from '../../views/StudentCV/StudentCV';
+import { Profile } from '../../views/Profile/Profile'
+import { AddStudents } from '../../views/AddStudents/AddStudents'
+import { AddHr } from '../../views/AddHr/AddHr'
+import { Notifications } from '../../views/Notifications/Notifications'
+import { NotFound } from '../../views/NotFound/NotFound'
+import { AvailableStudents } from '../../views/AvailableStudents/AvailableStudents'
+import { StudentInterview } from '../../views/StudentInterview/StudentInterview'
 
 export const Main = () => {
   return (
     <main className='main'>
       <Routes>
         {/* Ścieżki kursanta */}
-        <Route path='/students/:studentId' element={<StudentCV />} />
+        <Route path='/students/:studentId' element={<StudentInterview />} />
         <Route path='/students/:studentId/edit' element={<StudentCVEdit />} />
         <Route path='/students/:studentId/edit' element={<Profile />} />
 

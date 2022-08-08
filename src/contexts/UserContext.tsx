@@ -14,7 +14,7 @@ interface User {
 }
 
 const defaultUser: User = {
-  isLogged: false,
+  isLogged: true,
   role: 0,
   userId: null,
 };
