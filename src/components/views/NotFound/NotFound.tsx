@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import img from '../../../assets/images/not-found.svg';
 
 export const NotFound = () => {

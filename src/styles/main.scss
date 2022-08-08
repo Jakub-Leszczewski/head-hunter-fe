@@ -1,13 +1,64 @@
 html {
   font-family: $main-font;
   color: $font-color;
+
+  // Firefox scrollbar styles
+  scrollbar-width: thin;
+  scrollbar-color: #E02735 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #E02735;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 body {
   background-color: #222224;
 }
 
-.app {
+.main {
   max-width: 1430px;
   margin: 0 auto;
+}
+
+
+.student-section {
+  margin-bottom: 6px;
+  background-color: #222324;
+
+  &__title {
+    padding: 10px;
+    background-color: #292A2B;
+    font-size: 20px;
+    letter-spacing: 0px;
+    color: #F7F7F7;
+    opacity: 1;
+  }
+
+  &__content {
+    padding: 10px;
+  }
+}
+
+.link {
+  color: #f7f7f7;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &--block {
+    display: block;
+    width: fit-content;
+  }
+  &--center {
+    margin: 0 auto;
+  }
 }
