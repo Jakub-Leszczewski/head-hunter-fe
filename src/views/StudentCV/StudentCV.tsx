@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
-import { StudentDetails } from './StudentDetails/StudentDetails';
-import { StudentExperience } from './StudentExperience/StudentExperience';
+import { StudentBio } from './StudentBio';
+import { StudentMainCv } from './StudentMainCv';
 
 export interface Student {
   firstName: string;
@@ -67,10 +67,10 @@ export const StudentCV = () => {
             <p>Wróć</p>
           </div>
         }
-        <StudentDetails
+        <StudentBio
           student={student}
         />
-        <StudentExperience
+        <StudentMainCv
           student={student}
         />
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { EmploymentExpectationsItem } from './EmploymentExpectationsItem';
+import { ExpectationItem } from '../../components/ExpectationItem/ExpectationItem'
 
 interface Props {
   expectedTypeWork: string;
@@ -10,7 +10,7 @@ interface Props {
   monthsOfCommercialExp: number;
 }
 
-export const StudentEmploymentExpectations = ({
+export const StudentExpectations = ({
   expectedTypeWork,
   targetWorkCity,
   expectedContractType,
@@ -33,28 +33,28 @@ export const StudentEmploymentExpectations = ({
         <h2 className="title__title">Oczekiwania w stosunku do zatrudnienia</h2>
       </div>
       <div className="employment">
-        <EmploymentExpectationsItem
+        <ExpectationItem
           title="Preferowane miejsce pracy"
           text={expectedTypeWork}
         />
-        {targetWorkCity && <EmploymentExpectationsItem
+        {targetWorkCity && <ExpectationItem
           title="Docelowe miasto, gdzie chce pracować kandydat"
           text={targetWorkCity}
         />}
-        <EmploymentExpectationsItem
+        <ExpectationItem
           title="Oczekiwany typ kontraktu"
           text={expectedContractType}
         />
-        <EmploymentExpectationsItem
+        <ExpectationItem
           title="Oczekiwane wynagrodzenie miesięczne netto"
           text={expectedSalary}
           suffix="zł"
         />
-        <EmploymentExpectationsItem
+        <ExpectationItem
           title="Zgoda na odbycie bezpłatnych praktyk / stażu na początek"
           text={canTakeApprenticeship === 0 ? 'NIE' : 'TAK'}
         />
-        <EmploymentExpectationsItem
+        <ExpectationItem
           title="Komercyjne doświadczenie w programowaniu"
           text={monthsOfCommercialExp}
           suffix={month}

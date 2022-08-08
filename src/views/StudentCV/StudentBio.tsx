@@ -1,13 +1,13 @@
 import React from 'react';
 import { FaEnvelope, FaGithub, FaPhoneAlt } from 'react-icons/fa';
-import { Button } from '../../../common/Button/Button';
-import { Student } from '../StudentCV';
+import { Button } from '../../components/common/Button/Button';
+import { Student } from './StudentCV';
 
 interface Props {
   student:Student
 }
 
-export const StudentDetails = ({ student }: Props) => {
+export const StudentBio = ({ student }: Props) => {
 
   const { githubUsername, firstName, lastName, phoneNumber, email, bio, role } = student;
 

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { StudentCVEdit } from '../../views/StudentCVEdit/StudentCVEdit';
-import { StudentCV } from '../views/StudentCV/StudentCV';
+import { StudentCV } from '../../views/StudentCV/StudentCV';
 import { Profile } from '../../views/Profile/Profile'
 import { AddStudents } from '../../views/AddStudents/AddStudents'
 import { AddHr } from '../../views/AddHr/AddHr'

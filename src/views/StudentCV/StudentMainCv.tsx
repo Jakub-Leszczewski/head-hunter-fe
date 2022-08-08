@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { Student } from '../StudentCV';
+import { Student } from './StudentCV';
 
-import { RatingsList } from './StudentCurseRatings/RatingsList';
-import { StudentLinks } from './StudentLinks/StudentLinks';
-import { StudentLongText } from './StudentLongText/StudentLongText';
-import { StudentEmploymentExpectations } from './StudentEmploymentExpectations/StudentEmploymentExpectations';
+import { LongText } from '../../components/LongText/LongText';
+import { StudentExpectations } from './StudentExpectations';
+import { StudentCurseRatingList } from './StudentCurseRatingList'
+import { LinksList } from '../../components/LinksList/LinksList'
 
 interface Props {
   student: Student;
 }
 
-export const StudentExperience = ({ student }: Props) => {
+export const StudentMainCv = ({ student }: Props) => {
 
   const {
     courseCompletion,
@@ -41,10 +41,10 @@ export const StudentExperience = ({ student }: Props) => {
 
   return (
     <div className="main__right">
-      <RatingsList
+      <StudentCurseRatingList
         curseRatingsList={curseRatingsList}
       />
-      <StudentEmploymentExpectations
+      <StudentExpectations
         expectedTypeWork={expectedTypeWork}
         targetWorkCity={targetWorkCity}
         expectedContractType={expectedContractType}
@@ -52,27 +52,27 @@ export const StudentExperience = ({ student }: Props) => {
         canTakeApprenticeship={canTakeApprenticeship}
         monthsOfCommercialExp={monthsOfCommercialExp}
       />
-      <StudentLongText
+      <LongText
         title="Edukacja"
         description={education}
       />
-      <StudentLongText
+      <LongText
         title="Kursy"
         description={courses}
       />
-      <StudentLongText
+      <LongText
         title="Doświadczenie zawodowe"
         description={workExperience}
       />
-      <StudentLinks
+      <LinksList
         title="Portfolio"
         urls={portfolioUrls}
       />
-      <StudentLinks
+      <LinksList
         title="Projekt w zespole Scrum"
         urls={projectUrls}
       />
-      <StudentLinks
+      <LinksList
         title="Projekt na zaliczenie"
         urls={bonusProjectUrls}
       />
