@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
-import { Button } from "../Button/Button";
-import { Input } from "../Input/Input";
-import { InputFormPart } from "../InputFormPart/InputFormPart";
+import { Button } from "../../common/Button/Button";
+import { Input } from "../../common/Input/Input";
+import { InputFormPart } from "../../common/InputFormPart/InputFormPart";
 
 interface ChangeEmailState {
     actualPassword: string;

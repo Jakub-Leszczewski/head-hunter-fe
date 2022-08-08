@@ -1,5 +1,5 @@
 import React from 'react';
-import {ChangePasswordForm} from '../../common/ChangePasswordForm/ChangePasswordForm';
+import {ChangePasswordForm} from '../../form/ChangePasswordForm/ChangePasswordForm';
 
 export const HREditPassword = () => {
   return (

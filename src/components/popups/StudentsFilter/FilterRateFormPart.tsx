@@ -13,7 +13,11 @@ export const FilterRateFormPart = ({ title, dispatch, value, actionType }: Props
     return (
         <div className="students-filter__form-part">
             <h3 className="students-filter__form-subtitle">{title || 'Ocena'}</h3>
-            <RateForm dispatch={dispatch} value={value} actionType={actionType} />
+            <RateForm
+              dispatch={dispatch}
+              value={value}
+              actionType={actionType}
+            />
         </div>
     );
 };

@@ -1,5 +1,5 @@
-import { ChangeEmailForm } from "../../common/ChangeEmailForm/ChangeEmailForm";
-import { ChangePasswordForm } from "../../common/ChangePasswordForm/ChangePasswordForm";
+import { ChangeEmailForm } from "../../form/ChangeEmailForm/ChangeEmailForm";
+import { ChangePasswordForm } from "../../form/ChangePasswordForm/ChangePasswordForm";
 import { StudentProfileSection } from "../../common/StudentProfileSection/StudentProfileSection";
 import { ProfileEditForm } from "./ProfileEditForm";
 

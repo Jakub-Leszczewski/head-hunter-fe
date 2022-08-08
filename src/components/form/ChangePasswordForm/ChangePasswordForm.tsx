@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
-import { Button } from "../Button/Button";
-import { InputFormPart } from "../InputFormPart/InputFormPart";
-import { InputPassword } from "../InputPassword/InputPassword";
+import { Button } from "../../common/Button/Button";
+import { InputFormPart } from "../../common/InputFormPart/InputFormPart";
+import { InputPassword } from "../../common/InputPassword/InputPassword";
 
 interface ChangePasswordState {
     actualPassword: string;

@@ -4,7 +4,7 @@ export type FreeInternship = '' | 'yes' | 'no';
 
 export interface StudentsFilterState {
     courseCompletion: number;
-    courseEngagment: number;
+    courseEngagement: number;
     projectDegree: number;
     teamProjectDegree: number;
     expectedTypeWork: WorkPreference[];
@@ -112,7 +112,7 @@ export const studentsFilterReducer = (state: StudentsFilterState, action: Studen
             return { ...state, expectedTypeWork: [...state.expectedTypeWork, payload] };
         }
         case 'ACTIVITY_RATE_CHANGE': {
-            return { ...state, courseEngagment: action.payload };
+            return { ...state, courseEngagement: action.payload };
         }
         case 'CODE_QUALITY_RATE_CHANGE': {
             return { ...state, projectDegree: action.payload };
