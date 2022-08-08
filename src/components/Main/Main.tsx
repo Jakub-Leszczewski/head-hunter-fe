@@ -5,6 +5,7 @@ import { StudentCVEdit } from '../views/StudentCVEdit/StudentCVEdit';
 import { StudentCV } from '../views/StudentCV/StudentCV';
 import { AddStudents } from '../views/AddStudents/AddStudents';
 import { Notifications } from '../views/Notifications/Notifications';
+import { AddHr } from '../views/AddHr/AddHr'
 
 export const Main = () => {
   return (
@@ -21,7 +22,7 @@ export const Main = () => {
 
         {/* Ścieżki Admina */}
         <Route path='/add-students' element={<AddStudents />} />
-        <Route path='/add-hr' element={<Profile />} />
+        <Route path='/add-hr' element={<AddHr />} />
         <Route path='/password-edit' element={<Profile />} />
         <Route path='/notifications' element={<Notifications />} />
 
