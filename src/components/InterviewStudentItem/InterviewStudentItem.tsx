@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 
 import { IoChevronDownSharp, IoChevronUpSharp } from 'react-icons/io5';
 
-import { StudentsToTalk } from './HrStudentToTalkList';
-import { TitleItem } from './TitleItem';
-import { HrStudentToTalkMore } from './HrStudentToTalkMore';
-import { Button } from '../../components/common/Button/Button'
+import { TitleItem } from '../TitleItem/TitleItem';
+import { InterviewInfoList } from '../InterviewInfoList/InterviewInfoList';
+import { Button } from '../common/Button/Button'
+import { StudentsToTalk } from '../../views/StudentInterview/StudentInterview'
 
 interface Props {
   students: StudentsToTalk
 }
 
-export const HrStudentToTalkItem = ({ students }: Props) => {
+export const InterviewStudentItem = ({ students }: Props) => {
 
   const { reservation, githubName, firstName, lastName, } = students;
   const [moreInfo, setMoreInfo] = useState(false);
@@ -49,7 +49,7 @@ export const HrStudentToTalkItem = ({ students }: Props) => {
         </div>
       </div>
       {moreInfo
-        ? <HrStudentToTalkMore
+        ? <InterviewInfoList
         students={students}
         />
         : null

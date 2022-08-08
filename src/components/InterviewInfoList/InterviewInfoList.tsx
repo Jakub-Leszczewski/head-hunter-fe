@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { StudentsToTalk } from './HrStudentToTalkList';
-import { TitleItem } from './TitleItem';
+import { StudentsToTalk } from '../../views/StudentInterview/StudentInterview';
+import { TitleItem } from '../TitleItem/TitleItem';
 
 interface Props {
   students: StudentsToTalk
 }
 
-export const HrStudentToTalkMore = ({students}:Props) => {
+export const InterviewInfoList = ({students}:Props) => {
 
   const {
     courseCompletion,

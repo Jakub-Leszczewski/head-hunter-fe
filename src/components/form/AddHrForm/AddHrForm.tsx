@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { HrData } from './AddHr';
-import { Label } from '../../components/common/Label/Label'
-import { Input } from '../../components/common/Input/Input'
+import { HrData } from '../../../views/AddHr/AddHr';
+import { Label } from '../../common/Label/Label'
+import { Input } from '../../common/Input/Input'
 
 interface Props {
   hrData: HrData;

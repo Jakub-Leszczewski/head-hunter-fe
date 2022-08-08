@@ -1,13 +1,27 @@
 import React, {useState} from 'react';
 import { Input } from '../../components/common/Input/Input'
 import { Button } from '../../components/common/Button/Button'
-import { AvailableStudentsListItem } from '../../components/AvailableStudentsListItem/AvailableStudentsListItem'
+import { AvailableStudentItem } from '../../components/AvailableStudentItem/AvailableStudentItem'
 
 interface Info {
   info: string;
 }
 
-const data = [
+export interface Item {
+  name: string,
+  courseRating: number,
+  activityRating: number,
+  codeRating: number,
+  scrumRating: number,
+  preferredPlace: string,
+  city: string,
+  contractType: string,
+  salary: number,
+  internship: string,
+  commercialExp: string,
+}
+
+const data: Item[] = [
   {
     name: 'Jan K.',
     courseRating: 5,
@@ -49,7 +63,7 @@ const data = [
   },
 ];
 
-export const AvailableStudentsList = () => {
+export const AvailableStudents = () => {
   const [searchedInfo, setSearchedInfo] = useState<Info>({info: ''});
 
   const search = (name: string, value: string | number): void => {
@@ -79,7 +93,7 @@ export const AvailableStudentsList = () => {
       <div className='separation-line' />
       <ul className='list'>
         {data.map((item, key) => (
-          <AvailableStudentsListItem item={item} key={key} />
+          <AvailableStudentItem item={item} key={key} />
         ))}
       </ul>
     </div>

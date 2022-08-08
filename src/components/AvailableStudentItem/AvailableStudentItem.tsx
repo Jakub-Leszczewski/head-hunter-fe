@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {AvailableStudentsBio} from '../AvailableStudentsBio/AvailableStudentsBio';
-import {AvailableStudentsPreferences} from '../AvailableStudentsPreferences/AvailableStudentsPreferences';
+import {AvailableStudentsHeader} from './AvailableStudentsHeader';
+import { AvailableInfoList } from './AvailableInfoList'
+import { Item } from '../../views/AvailableStudents/AvailableStudents'
 
 interface Props {
-  item: any;
+  item: Item;
 }
 
 const titles = {
@@ -19,7 +20,7 @@ const titles = {
   commercialExp: 'Komercyjne doświadczenie w programowaniu',
 };
 
-export const AvailableStudentsListItem = ({item}: Props) => {
+export const AvailableStudentItem = ({item}: Props) => {
   const [isStudentInfoOpen, setIsStudentInfoOpen] = useState(false);
 
   const handleIsInfoOpen = () => {
@@ -28,13 +29,13 @@ export const AvailableStudentsListItem = ({item}: Props) => {
 
   return (
     <li className='list-item'>
-      <AvailableStudentsBio
+      <AvailableStudentsHeader
         itemName={item.name}
         isStudentInfoOpen={isStudentInfoOpen}
         handleIsInfoOpen={handleIsInfoOpen}
       />
       {isStudentInfoOpen && (
-        <AvailableStudentsPreferences titles={titles} item={item} />
+        <AvailableInfoList titles={titles} item={item} />
       )}
       <div className='list-item-separator' />
     </li>

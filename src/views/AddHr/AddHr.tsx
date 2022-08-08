@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AddHrForm } from './AddHrForm';
+import { AddHrForm } from '../../components/form/AddHrForm/AddHrForm';
 import { Button } from '../../components/common/Button/Button'
 
 export interface HrData {

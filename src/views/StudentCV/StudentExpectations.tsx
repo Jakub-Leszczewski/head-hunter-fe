@@ -47,8 +47,7 @@ export const StudentExpectations = ({
         />
         <ExpectationItem
           title="Oczekiwane wynagrodzenie miesięczne netto"
-          text={expectedSalary}
-          suffix="zł"
+          text={`${expectedSalary} zł`}
         />
         <ExpectationItem
           title="Zgoda na odbycie bezpłatnych praktyk / stażu na początek"
@@ -56,8 +55,7 @@ export const StudentExpectations = ({
         />
         <ExpectationItem
           title="Komercyjne doświadczenie w programowaniu"
-          text={monthsOfCommercialExp}
-          suffix={month}
+          text={`${monthsOfCommercialExp} ${month}`}
         />
       </div>
     </>

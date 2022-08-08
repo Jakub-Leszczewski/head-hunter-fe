@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HrStudentToTalkItem } from './HrStudentToTalkItem';
+import { InterviewStudentItem } from '../../components/InterviewStudentItem/InterviewStudentItem';
 
 export interface StudentsToTalk {
   id: string
@@ -20,7 +20,7 @@ export interface StudentsToTalk {
   monthsOfCommercialExp: number;
 }
 
-export const HrStudentToTalkList = () => {
+export const StudentInterview = () => {
 
   const studentListDefault = [
     {
@@ -83,7 +83,7 @@ export const HrStudentToTalkList = () => {
         <p>filter</p>
       </div>
       {studentListDefault.map(item =>
-        <HrStudentToTalkItem
+        <InterviewStudentItem
           key={item.id}
           students={item}
         />,

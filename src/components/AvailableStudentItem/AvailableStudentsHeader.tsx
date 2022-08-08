@@ -3,12 +3,12 @@ import {BsChevronDown, BsChevronUp} from 'react-icons/bs';
 import {Button} from '../common/Button/Button';
 
 interface Props {
-  itemName: [];
+  itemName: string;
   isStudentInfoOpen: boolean;
   handleIsInfoOpen: () => void;
 }
 
-export const AvailableStudentsBio = ({
+export const AvailableStudentsHeader = ({
   itemName,
   isStudentInfoOpen,
   handleIsInfoOpen,

@@ -8,7 +8,7 @@ interface Email {
   email: string;
 }
 
-export const Forgot = () => {
+export const ForgotPassword = () => {
   const [email, setEmail] = useState<Email>({
     email: '',
   });
