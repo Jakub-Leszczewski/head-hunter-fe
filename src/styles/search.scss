@@ -1,0 +1,26 @@
+.search {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    background-color: #1E1E1F;
+
+    &__inp {
+        padding: 10px;
+        color: #666666;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        transition: 0.3s linear;
+        
+        &:focus {
+            color: #f7f7f7;
+        }
+    }
+
+    &__icon {
+        margin: 0 0 0 10px;
+        color: #666666;
+        text-align: center;
+        cursor: pointer;
+    }
+}
