@@ -9,34 +9,26 @@ export interface ResponseProblem {
 
 export type Method = 'POST' | 'DELETE' | 'PATCH' | 'PUT' | 'GET';
 
-
-
 export interface ClientResponseOk<T> {
     status: true;
     results: T;
 }
-
 export interface ClientResponseError {
     status: false;
     error: string;
     message?: string | string[];
 }
-
 export type ClientResponse<T> = ClientResponseOk<T> | ClientResponseError;
-
-
 
 export interface ClientApiResponseOk<T> {
     status: true;
     results: T;
     amount?: number;
 }
-
 export interface ClientApiResponseError {
     status: false;
     error: string;
 }
-
 export type ClientApiResponse<T> = ClientApiResponseOk<T> | ClientApiResponseError;
 
 //
