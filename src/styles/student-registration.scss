@@ -23,21 +23,50 @@
       min-width: 360px;
       margin-bottom: 10px;
 
-      &-icon-box {
-        position: absolute;
-        right: 0;
-        bottom: 0;
+      &-box {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        width: 50px;
-        height: 50px;
-        cursor: pointer;
 
-        &-icon {
-          width: 30px;
-          height: 30px;
+        &-item {
+          margin-bottom: 15px;
+          padding: 15px;
+          width: 84%;
+          border: 1px solid transparent;
+          background-color: #292A2B;
+          color: #7e7e7e;
+          font-size: 16px;
+          transition: border .3s linear;
+          outline: none;
         }
+
+        &-item:focus {
+          color: #f7f7f7;
+          border: 1px solid #E02735;
+        }
+
+        &-btn {
+          margin-bottom: 15px;
+          padding: 15px;
+
+        }
+      }
+      &-correct{
+        position: absolute;
+        top:5px;
+        right: 5px;
+        letter-spacing: .5px;
+        color:#E02735;
+      }
+      &-same{
+        position: absolute;
+        top:5px;
+        right: 5px;
+        letter-spacing: .5px;
+        color:#E02735;
+      }
+      &-error{
+        color:#E02735;
       }
     }
 
