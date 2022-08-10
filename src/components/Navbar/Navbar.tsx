@@ -2,17 +2,18 @@ import React from 'react';
 
 import { AdminNavList } from './AdminNavList';
 import { HrNavList } from './HrNavList';
-import { useUser } from '../../contexts/UserContext';
+import { useUser } from '../../hooks/useUser';
+import { UserRole } from 'types';
 
 export const Navbar = () => {
 
-  const { user } = useUser()
+  const user = useUser()
 
   return (
     <div className="navbar">
       <nav className="nav">
         <ul className="nav__list">
-          {user.role === 0 ? <AdminNavList/> : <HrNavList/>}
+          {user?.role === UserRole.Admin ? <AdminNavList/> : <HrNavList/>}
         </ul>
       </nav>
     </div>
