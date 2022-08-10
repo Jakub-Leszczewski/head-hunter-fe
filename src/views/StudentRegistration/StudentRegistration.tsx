@@ -1,66 +1,38 @@
 import React, { useState } from 'react';
-import { BsEyeSlash, BsEye } from 'react-icons/bs';
 
-import { Input } from '../../components/common/Input/Input';
+import { UpdateStudentDtoInterface, ContractType, WorkType } from 'types';
+
 import { Button } from '../../components/common/Button/Button';
-import { Label } from '../../components/common/Label/Label';
-import { Select } from '../../components/common/Select/Select';
-import { Textarea } from '../../components/common/Textarea/Textarea';
-
-interface Student {
-  password: string;
-  phone: string;
-  firstName: string;
-  lastName: string;
-  githubUsername: string;
-  portfolioUrls: string;
-  projectUrls: string;
-  bio: string;
-  expectedTypeWork: string;
-  targetWorkCity: string;
-  expectedContractType: string;
-  expectedSalary: string;
-  canTakeApprenticeship: string;
-  monthsOfCommercialExp: string;
-  education: string;
-  workExperience: string;
-  courses: string;
-}
-
-interface Password {
-  confirmPassword: string;
-  passwordView: boolean;
-  confirmPasswordView: boolean;
-}
+import { Passwords } from './Passwords';
+import { PersonalData } from './PersonalData';
+import { DataForWork } from './DataForWork';
+import { LongText } from './LongText';
+import { ProjectsUrls } from './ProjectsUrls';
 
 export const StudentRegistration = () => {
 
-  const [student, setStudent] = useState<Student>({
-    password: '',
-    phone: '',
-    firstName: '',
+  const [student, setStudent] = useState<Omit<UpdateStudentDtoInterface, 'email' | 'password'>>({
     lastName: '',
+    firstName: '',
+    newPassword: '',
     githubUsername: '',
-    portfolioUrls: '',
-    projectUrls: '',
     bio: '',
-    expectedTypeWork: '',
-    targetWorkCity: '',
-    expectedContractType: '',
-    expectedSalary: '',
-    canTakeApprenticeship: '',
-    monthsOfCommercialExp: '',
+    phoneNumber: '',
+    projectUrls: [''],
+    portfolioUrls: [''],
     education: '',
-    workExperience: '',
     courses: '',
+    monthsOfCommercialExp: 0,
+    workExperience: '',
+    expectedSalary: 0,
+    targetWorkCity: '',
+    expectedContractType: ContractType.Irrelevant,
+    expectedTypeWork: WorkType.Irrelevant,
+    canTakeApprenticeship: false,
   });
-  const [password, setPassword] = useState<Password>({
-    confirmPassword: '',
-    passwordView: false,
-    confirmPasswordView: false,
-  });
+  const [validation, setValidation] = useState(true)
 
-  const changeStudent = (name: string, value: string | number) => {
+  const changeStudent = (name: string, value: string | number | boolean) => {
     (setStudent(student => ({
         ...student,
         [name]: value,
@@ -68,275 +40,77 @@ export const StudentRegistration = () => {
     );
   };
 
-  const changePassword = (name: string, value: string | number | boolean) => {
-    (setPassword(password => ({
-        ...password,
-        [name]: value,
-      }))
-    );
+  const addUrls = (name: 'portfolioUrls' | 'projectUrls') => {
+    setStudent(student => ({
+      ...student,
+      [name]: [...student[name], ''],
+    }));
   };
 
+  const editUrls = (name: 'portfolioUrls' | 'projectUrls', index: number, value: string) => {
+    setStudent(student => ({
+      ...student,
+      [name]: student[name].map((item, ix) => {
+        if (ix === index) return value
+        return item
+      }),
+    }));
+  };
+
+  const deleteUrls = (name: 'portfolioUrls' | 'projectUrls', index: number) => {
+    setStudent(student => ({
+      ...student,
+      [name]: student[name].filter((item, ix) => ix !== index),
+    }));
+  };
+
+  const sendForm = async (e:React.FormEvent) => {
+    e.preventDefault();
+    if(validation){
+    // await fetch('',{
+    //   method:'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body:JSON.stringify(student)
+    // });
+    }
+
+  };
+  console.log('validation',validation)
   return (
     <div className="student-registration">
       <h2 className="student-registration__title">
         Rejestracja Kursanta
       </h2>
-      <form className="student-registration__form">
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="password"
-            textName="Hasło"
-          />
-          <Input
-            name="password"
-            value={student.password}
-            change={changeStudent}
-            type={password.passwordView ? 'text' : 'password'}
-          />
-          <div
-            className="student-registration__form-input-icon-box"
-            onClick={() => changePassword('passwordView', !password.passwordView)}
-          >
-            {password.passwordView
-              ? <BsEyeSlash
-                className="student-registration__form-input-icon-box-icon"
-              />
-              : <BsEye
-                className="student-registration__form-input-icon-box-icon"
-              />
-            }
-          </div>
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="confirmPassword"
-            textName="Powtórz hasło"
-          />
-          <Input
-            name="confirmPassword"
-            value={password.confirmPassword}
-            change={changePassword}
-            type={password.confirmPasswordView ? 'text' : 'password'}
-          />
-          <div
-            className="student-registration__form-input-icon-box"
-            onClick={() => changePassword('confirmPasswordView', !password.confirmPasswordView)}
-          >
-            {password.confirmPasswordView
-              ? <BsEyeSlash
-                className="student-registration__form-input-icon-box-icon"
-              />
-              : <BsEye
-                className="student-registration__form-input-icon-box-icon"
-              />
-            }
-          </div>
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="firstName"
-            textName="Imię"
-          />
-          <Input
-            name="firstName"
-            value={student.firstName}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="lastName"
-            textName="Nazwisko"
-          />
-          <Input
-            name="lastName"
-            value={student.lastName}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="phone"
-            textName="Telefon"
-          />
-          <Input
-            name="phone"
-            value={student.phone}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="githubUsername"
-            textName="Login GitHuba"
-          />
-          <Input
-            name="githubUsername"
-            value={student.githubUsername}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="portfolioUrls"
-            textName="Adresy portfolio"
-          />
-          <Input
-            name="portfolioUrls"
-            value={student.portfolioUrls}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="projectUrls"
-            textName="Adresy projektów na githubie"
-          />
-          <Input
-            name="projectUrls"
-            value={student.projectUrls}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="expectedTypeWork"
-            textName="Wybór preferowanego miejsca pracy"
-          />
-          <Select
-            name="expectedTypeWork"
-            value={student.expectedTypeWork}
-            change={changeStudent}
-            options={[
-              'Bez znaczenia',
-              'Na miejscu',
-              'Gotowość do przeprowadzki',
-              'Wyłącznie zdalnie',
-              'Hybrydowo',
-            ]}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="targetWorkCity"
-            textName="Docelowe miasto, gdzie chce pracować kandydat"
-          />
-          <Input
-            name="targetWorkCity"
-            value={student.targetWorkCity}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="expectedContractType"
-            textName="Oczekiwany typ kontraktu"
-          />
-          <Select
-            name="expectedContractType"
-            value={student.expectedContractType}
-            change={changeStudent}
-            options={[
-              'Brak preferencji',
-              'Tylko UoP',
-              'Możliwe B2B',
-              'Możliwe UZ/UoD',
-            ]}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="expectedSalary"
-            textName="Oczekiwane wynagrodzenie miesięczne netto"
-          />
-          <Input
-            name="expectedSalary"
-            value={student.expectedSalary}
-            change={changeStudent}
-            type="number"
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="canTakeApprenticeship"
-            textName="Zgoda na bespłatne praktyki"
-          />
-          <Select
-            name="canTakeApprenticeship"
-            value={student.canTakeApprenticeship}
-            change={changeStudent}
-            options={[
-              'NIE',
-              'TAK',
-            ]}
-          />
-        </div>
-        <div className="student-registration__form-input">
-          <Label
-            htmlFor="monthsOfCommercialExp"
-            textName="Ilość miesięcy doświadczenia komercyjnego w programowaniu"
-          />
-          <Input
-            name="monthsOfCommercialExp"
-            value={student.monthsOfCommercialExp}
-            change={changeStudent}
-          />
-        </div>
-        <div className="student-registration__form-textarea">
-          <Label
-            htmlFor="bio"
-            textName="Krutkie bio"
-          />
-          <Textarea
-            className="textarea"
-            name="bio"
-            value={student.bio}
-            change={changeStudent}
-            rows={3}
-          />
-        </div>
-        <div className="student-registration__form-textarea">
-          <Label
-            htmlFor="education"
-            textName="Przebieg edukacji"
-          />
-          <Textarea
-            className="textarea"
-            name="education"
-            value={student.education}
-            change={changeStudent}
-            rows={3}
-          />
-        </div>
-        <div className="student-registration__form-textarea">
-          <Label
-            htmlFor="workExperience"
-            textName="Przebieg doświadczenia zawodowego"
-          />
-          <Textarea
-            className="textarea"
-            name="workExperience"
-            value={student.workExperience}
-            change={changeStudent}
-            rows={3}
-          />
-        </div>
-        <div className="student-registration__form-textarea">
-          <Label
-            htmlFor="courses"
-            textName="Kursy i certyfikaty związane z programowaniem"
-          />
-          <Textarea
-            className="textarea"
-            name="courses"
-            value={student.courses}
-            change={changeStudent}
-            rows={3}
-          />
-        </div>
+      <form className="student-registration__form" onSubmit={sendForm}>
+        <Passwords
+          changeStudent={changeStudent}
+          validation={setValidation}
+        />
+        <PersonalData
+          student={student}
+          changeStudent={changeStudent}
+          validation={setValidation}
+        />
+        <DataForWork
+          student={student}
+          changeStudent={changeStudent}
+        />
+        <ProjectsUrls
+          student={student}
+          addUrls={addUrls}
+          editUrls={editUrls}
+          deleteUrls={deleteUrls}
+        />
+        <LongText
+          student={student}
+          changeStudent={changeStudent}
+        />
         <div className="student-registration__form-button">
           <Button
             textName="Potwierdz"
+            type='submit'
           />
         </div>
       </form>
