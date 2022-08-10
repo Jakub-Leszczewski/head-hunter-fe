@@ -1,14 +1,12 @@
 import {
   createContext,
   ReactNode,
-  useContext,
   useEffect,
   useState,
 } from 'react'
 
-import { GetUserResponse, HrResponseData, StudentResponse, UserRole, AdminResponse, OnlyUserResponse, StudentResponseData } from 'types';
+import { GetUserResponse, HrResponseData, UserRole, OnlyUserResponse, StudentResponseData } from 'types';
 import { fetchApiTool } from '../utils/fetchHelpers'
-import { apiUrl } from '../config'
 
 interface Props {
   children: ReactNode;
@@ -21,16 +19,12 @@ interface UserContextType {
   saveUserData: (user: GetUserResponse | null) => void;
 }
 
-export const AuthContext = createContext<UserContextType>({
+export const UserContext = createContext<UserContextType>({
   user: null,
   data: null,
   refreshUser: () => {},
   saveUserData: (user: GetUserResponse | null) => {},
 });
-
-const UserContext = createContext<UserContextType>(null!);
-
-export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<OnlyUserResponse | null>(null);
@@ -40,7 +34,7 @@ export const UserProvider = ({ children }: Props) => {
   useEffect(() => {
     (async () => {
       if (user === null) {
-        const api = await fetchApiTool<GetUserResponse>(`${apiUrl}/auth/user`);
+        const api = await fetchApiTool<GetUserResponse>(`auth/user`);
 
         if (api.status) {
           const { results } = api;
@@ -90,6 +84,7 @@ export const UserProvider = ({ children }: Props) => {
       refreshUser,
       saveUserData,
     }}>
+      {/*zamiast null można wstawić ładny spinner*/}
       {!initialLoading ? children : false}
     </UserContext.Provider>
   );
