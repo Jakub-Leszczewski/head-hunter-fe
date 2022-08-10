@@ -8,9 +8,10 @@ import { Input } from '../../components/common/Input/Input';
 interface Props {
   student: Omit<UpdateStudentDtoInterface, 'email' | 'password'>;
   changeStudent: (name: string, value: string | number) => void;
+  validation: (name:boolean) => void;
 }
 
-export const PersonalData = ({ student, changeStudent }: Props) => {
+export const PersonalData = ({ student, changeStudent, validation }: Props) => {
 
   const { firstName, lastName, phoneNumber, githubUsername } = student;
   const [incorrectGithubName, setIncorrectGithubName] = useState(true);
@@ -19,8 +20,10 @@ export const PersonalData = ({ student, changeStudent }: Props) => {
       const response = await fetch(`https://api.github.com/users/${githubUsername}`);
       if (response.status === 200) {
         setIncorrectGithubName(true);
+        validation(true);
       } else {
         setIncorrectGithubName(false);
+        validation(false);
       }
   };
 

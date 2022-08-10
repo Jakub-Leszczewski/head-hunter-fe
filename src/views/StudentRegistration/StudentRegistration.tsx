@@ -30,6 +30,7 @@ export const StudentRegistration = () => {
     expectedTypeWork: WorkType.Irrelevant,
     canTakeApprenticeship: false,
   });
+  const [validation, setValidation] = useState(true)
 
   const changeStudent = (name: string, value: string | number | boolean) => {
     (setStudent(student => ({
@@ -63,8 +64,9 @@ export const StudentRegistration = () => {
     }));
   };
 
-  const sendForm = async () => {
-    console.log(student);
+  const sendForm = async (e:React.FormEvent) => {
+    e.preventDefault();
+    if(validation){
     // await fetch('',{
     //   method:'PATCH',
     //   headers: {
@@ -72,8 +74,10 @@ export const StudentRegistration = () => {
     //   },
     //   body:JSON.stringify(student)
     // });
-  };
+    }
 
+  };
+  console.log('validation',validation)
   return (
     <div className="student-registration">
       <h2 className="student-registration__title">
@@ -82,10 +86,12 @@ export const StudentRegistration = () => {
       <form className="student-registration__form" onSubmit={sendForm}>
         <Passwords
           changeStudent={changeStudent}
+          validation={setValidation}
         />
         <PersonalData
           student={student}
           changeStudent={changeStudent}
+          validation={setValidation}
         />
         <DataForWork
           student={student}

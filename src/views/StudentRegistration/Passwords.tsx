@@ -5,6 +5,7 @@ import { InputPassword } from '../../components/common/InputPassword/InputPasswo
 
 interface Props {
   changeStudent: (name: string, value: string | number) => void;
+  validation: (name:boolean) => void;
 }
 
 interface PasswordsTypes {
@@ -14,7 +15,7 @@ interface PasswordsTypes {
   samePassword: boolean;
 }
 
-export const Passwords = ({ changeStudent }: Props) => {
+export const Passwords = ({ changeStudent, validation }: Props) => {
 
   const [passwords, setPasswords] = useState<PasswordsTypes>({
     password: '',
@@ -33,7 +34,7 @@ export const Passwords = ({ changeStudent }: Props) => {
   };
 
   const isCorrectPassword = () => {
-    const regularExpression = new RegExp('^(?=.{8,36}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$');
+    const regularExpression = new RegExp('^(?=.{8,36}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$')
     if (password && regularExpression.test(password)) {
       changePassword('correctPassword', false);
     } else {
@@ -45,10 +46,13 @@ export const Passwords = ({ changeStudent }: Props) => {
     if (confirmPassword && password === confirmPassword) {
       changePassword('samePassword', false);
       changeStudent('newPassword', password);
+      validation(true);
     } else {
       changePassword('samePassword', true);
+      validation(false);
     }
   };
+
   return (
     <>
       <div className="student-registration__form-input">
