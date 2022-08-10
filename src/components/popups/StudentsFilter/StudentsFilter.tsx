@@ -15,6 +15,11 @@ export const StudentsFilter = ({ dispatch, handleFilterSubmit, state }: Props) =
 
     const { close, isOpen, open } = useOpen();
 
+    const filterSubmitHandler = (e: FormEvent) => {
+        close();
+        handleFilterSubmit(e);
+    };
+
     return (
         <>
             <div className="students-filter__btn" onClick={open}>
@@ -27,7 +32,7 @@ export const StudentsFilter = ({ dispatch, handleFilterSubmit, state }: Props) =
                 open={isOpen}
                 onClose={close}
             >
-                <StudentsFilterForm state={state} dispatch={dispatch} handleFilterSubmit={handleFilterSubmit} close={close} />
+                <StudentsFilterForm state={state} dispatch={dispatch} handleFilterSubmit={filterSubmitHandler} close={close} />
             </Popup>
         </>
     );

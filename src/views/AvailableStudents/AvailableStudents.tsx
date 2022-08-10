@@ -1,12 +1,11 @@
 import { AvailableStudentItem } from '../../components/AvailableStudentItem/AvailableStudentItem';
-import { Search } from '../../components/common/Search/Search';
 import { useSearch } from '../../hooks/useSearch';
 import { SmallStudentResponse } from 'types';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { STUDENTS_LIMIT } from '../../utils/dataLimits';
-import { StudentsFilter } from '../../components/popups/StudentsFilter/StudentsFilter';
 import { FormEvent, useReducer, useState } from 'react';
 import { studentsFilterReducer, StudentsFilterState } from '../../reducers/studentsFilterReducer';
+import { StudentsList } from '../../components/StudentsList/StudentsList';
 
 export const studentsFilterDefault: StudentsFilterState = {
   courseEngagement: 0,
@@ -46,22 +45,29 @@ export const AvailableStudents = () => {
 
   const { lastDataElementRef } = useInfiniteScroll(amount, hasMore, loading, page, STUDENTS_LIMIT, setPage);
 
+  const studentsList = () => {
+    return data.map((item, i) => (
+      <AvailableStudentItem
+        item={item}
+        key={item.id}
+        observer={(i + 1) % STUDENTS_LIMIT === 0 ? lastDataElementRef : null}
+      />
+    ))
+  }
+
   return (
-    <div className='container'>
-      <div className='search-area'>
-        <Search handleChange={handleSearchPhraseChange} value={searchPhrase} />
-        <StudentsFilter
-          state={filter}
-          dispatch={dispatch}
-          handleFilterSubmit={handleFilterSubmit}
-        />
+    <StudentsList
+      dispatch={dispatch}
+      filter={filter}
+      handleFilterSubmit={handleFilterSubmit}
+      handleSearchPhraseChange={handleSearchPhraseChange}
+      searchPhrase={searchPhrase}
+    >
+      <div className="hr-list__list-container">
+        <ul className="hr-list__list">
+          {studentsList()}
+        </ul>
       </div>
-      <div className='separation-line' />
-      <ul className='list'>
-        {data.map((item, i) => (
-          <AvailableStudentItem item={item} key={item.id} observer={(i + 1) % STUDENTS_LIMIT === 0 ? lastDataElementRef : null} />
-        ))}
-      </ul>
-    </div>
+    </StudentsList>
   );
 };

@@ -1,5 +1,6 @@
-import { AvailableInfoItem } from '../AvailableInfoItem/AvailableInfoItem';
 import { ContractType, WorkType } from 'types';
+import { monthsHelper } from '../../utils/monthsHelper';
+import { TitleItem } from '../TitleItem/TitleItem';
 
 interface Props {
   canTakeApprenticeship: boolean;
@@ -27,48 +28,67 @@ export const AvailableInfoList = ({
   teamProjectDegree
 }: Props) => {
   return (
-    <div className='list-item-info-container'>
-      <AvailableInfoItem
-        titles='Ocena przejścia kursu'
-        text={`${courseCompletion}/5`}
-      />
-      <AvailableInfoItem
-        titles='Ocena aktywności i zaangażowania na kursie'
-        text={`${courseEngagement}/5`}
-      />
-      <AvailableInfoItem
-        titles='Ocena kodu w projekcie własnym'
-        text={`${projectDegree}/5`}
-      />
-      <AvailableInfoItem
-        titles='Ocena pracy w zespole Scrum'
-        text={`${teamProjectDegree}/5`}
-      />
-      <AvailableInfoItem
-        titles='Preferowane miejsce pracy'
-        text={expectedTypeWork}
-      />
-      <AvailableInfoItem
-        titles='Docelowe miasto, gdzie chce pracować kandydat'
-        text={targetWorkCity}
-      />
-
-      <AvailableInfoItem
-        titles='Oczekiwany typ kontraktu'
-        text={expectedContractType}
-      />
-      <AvailableInfoItem
-        titles='Oczekiwane wynagrodzenie miesięczne brutto'
-        text={`${expectedSalary}`}
-      />
-      <AvailableInfoItem
-        titles='Zgoda na odbycie bezpłatnych praktyk, stażu na początek'
-        text={canTakeApprenticeship ? 'Tak' : 'Nie'}
-      />
-      <AvailableInfoItem
-        titles='Komercyjne doświadczenie w programowaniu'
-        text={`${monthsOfCommercialExp}`}
-      />
+    <div className="hr-list__item-info">
+      <TitleItem
+        title='Ocena przejścia kursu'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{courseCompletion}<span className="title-Item__span">/5</span></p>
+      </TitleItem>
+      <TitleItem
+        title='Ocena aktywności i zaangażowania na kursie'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{courseEngagement}<span className="title-Item__span">/5</span></p>
+      </TitleItem>
+      <TitleItem
+        title='Ocena kodu w projekcie własnym'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{projectDegree}<span className="title-Item__span">/5</span></p>
+      </TitleItem>
+      <TitleItem
+        title='Ocena pracy w zespole Scrum'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{teamProjectDegree}<span className="title-Item__span">/5</span></p>
+      </TitleItem>
+      <TitleItem
+        title='Preferowane miejsce pracy'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{expectedTypeWork}</p>
+      </TitleItem>
+      <TitleItem
+        title='Docelowe miasto, gdzie chce pracować kandydat'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{targetWorkCity}</p>
+      </TitleItem>
+      <TitleItem
+        title='Oczekiwany typ kontraktu'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{expectedContractType}</p>
+      </TitleItem>
+      <TitleItem
+        title='Oczekiwane wynagrodzenie miesięczne brutto'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{expectedSalary}</p>
+      </TitleItem>
+      <TitleItem
+        title='Zgoda na odbycie bezpłatnych praktyk, stażu na początek'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{canTakeApprenticeship ? 'TAK' : 'NIE'}</p>
+      </TitleItem>
+      <TitleItem
+        title='Komercyjne doświadczenie w programowaniu'
+        className="hr-list__item-info-box"
+      >
+        <p className="title-Item__text">{monthsHelper(monthsOfCommercialExp)}</p>
+      </TitleItem>
     </div>
   );
 };

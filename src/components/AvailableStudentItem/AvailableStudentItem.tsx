@@ -15,16 +15,12 @@ export const AvailableStudentItem = ({ item, observer }: Props) => {
 
   const [isStudentInfoOpen, setIsStudentInfoOpen] = useState(false);
 
-  const handleIsInfoOpen = () => {
-    setIsStudentInfoOpen((value) => !value);
-  };
-
   return (
-    <li ref={observer} className='list-item'>
+    <li ref={observer} className="hr-list__item">
       <AvailableStudentsHeader
         name={`${firstName} ${(lastName as string)[0]}.`}
         isStudentInfoOpen={isStudentInfoOpen}
-        handleIsInfoOpen={handleIsInfoOpen}
+        setIsStudentInfoOpen={setIsStudentInfoOpen}
       />
       {isStudentInfoOpen && (
         <AvailableInfoList
@@ -40,7 +36,6 @@ export const AvailableStudentItem = ({ item, observer }: Props) => {
           teamProjectDegree={teamProjectDegree}
         />
       )}
-      <div className='list-item-separator' />
     </li>
   );
 };

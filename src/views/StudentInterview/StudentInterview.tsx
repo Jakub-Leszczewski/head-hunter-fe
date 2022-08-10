@@ -1,7 +1,4 @@
 import { FormEvent, useReducer, useState } from 'react';
-import { Search } from '../../components/common/Search/Search';
-import { StudentsFilter } from '../../components/popups/StudentsFilter/StudentsFilter';
-
 import { InterviewStudentItem } from '../../components/InterviewStudentItem/InterviewStudentItem';
 import { useSearch } from '../../hooks/useSearch';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
@@ -9,6 +6,7 @@ import { STUDENTS_LIMIT } from '../../utils/dataLimits';
 import { studentsFilterReducer } from '../../reducers/studentsFilterReducer';
 import { studentsFilterDefault } from '../AvailableStudents/AvailableStudents';
 import { SmallStudentResponse } from 'types';
+import { StudentsList } from '../../components/StudentsList/StudentsList';
 
 export const StudentInterview = () => {
 
@@ -31,12 +29,18 @@ export const StudentInterview = () => {
   }
 
   return (
-    <div className="to-talk-list-container">
-      <div className="filter-container">
-        <Search handleChange={handleSearchPhraseChange} value={searchPhrase} />
-        <StudentsFilter dispatch={dispatch} handleFilterSubmit={handleFilterSubmit} state={filter} />
+    <StudentsList
+      dispatch={dispatch}
+      filter={filter}
+      handleFilterSubmit={handleFilterSubmit}
+      handleSearchPhraseChange={handleSearchPhraseChange}
+      searchPhrase={searchPhrase}
+    >
+      <div className="hr-list__list-container">
+        <ul className="hr-list__list">
+          {studentsList()}
+        </ul>
       </div>
-      {studentsList()}
-    </div>
+    </StudentsList>
   );
 };
