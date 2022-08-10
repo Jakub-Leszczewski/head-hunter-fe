@@ -1,13 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import { StudentCVEdit } from '../../views/StudentCVEdit/StudentCVEdit';
-import { StudentCV } from '../../views/StudentCV/StudentCV';
-import { Profile } from '../../views/Profile/Profile'
-import { AddStudents } from '../../views/AddStudents/AddStudents'
-import { AddHr } from '../../views/AddHr/AddHr'
-import { Notifications } from '../../views/Notifications/Notifications'
-import { NotFound } from '../../views/NotFound/NotFound'
-import { AvailableStudents } from '../../views/AvailableStudents/AvailableStudents'
-import { StudentInterview } from '../../views/StudentInterview/StudentInterview'
+import { Profile } from '../../views/Profile/Profile';
+import { AddStudents } from '../../views/AddStudents/AddStudents';
+import { AddHr } from '../../views/AddHr/AddHr';
+import { Notifications } from '../../views/Notifications/Notifications';
+import { NotFound } from '../../views/NotFound/NotFound';
+import { AvailableStudents } from '../../views/AvailableStudents/AvailableStudents';
+import { StudentInterview } from '../../views/StudentInterview/StudentInterview';
 
 export const Main = () => {
   return (
@@ -19,7 +18,7 @@ export const Main = () => {
         <Route path='/students/:studentId/edit' element={<Profile />} />
 
         {/* Ścieżki HRa */}
-        <Route path='/students' element={<Profile />} />
+        <Route path='/students' element={<AvailableStudents />} />
         <Route path='/students-on-interview' element={<Profile />} />
 
         {/* Ścieżki Admina */}

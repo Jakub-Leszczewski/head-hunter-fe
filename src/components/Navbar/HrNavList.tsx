@@ -6,8 +6,8 @@ export const HrNavList = () => {
 
   return (
     <>
-      <CustomLink path="/students">Dostępni kursanci</CustomLink>
-      <CustomLink path="/students-on-interview">Do rozmowy</CustomLink>
+      <CustomLink path="/student">Dostępni kursanci</CustomLink>
+      <CustomLink path="/student-on-interview">Do rozmowy</CustomLink>
     </>
   );
 };

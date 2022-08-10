@@ -1,23 +1,21 @@
-import { Header } from "../Header/Header";
-import { Main } from "../Main/Main";
-import { Login } from '../../views/Login/Login'
-import { useIsAuth } from '../../hooks/useIsAuth'
+import { Header } from '../Header/Header';
+import { Main } from '../Main/Main';
+import { Login } from '../../views/Login/Login';
+import { useIsAuth } from '../../hooks/useIsAuth';
 
 export const App = () => {
 
-    const isAuth = useIsAuth();
+  const isAuth = useIsAuth()
 
-    // useAuthorization();
-
-    return (
-        <div className="app">
-            {isAuth ?
-                <>
-                    <Header />
-                    <Main />
-                </> :
-                <Login />
-            }
-        </div>
-    );
+  return (
+    <div className="app">
+      {isAuth
+        ? <>
+          <Header/>
+          <Main/>
+        </>
+        : <Login/>
+      }
+    </div>
+  );
 };

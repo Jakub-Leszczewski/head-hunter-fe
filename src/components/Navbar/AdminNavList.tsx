@@ -6,10 +6,10 @@ export const AdminNavList = () => {
 
   return (
     <>
-      <CustomLink path="/add-students">Dodaj kursanrów</CustomLink>
-      <CustomLink path="/add-hr">Dodaj hra</CustomLink>
-      <CustomLink path="/password-edit">Zmiana hasła</CustomLink>
-      <CustomLink path="/notifications">Powiadomienia</CustomLink>
+      <CustomLink path="/student/add">Dodaj kursanrów</CustomLink>
+      <CustomLink path="/hr/add">Dodaj hra</CustomLink>
+      <CustomLink path="/password/edit">Zmiana hasła</CustomLink>
+      <CustomLink path="/notification">Powiadomienia</CustomLink>
     </>
   );
 };
