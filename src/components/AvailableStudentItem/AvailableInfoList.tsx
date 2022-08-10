@@ -1,55 +1,73 @@
-import React from 'react';
-import { Item } from '../../views/AvailableStudents/AvailableStudents'
-import { AvailableInfoItem } from '../AvailableInfoItem/AvailableInfoItem'
+import { AvailableInfoItem } from '../AvailableInfoItem/AvailableInfoItem';
+import { ContractType, WorkType } from 'types';
 
 interface Props {
-  titles: Record<string, string>;
-  item: Item;
+  canTakeApprenticeship: boolean;
+  courseCompletion: number;
+  courseEngagement: number;
+  expectedContractType: ContractType;
+  expectedSalary: number;
+  expectedTypeWork: WorkType;
+  monthsOfCommercialExp: number;
+  projectDegree: number;
+  targetWorkCity: string;
+  teamProjectDegree: number;
 }
 
-export const AvailableInfoList = ({titles, item}: Props) => {
+export const AvailableInfoList = ({
+  canTakeApprenticeship,
+  courseCompletion,
+  courseEngagement,
+  expectedContractType,
+  expectedSalary,
+  expectedTypeWork,
+  monthsOfCommercialExp,
+  projectDegree,
+  targetWorkCity,
+  teamProjectDegree
+}: Props) => {
   return (
     <div className='list-item-info-container'>
       <AvailableInfoItem
-        titles={titles.courseRating}
-        text={`${item.courseRating}/5`}
+        titles='Ocena przejścia kursu'
+        text={`${courseCompletion}/5`}
       />
       <AvailableInfoItem
-        titles={titles.activityRating}
-        text={`${item.activityRating}/5`}
+        titles='Ocena aktywności i zaangażowania na kursie'
+        text={`${courseEngagement}/5`}
       />
       <AvailableInfoItem
-        titles={titles.codeRating}
-        text={`${item.codeRating}/5`}
+        titles='Ocena kodu w projekcie własnym'
+        text={`${projectDegree}/5`}
       />
       <AvailableInfoItem
-        titles={titles.scrumRating}
-        text={`${item.scrumRating}/5`}
+        titles='Ocena pracy w zespole Scrum'
+        text={`${teamProjectDegree}/5`}
       />
       <AvailableInfoItem
-        titles={titles.preferredPlace}
-        text={item.preferredPlace}
+        titles='Preferowane miejsce pracy'
+        text={expectedTypeWork}
       />
       <AvailableInfoItem
-        titles={titles.city}
-        text={item.city}
+        titles='Docelowe miasto, gdzie chce pracować kandydat'
+        text={targetWorkCity}
       />
 
       <AvailableInfoItem
-        titles={titles.contractType}
-        text={item.contractType}
+        titles='Oczekiwany typ kontraktu'
+        text={expectedContractType}
       />
       <AvailableInfoItem
-        titles={titles.salary}
-        text={`${item.salary}`}
+        titles='Oczekiwane wynagrodzenie miesięczne brutto'
+        text={`${expectedSalary}`}
       />
       <AvailableInfoItem
-        titles={titles.internship}
-        text={item.internship}
+        titles='Zgoda na odbycie bezpłatnych praktyk, stażu na początek'
+        text={canTakeApprenticeship ? 'Tak' : 'Nie'}
       />
       <AvailableInfoItem
-        titles={titles.commercialExp}
-        text={item.commercialExp}
+        titles='Komercyjne doświadczenie w programowaniu'
+        text={`${monthsOfCommercialExp}`}
       />
     </div>
   );

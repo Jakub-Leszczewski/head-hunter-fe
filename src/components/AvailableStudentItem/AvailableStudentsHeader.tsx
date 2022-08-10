@@ -1,21 +1,20 @@
-import React from 'react';
-import {BsChevronDown, BsChevronUp} from 'react-icons/bs';
-import {Button} from '../common/Button/Button';
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
+import { Button } from '../common/Button/Button';
 
 interface Props {
-  itemName: string;
+  name: string;
   isStudentInfoOpen: boolean;
   handleIsInfoOpen: () => void;
 }
 
 export const AvailableStudentsHeader = ({
-  itemName,
+  name,
   isStudentInfoOpen,
   handleIsInfoOpen,
 }: Props) => {
   return (
     <div className='list-item-container'>
-      <p>{itemName}</p>
+      <p>{name}</p>
       <div className='list-item-container__right-section'>
         <Button
           type='submit'

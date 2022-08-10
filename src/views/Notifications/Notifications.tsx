@@ -13,7 +13,7 @@ export interface Notification {
 
 export const Notifications = () => {
 
-    const { amount, data, hasMore, page, loading, setPage } = useSearch<Notification>('notifications', NOTIFICATIONS_LIMIT);
+    const { amount, data, hasMore, page, loading, setPage } = useSearch<Notification>('notifications');
 
     const { lastDataElementRef } = useInfiniteScroll(amount, hasMore, loading, page, NOTIFICATIONS_LIMIT, setPage);
 

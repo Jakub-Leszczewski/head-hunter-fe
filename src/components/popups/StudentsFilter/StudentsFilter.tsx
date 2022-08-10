@@ -1,22 +1,34 @@
 import Popup from "reactjs-popup";
-
-import { MdFilterAlt } from 'react-icons/md';
 import { StudentsFilterForm } from "./StudentsFilterForm";
+import { StudentsFilterAction, StudentsFilterState } from "../../../reducers/studentsFilterReducer";
+import { Dispatch, FormEvent } from "react";
+import { MdFilterAlt } from "react-icons/md";
+import { useOpen } from "../../../hooks/useOpen";
 
-export const StudentsFilter = () => {
+interface Props {
+    state: StudentsFilterState;
+    dispatch: Dispatch<StudentsFilterAction>;
+    handleFilterSubmit: (e: FormEvent) => void;
+}
+
+export const StudentsFilter = ({ dispatch, handleFilterSubmit, state }: Props) => {
+
+    const { close, isOpen, open } = useOpen();
+
     return (
-        <Popup
-            trigger={
-                <div className="students-filter__btn">
-                    <MdFilterAlt className="students-filter__btn-icon" />
-                    <p className="students-filter__btn-text">Filtrowanie</p>
-                </div>
-            }
-            on='click'
-            modal
-            className="modal-popup"
-        >
-            <StudentsFilterForm />
-        </Popup>
+        <>
+            <div className="students-filter__btn" onClick={open}>
+                <MdFilterAlt className="students-filter__btn-icon" />
+                <p className="students-filter__btn-text">Filtrowanie</p>
+            </div>
+            <Popup
+                modal
+                className="modal-popup"
+                open={isOpen}
+                onClose={close}
+            >
+                <StudentsFilterForm state={state} dispatch={dispatch} handleFilterSubmit={handleFilterSubmit} close={close} />
+            </Popup>
+        </>
     );
 };

@@ -62,7 +62,7 @@
         .list-item-info {
           background-color: #222324;
           margin-top: 5px;
-          padding: 20px;
+          padding: 10px;
         }
       }
       .list-item-separator {
@@ -93,7 +93,10 @@
           margin-right: 1px;
 
           .list-item-info__first {
-            font-size: 13px;
+            font-size: 12px;
+          }
+          .list-item-info__second {
+            font-size: 15px;
           }
         }
 
