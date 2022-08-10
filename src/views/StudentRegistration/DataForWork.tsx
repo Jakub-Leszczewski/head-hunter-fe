@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Student } from './StudentRegistration';
+import { UpdateStudentDtoInterface } from 'types';
+
 import { Label } from '../../components/common/Label/Label';
 import { Select } from '../../components/common/Select/Select';
 import { Input } from '../../components/common/Input/Input';
 
-
 interface Props {
-  student: Student;
-  changeStudent: (name: string, value: string | number) => void;
+  student: Omit<UpdateStudentDtoInterface, 'email' | 'password'>;
+  changeStudent: (name: string, value: string | number | boolean) => void;
 }
 
 export const DataForWork = ({ student, changeStudent }: Props) => {
@@ -18,9 +18,36 @@ export const DataForWork = ({ student, changeStudent }: Props) => {
     targetWorkCity,
     expectedContractType,
     expectedSalary,
-    canTakeApprenticeship,
     monthsOfCommercialExp,
   } = student;
+  const [canTakeApprenticeshipText, setCanTakeApprenticeshipText] = useState('');
+  const workType = [
+    { name: 'Irrelevant', value: 'Bez znaczenia' },
+    { name: 'OnSite', value: 'Na miejscu' },
+    { name: 'ReadyToMoving', value: 'Gotowość do przeprowadzki' },
+    { name: 'Remote', value: 'Wyłącznie zdalnie' },
+    { name: 'Hybrid', value: 'Hybrydowo' },
+  ];
+  const contractType = [
+    { name: 'Irrelevant', value: 'Brak preferencji' },
+    { name: 'EmploymentContract', value: 'Tylko UoP' },
+    { name: 'PossibleB2BContract', value: 'Możliwe B2B' },
+    { name: 'PossibleMandate', value: 'Możliwe UZ/UoD' },
+  ];
+  const canTakeApprenticeshipData = [
+    { name: '', value: 'NIE' },
+    { name: 'tak', value: 'TAK' },
+  ];
+
+  useEffect(() => {
+    if (canTakeApprenticeshipText === '') {
+      changeStudent('canTakeApprenticeship', false);
+    } else changeStudent('canTakeApprenticeship', true);
+  }, [canTakeApprenticeshipText]);
+
+  const changeCanTakeApprenticeshipText = (name: string, value: string) => {
+    setCanTakeApprenticeshipText(value);
+  };
 
   return (
     <>
@@ -33,13 +60,7 @@ export const DataForWork = ({ student, changeStudent }: Props) => {
           name="expectedTypeWork"
           value={expectedTypeWork}
           change={changeStudent}
-          options={[
-            'Bez znaczenia',
-            'Na miejscu',
-            'Gotowość do przeprowadzki',
-            'Wyłącznie zdalnie',
-            'Hybrydowo',
-          ]}
+          options={workType}
         />
       </div>
       <div className="student-registration__form-input">
@@ -62,12 +83,7 @@ export const DataForWork = ({ student, changeStudent }: Props) => {
           name="expectedContractType"
           value={expectedContractType}
           change={changeStudent}
-          options={[
-            'Brak preferencji',
-            'Tylko UoP',
-            'Możliwe B2B',
-            'Możliwe UZ/UoD',
-          ]}
+          options={contractType}
         />
       </div>
       <div className="student-registration__form-input">
@@ -80,6 +96,7 @@ export const DataForWork = ({ student, changeStudent }: Props) => {
           value={expectedSalary}
           change={changeStudent}
           type="number"
+          min="0"
         />
       </div>
       <div className="student-registration__form-input">
@@ -89,12 +106,9 @@ export const DataForWork = ({ student, changeStudent }: Props) => {
         />
         <Select
           name="canTakeApprenticeship"
-          value={canTakeApprenticeship}
-          change={changeStudent}
-          options={[
-            'NIE',
-            'TAK',
-          ]}
+          value={canTakeApprenticeshipText}
+          change={changeCanTakeApprenticeshipText}
+          options={canTakeApprenticeshipData}
         />
       </div>
       <div className="student-registration__form-input">
@@ -106,6 +120,8 @@ export const DataForWork = ({ student, changeStudent }: Props) => {
           name="monthsOfCommercialExp"
           value={monthsOfCommercialExp}
           change={changeStudent}
+          type="number"
+          min="0"
         />
       </div>
     </>

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Student } from './StudentRegistration';
+import { UpdateStudentDtoInterface } from 'types';
 import { Label } from '../../components/common/Label/Label';
 import { Button } from '../../components/common/Button/Button';
 import { PortfolioInput } from './PortfolioInput';
 
 interface Props {
-  student: Student;
+  student: Omit<UpdateStudentDtoInterface, 'email' | 'password'>;
   addUrls: (name: 'portfolioUrls' | 'projectUrls') => void;
   editUrls: (name: 'portfolioUrls' | 'projectUrls', index: number, value: string) => void;
   deleteUrls: (name: 'portfolioUrls' | 'projectUrls', index: number) => void;

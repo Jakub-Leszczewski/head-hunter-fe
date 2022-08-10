@@ -51,6 +51,23 @@
 
         }
       }
+      &-correct{
+        position: absolute;
+        top:5px;
+        right: 5px;
+        letter-spacing: .5px;
+        color:#E02735;
+      }
+      &-same{
+        position: absolute;
+        top:5px;
+        right: 5px;
+        letter-spacing: .5px;
+        color:#E02735;
+      }
+      &-error{
+        color:#E02735;
+      }
     }
 
     &-textarea {

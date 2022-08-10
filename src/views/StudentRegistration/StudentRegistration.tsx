@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { UpdateStudentDtoInterface, ContractType, WorkType } from 'types';
+
 import { Button } from '../../components/common/Button/Button';
 import { Passwords } from './Passwords';
 import { PersonalData } from './PersonalData';
@@ -7,51 +9,29 @@ import { DataForWork } from './DataForWork';
 import { LongText } from './LongText';
 import { ProjectsUrls } from './ProjectsUrls';
 
-export interface Student {
-  password: string;
-  confirmPassword: string;
-  phone: string;
-  firstName: string;
-  lastName: string;
-  githubUsername: string;
-  portfolioUrls: string[];
-  projectUrls: string[];
-  bio: string;
-  expectedTypeWork: string;
-  targetWorkCity: string;
-  expectedContractType: string;
-  expectedSalary: string;
-  canTakeApprenticeship: string;
-  monthsOfCommercialExp: string;
-  education: string;
-  workExperience: string;
-  courses: string;
-}
-
 export const StudentRegistration = () => {
 
-  const [student, setStudent] = useState<Student>({
-    password: '',
-    confirmPassword: '',
-    phone: '',
-    firstName: '',
+  const [student, setStudent] = useState<Omit<UpdateStudentDtoInterface, 'email' | 'password'>>({
     lastName: '',
+    firstName: '',
+    newPassword: '',
     githubUsername: '',
-    portfolioUrls: [''],
-    projectUrls: [''],
     bio: '',
-    expectedTypeWork: '',
-    targetWorkCity: '',
-    expectedContractType: '',
-    expectedSalary: '',
-    canTakeApprenticeship: '',
-    monthsOfCommercialExp: '',
+    phoneNumber: '',
+    projectUrls: [''],
+    portfolioUrls: [''],
     education: '',
-    workExperience: '',
     courses: '',
+    monthsOfCommercialExp: 0,
+    workExperience: '',
+    expectedSalary: 0,
+    targetWorkCity: '',
+    expectedContractType: ContractType.Irrelevant,
+    expectedTypeWork: WorkType.Irrelevant,
+    canTakeApprenticeship: false,
   });
 
-  const changeStudent = (name: string, value: string | number) => {
+  const changeStudent = (name: string, value: string | number | boolean) => {
     (setStudent(student => ({
         ...student,
         [name]: value,
@@ -63,8 +43,8 @@ export const StudentRegistration = () => {
     setStudent(student => ({
       ...student,
       [name]: [...student[name], ''],
-    }))
-  }
+    }));
+  };
 
   const editUrls = (name: 'portfolioUrls' | 'projectUrls', index: number, value: string) => {
     setStudent(student => ({
@@ -83,14 +63,24 @@ export const StudentRegistration = () => {
     }));
   };
 
+  const sendForm = async () => {
+    console.log(student);
+    // await fetch('',{
+    //   method:'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body:JSON.stringify(student)
+    // });
+  };
+
   return (
     <div className="student-registration">
       <h2 className="student-registration__title">
         Rejestracja Kursanta
       </h2>
-      <form className="student-registration__form">
+      <form className="student-registration__form" onSubmit={sendForm}>
         <Passwords
-          student={student}
           changeStudent={changeStudent}
         />
         <PersonalData
@@ -114,6 +104,7 @@ export const StudentRegistration = () => {
         <div className="student-registration__form-button">
           <Button
             textName="Potwierdz"
+            type='submit'
           />
         </div>
       </form>

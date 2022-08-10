@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Student } from './StudentRegistration';
+import { UpdateStudentDtoInterface } from 'types';
+
 import { Label } from '../../components/common/Label/Label';
 import { Textarea } from '../../components/common/Textarea/Textarea';
 
 interface Props {
-  student: Student;
+  student: Omit<UpdateStudentDtoInterface, 'email' | 'password'>;
   changeStudent: (name: string, value: string | number) => void;
 }
 
