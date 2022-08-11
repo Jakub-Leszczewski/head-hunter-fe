@@ -1,7 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { useUser } from "../../hooks/useUser";
+import { OnlyUserResponse } from "types";
+import { fetchTool } from "../../utils/fetchHelpers";
 import { Button } from "../common/Button/Button";
 import { TitleItem } from "../TitleItem/TitleItem";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     firstName: string;
@@ -9,7 +13,9 @@ interface Props {
     isStudentInfoOpen: boolean;
     lastName: string;
     reservation: string;
+    id: string;
     setIsStudentInfoOpen: Dispatch<SetStateAction<boolean>>;
+    setRefresh: Dispatch<SetStateAction<boolean>>;
 }
 
 export const InterviewStudentHeader = ({
@@ -18,8 +24,30 @@ export const InterviewStudentHeader = ({
     isStudentInfoOpen,
     lastName,
     reservation,
-    setIsStudentInfoOpen
+    id,
+    setIsStudentInfoOpen,
+    setRefresh,
 }: Props) => {
+
+    const user = useUser() as OnlyUserResponse;
+    const navigate = useNavigate();
+
+    const handleCVShow = async () => {
+        navigate(`/student/${id}`);
+    };
+    const handleNonInterested = async () => {
+        const response = await fetchTool(`user/${id}/student/interview`, 'DELETE', { hrId: user.id });
+        if (!response.status) return console.log('Coś poszło nie tak.');
+        console.log('Usunięto kursanta z listy do rozmowy.');
+        setRefresh(state => !state);
+    };
+    const handleEmployemnt = async () => {
+        const response = await fetchTool(`user/${id}/student/employed`, 'PATCH');
+        if (!response.status) return console.log('Coś poszło nie tak.');
+        console.log('Zatrudniono kursanta.');
+        setRefresh(state => !state);
+    };
+
     return (
         <div className="hr-list__item-header">
             <div className="hr-list__item-header-left">
@@ -40,12 +68,18 @@ export const InterviewStudentHeader = ({
             <div className="hr-list__item-header-right">
                 <Button
                     textName="Pokaż CV"
+                    click={handleCVShow}
+                    preventDefault
                 />
                 <Button
                     textName="Brak zainteresowania"
+                    click={handleNonInterested}
+                    preventDefault
                 />
                 <Button
                     textName="Zatrudniony"
+                    click={handleEmployemnt}
+                    preventDefault
                 />
                 {isStudentInfoOpen
                     ? <BsChevronUp

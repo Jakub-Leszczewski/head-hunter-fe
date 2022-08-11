@@ -20,7 +20,7 @@ export const StudentBio = ({ data }: Props) => {
   const { studentId } = useParams();
 
   const handleNoneInterested = async () => {
-    const response = await fetchTool(`user/${studentId}/student/interview`, 'DELETE');
+    const response = await fetchTool(`user/${studentId}/student/interview`, 'DELETE', { hrId: user.id });
     if (!response.status) return console.log('Coś poszło nie tak.');
     console.log('Usunięto kursanta z listy do rozmowy.');
     navigate(-1);

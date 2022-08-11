@@ -16,7 +16,17 @@ export const StudentInterview = () => {
   const [filter, dispatch] = useReducer(studentsFilterReducer, studentsFilterDefault);
   const [refreshFilter, setRefreshFilter] = useState(false);
 
-  const { amount, data, handleSearchPhraseChange, hasMore, loading, page, setPage, searchPhrase } = useSearch<SmallStudentResponse>(`user/${user.id}/hr/student`, filter, [refreshFilter]);
+  const {
+    amount,
+    data,
+    handleSearchPhraseChange,
+    hasMore,
+    loading,
+    page,
+    setPage,
+    searchPhrase,
+    setRefresh,
+  } = useSearch<SmallStudentResponse>(`user/${user.id}/hr/student`, filter, [refreshFilter]);
 
   const { lastDataElementRef } = useInfiniteScroll(amount, hasMore, loading, page, STUDENTS_LIMIT, setPage);
 
@@ -26,7 +36,15 @@ export const StudentInterview = () => {
   };
 
   const studentsList = () => {
-    return data.map((item, i) => <InterviewStudentItem key={item.id} item={item} observer={(i + 1) % STUDENTS_LIMIT === 0 ? lastDataElementRef : null} />);
+    return data.map((item, i) => (
+      <InterviewStudentItem
+        key={item.id}
+        item={item}
+        observer={(i + 1) % STUDENTS_LIMIT === 0 ? lastDataElementRef : null}
+        setRefresh={setRefresh}
+      />
+    )
+    );
   }
 
   return (
