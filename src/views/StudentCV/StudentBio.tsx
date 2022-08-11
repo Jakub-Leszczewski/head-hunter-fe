@@ -3,7 +3,8 @@ import { FaEnvelope, FaGithub, FaPhoneAlt } from 'react-icons/fa';
 import { useUser } from '../../hooks/useUser';
 import { GetStudentResponse, OnlyUserResponse, UserRole } from 'types';
 import { Button } from '../../components/common/Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { fetchTool } from '../../utils/fetchHelpers';
 
 interface Props {
   data: GetStudentResponse;
@@ -12,12 +13,11 @@ interface Props {
 export const StudentBio = ({ data }: Props) => {
 
   const { student, email, firstName, lastName } = data;
+  const { githubUsername, phoneNumber, bio } = student;
 
   const user = useUser() as OnlyUserResponse;
-
   const navigate = useNavigate();
-
-  const { githubUsername, phoneNumber, bio } = student;
+  const { studentId } = useParams();
 
   const handleClick = () => {
     console.log('wysyłamy');
@@ -25,6 +25,13 @@ export const StudentBio = ({ data }: Props) => {
 
   const handleNavigate = () => {
     navigate('edit');
+  };
+
+  const handleEmployment = async () => {
+    const response = await fetchTool(`user/${studentId}/student/employed`, 'PATCH');
+    if (!response.status) return console.log('Coś poszło nie tak.');
+    console.log('Zatrudniono.');
+    navigate('/login');
   };
 
   return (
@@ -69,6 +76,8 @@ export const StudentBio = ({ data }: Props) => {
         <Button
           textName="Zatrudniony"
           className="btn"
+          click={handleEmployment}
+          preventDefault
         />
       </div>
     </div>
