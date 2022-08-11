@@ -5,17 +5,18 @@ import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { STUDENTS_LIMIT } from '../../utils/dataLimits';
 import { studentsFilterReducer } from '../../reducers/studentsFilterReducer';
 import { studentsFilterDefault } from '../AvailableStudents/AvailableStudents';
-import { SmallStudentResponse } from 'types';
+import { OnlyUserResponse, SmallStudentResponse } from 'types';
 import { StudentsList } from '../../components/StudentsList/StudentsList';
+import { useUser } from '../../hooks/useUser';
 
 export const StudentInterview = () => {
 
-  const userId = 'bf414b6d-cb36-4e72-9d98-799ab044357f';
+  const user = useUser() as OnlyUserResponse;
 
   const [filter, dispatch] = useReducer(studentsFilterReducer, studentsFilterDefault);
   const [refreshFilter, setRefreshFilter] = useState(false);
 
-  const { amount, data, handleSearchPhraseChange, hasMore, loading, page, setPage, searchPhrase } = useSearch<SmallStudentResponse>(`user/${userId}/hr/student`, filter, [refreshFilter]);
+  const { amount, data, handleSearchPhraseChange, hasMore, loading, page, setPage, searchPhrase } = useSearch<SmallStudentResponse>(`user/${user.id}/hr/student`, filter, [refreshFilter]);
 
   const { lastDataElementRef } = useInfiniteScroll(amount, hasMore, loading, page, STUDENTS_LIMIT, setPage);
 

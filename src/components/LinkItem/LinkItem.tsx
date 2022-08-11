@@ -1,22 +1,23 @@
 import React from 'react';
 import { BsPaperclip } from 'react-icons/bs';
+import { UrlResponseData } from 'types';
 
 interface Props {
-  url :string;
+  url: UrlResponseData;
 }
 
-export const LinkItem =({ url }:Props)=>{
+export const LinkItem = ({ url }: Props) => {
 
-  return(
-    <li key={url} className="urls__list-item">
-      <BsPaperclip className="urls__list-item-icon"/>
+  return (
+    <li key={url.id} className="urls__list-item">
+      <BsPaperclip className="urls__list-item-icon" />
       <a
         className="urls__list-item-link"
-        href={url}
+        href={url.url}
         target="_blank"
         rel="noreferrer"
       >
-        {url}
+        {url.url}
       </a>
     </li>
   );

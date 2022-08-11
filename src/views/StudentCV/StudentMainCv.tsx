@@ -1,36 +1,34 @@
 import React from 'react';
-
-import { Student } from './StudentCV';
-
 import { LongText } from '../../components/LongText/LongText';
 import { StudentExpectations } from './StudentExpectations';
-import { StudentCurseRatingList } from './StudentCurseRatingList'
-import { LinksList } from '../../components/LinksList/LinksList'
+import { StudentCurseRatingList } from './StudentCurseRatingList';
+import { LinksList } from '../../components/LinksList/LinksList';
+import { GetStudentResponse } from 'types';
 
 interface Props {
-  student: Student;
+  data: GetStudentResponse;
 }
 
-export const StudentMainCv = ({ student }: Props) => {
+export const StudentMainCv = ({ data }: Props) => {
 
   const {
+    bonusProjectUrls,
+    canTakeApprenticeship,
     courseCompletion,
     courseEngagement,
-    projectDegree,
-    teamProjectDegree,
-    expectedTypeWork,
-    targetWorkCity,
+    courses,
+    education,
     expectedContractType,
     expectedSalary,
-    canTakeApprenticeship,
+    expectedTypeWork,
     monthsOfCommercialExp,
-    education,
-    courses,
-    workExperience,
     portfolioUrls,
+    projectDegree,
     projectUrls,
-    bonusProjectUrls,
-  } = student;
+    targetWorkCity,
+    teamProjectDegree,
+    workExperience,
+  } = data.student;
 
   const curseRatingsList = [
     { title: 'Ocena przejścia kursu', rating: courseCompletion },
@@ -46,36 +44,36 @@ export const StudentMainCv = ({ student }: Props) => {
       />
       <StudentExpectations
         expectedTypeWork={expectedTypeWork}
-        targetWorkCity={targetWorkCity}
+        targetWorkCity={targetWorkCity ?? ''}
         expectedContractType={expectedContractType}
         expectedSalary={expectedSalary}
         canTakeApprenticeship={canTakeApprenticeship}
         monthsOfCommercialExp={monthsOfCommercialExp}
       />
-      <LongText
+      {education && <LongText
         title="Edukacja"
-        description={education}
-      />
-      <LongText
+        description={education ?? ''}
+      />}
+      {courses && <LongText
         title="Kursy"
-        description={courses}
-      />
-      <LongText
+        description={courses ?? ''}
+      />}
+      {workExperience && <LongText
         title="Doświadczenie zawodowe"
-        description={workExperience}
-      />
-      <LinksList
+        description={workExperience ?? ''}
+      />}
+      {portfolioUrls.length > 0 && <LinksList
         title="Portfolio"
         urls={portfolioUrls}
-      />
-      <LinksList
+      />}
+      {projectUrls.length > 0 && <LinksList
         title="Projekt w zespole Scrum"
         urls={projectUrls}
-      />
-      <LinksList
+      />}
+      {bonusProjectUrls.length > 0 && <LinksList
         title="Projekt na zaliczenie"
         urls={bonusProjectUrls}
-      />
+      />}
     </div>
   );
 };

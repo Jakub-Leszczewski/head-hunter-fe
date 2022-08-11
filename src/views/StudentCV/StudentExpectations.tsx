@@ -1,12 +1,13 @@
 import React from 'react';
+import { WorkType } from 'types';
 import { ExpectationItem } from '../../components/ExpectationItem/ExpectationItem'
 
 interface Props {
-  expectedTypeWork: string;
+  expectedTypeWork: WorkType;
   targetWorkCity: string;
   expectedContractType: string;
   expectedSalary: number;
-  canTakeApprenticeship: number;
+  canTakeApprenticeship: boolean;
   monthsOfCommercialExp: number;
 }
 
@@ -51,7 +52,7 @@ export const StudentExpectations = ({
         />
         <ExpectationItem
           title="Zgoda na odbycie bezpłatnych praktyk / stażu na początek"
-          text={canTakeApprenticeship === 0 ? 'NIE' : 'TAK'}
+          text={!canTakeApprenticeship ? 'NIE' : 'TAK'}
         />
         <ExpectationItem
           title="Komercyjne doświadczenie w programowaniu"

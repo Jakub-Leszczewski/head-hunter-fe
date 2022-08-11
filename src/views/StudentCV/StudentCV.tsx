@@ -1,78 +1,37 @@
-import React, { useState } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
+import { useData } from '../../hooks/useData';
+import { GetStudentResponse, OnlyUserResponse } from 'types';
 import { StudentBio } from './StudentBio';
 import { StudentMainCv } from './StudentMainCv';
-
-export interface Student {
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-  courseCompletion: number;
-  courseEngagement: number;
-  projectDegree: number;
-  teamProjectDegree: number;
-  githubUsername: string;
-  bio: string;
-  phoneNumber: string;
-  education: string;
-  courses: string;
-  monthsOfCommercialExp: number;
-  workExperience: string;
-  targetWorkCity: string;
-  expectedSalary: number;
-  expectedContractType: string;
-  expectedTypeWork: string;
-  canTakeApprenticeship: number;
-  portfolioUrls: string[];
-  projectUrls: string[];
-  bonusProjectUrls: string[];
-}
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRef } from 'react';
+import { useUser } from '../../hooks/useUser';
 
 export const StudentCV = () => {
 
-  const [student, setStudent] = useState<Student>({
-    firstName: 'Jan',
-    lastName: 'Kowalski',
-    email: 'jankowalski@gmail.com',
-    role: 'hr',
-    courseCompletion: 2,
-    courseEngagement: 3,
-    projectDegree: 4,
-    teamProjectDegree: 5,
-    githubUsername: 'Ami777',
-    bio: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo',
-    phoneNumber: '+48 566 072 227',
-    education: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo',
-    courses: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo',
-    monthsOfCommercialExp: 6,
-    workExperience: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo',
-    targetWorkCity: 'Warszawa',
-    expectedSalary: 8000,
-    expectedContractType: 'Umowa o pracę',
-    expectedTypeWork: 'Biuro',
-    canTakeApprenticeship: 1,
-    portfolioUrls: ['https://github.com'],
-    projectUrls: ['https://github.com/ezterr/head-hunter-fe', 'https://github.com/ezterr/head-hunter-be'],
-    bonusProjectUrls: ['https://github.com'],
-  });
+  const user = useUser() as OnlyUserResponse;
+  const navigate = useNavigate();
+
+  const { studentId } = useParams();
+  const componentRef = useRef(null);
+
+  const { data } = useData<GetStudentResponse>(`user/${studentId}/student`, componentRef);
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   return (
-    <div className="student-cv">
+    <div ref={componentRef} className="student-cv">
       <div className="main">
-        {student.role === 'student'
-          ? null
-          : <div className="main__go-back">
-            <FaChevronLeft/>
-            <p>Wróć</p>
-          </div>
-        }
-        <StudentBio
-          student={student}
-        />
-        <StudentMainCv
-          student={student}
-        />
+        {user.role && <div className="main__go-back" onClick={goBack}>
+          <FaChevronLeft />
+          <p>Wróć</p>
+        </div>}
+        {data ? <>
+          <StudentBio data={data} />
+          <StudentMainCv data={data} />
+        </> : 'Trwa ładowanie...'}
       </div>
     </div>
   );

@@ -40,9 +40,12 @@ const setInternship = (option: FreeInternship | undefined) => {
 export function useSearch<T>(collection: string, queries: Partial<StudentsFilterState> = {}, dependencies: any[] = []): SearchResult<T> {
 
     const stringify = (): Partial<FindAllQueryFilter> => {
-        const { canTakeApprenticeship, expectedSalary, expectedTypeWork, expectedContractType, monthsOfCommercialExp } = queries;
+        const { canTakeApprenticeship, expectedSalary, expectedTypeWork, expectedContractType, monthsOfCommercialExp, courseCompletion, courseEngagement, projectDegree, teamProjectDegree } = queries;
         return {
-            ...queries,
+            courseCompletion: courseCompletion || undefined,
+            courseEngagement: courseEngagement || undefined,
+            projectDegree: projectDegree || undefined,
+            teamProjectDegree: teamProjectDegree || undefined,
             salaryMax: expectedSalary?.max || undefined,
             salaryMin: expectedSalary?.min || undefined,
             canTakeApprenticeship: setInternship(canTakeApprenticeship),
