@@ -74,6 +74,9 @@ export const UserProvider = ({ children }: Props) => {
           break;
         }
       }
+    } else {
+      setUser(null);
+      setData(null);
     }
   };
 
