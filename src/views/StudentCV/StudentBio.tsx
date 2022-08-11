@@ -19,8 +19,11 @@ export const StudentBio = ({ data }: Props) => {
   const navigate = useNavigate();
   const { studentId } = useParams();
 
-  const handleClick = () => {
-    console.log('wysyłamy');
+  const handleNoneInterested = async () => {
+    const response = await fetchTool(`user/${studentId}/student/interview`, 'DELETE');
+    if (!response.status) return console.log('Coś poszło nie tak.');
+    console.log('Usunięto kursanta z listy do rozmowy.');
+    navigate(-1);
   };
 
   const handleNavigate = () => {
@@ -70,7 +73,7 @@ export const StudentBio = ({ data }: Props) => {
         {user.role === UserRole.Hr && <Button
           textName="Brak zainteresowania"
           className="btn"
-          click={handleClick}
+          click={handleNoneInterested}
           preventDefault
         />}
         <Button
