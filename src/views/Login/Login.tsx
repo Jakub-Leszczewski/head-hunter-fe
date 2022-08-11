@@ -1,8 +1,12 @@
 import React, { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { InputPassword } from '../../components/common/InputPassword/InputPassword';
 import logo from '../../assets/images/logo.png';
 import { Button } from '../../components/common/Button/Button'
 import { Input } from '../../components/common/Input/Input'
+import { fetchTool } from '../../utils/fetchHelpers';
+import { LoginResponse } from 'types';
+import { useSaveUserData } from '../../hooks/useSaveUserData';
 
 interface Consumer {
   email: string;
@@ -10,6 +14,9 @@ interface Consumer {
 }
 
 export const Login = () => {
+
+  const saveUserData = useSaveUserData();
+
   const [consumer, setConsumer] = useState<Consumer>({
     email: '',
     password: '',
@@ -22,8 +29,11 @@ export const Login = () => {
     }));
   };
 
-  const submitLoginHandler = (e: FormEvent): void => {
+  const submitLoginHandler = async (e: FormEvent) => {
     e.preventDefault();
+    const response = await fetchTool<LoginResponse>('auth/login', 'POST', consumer);
+    if (!response.status) return console.log('Coś się popsuło i nie było mnie słychać');
+    saveUserData(response.results);
   };
 
   return (
@@ -37,13 +47,12 @@ export const Login = () => {
         value={consumer.email}
         change={editConsumer}
       />
-      <Input
-        name='password'
-        type='password'
-        placeholder='Hasło'
-        className='login__input'
-        value={consumer.password}
-        change={editConsumer}
+      <InputPassword
+        changePassword={editConsumer}
+        name="password"
+        password={consumer.password}
+        placeholder="Hasło"
+        containerClassName="login__input-container"
       />
       <div className='login__container'>
         <Link className='login__link' to='/'>
