@@ -9,34 +9,26 @@ export interface ResponseProblem {
 
 export type Method = 'POST' | 'DELETE' | 'PATCH' | 'PUT' | 'GET';
 
-
-
 export interface ClientResponseOk<T> {
     status: true;
     results: T;
 }
-
 export interface ClientResponseError {
     status: false;
     error: string;
     message?: string | string[];
 }
-
 export type ClientResponse<T> = ClientResponseOk<T> | ClientResponseError;
-
-
 
 export interface ClientApiResponseOk<T> {
     status: true;
     results: T;
     amount?: number;
 }
-
 export interface ClientApiResponseError {
     status: false;
     error: string;
 }
-
 export type ClientApiResponse<T> = ClientApiResponseOk<T> | ClientApiResponseError;
 
 //
@@ -57,6 +49,7 @@ export const fetchTool = async <T>(path: string, method: Method = 'GET', body: a
             method,
             headers: ['POST', 'PATCH', 'PUT', 'DELETE'].includes(method) ? { 'Content-Type': 'application/json' } : undefined,
             body: body && JSON.stringify(body),
+            credentials: 'include',
         });
         const res = await response.json();
         if (response.ok) return { results: res, status: true };
@@ -72,7 +65,9 @@ export const fetchTool = async <T>(path: string, method: Method = 'GET', body: a
 
 export const fetchApiTool = async <T>(path: string): Promise<ClientApiResponse<T>> => {
     try {
-        const response = await fetch(`${apiUrl}/${path}`);
+        const response = await fetch(`${apiUrl}/${path}`, {
+            credentials: 'include',
+        });
         const res = await response.json();
         if (response.ok) return res?.results ? { ...res, status: true } : { results: res, status: true };
         return showProblem(res);

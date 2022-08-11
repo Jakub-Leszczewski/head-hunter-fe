@@ -1,5 +1,5 @@
-export type WorkPreference = '' | 'Praca zdalna' | 'Praca w biurze';
-export type ContractType = '' | 'Umowa o pracę' | 'B2B' | 'Umowa zlecenie' | 'Umowa o dzieło';
+import { ContractType, WorkType } from "types";
+
 export type FreeInternship = '' | 'yes' | 'no';
 
 export interface StudentsFilterState {
@@ -7,7 +7,7 @@ export interface StudentsFilterState {
     courseEngagement: number;
     projectDegree: number;
     teamProjectDegree: number;
-    expectedTypeWork: WorkPreference[];
+    expectedTypeWork: WorkType[];
     expectedContractType: ContractType[];
     expectedSalary: {
         min: number | '';
@@ -41,7 +41,7 @@ interface WorkInScrumRateChange {
 
 interface WorkPreferenceChange {
     type: 'WORK_PREFERENCE_CHANGE';
-    payload: WorkPreference;
+    payload: WorkType;
 }
 
 interface ContractTypeChange {

@@ -1,43 +1,41 @@
-import React, {useState} from 'react';
-import {AvailableStudentsHeader} from './AvailableStudentsHeader';
-import { AvailableInfoList } from './AvailableInfoList'
-import { Item } from '../../views/AvailableStudents/AvailableStudents'
+import { useState } from 'react';
+import { AvailableStudentsHeader } from './AvailableStudentsHeader';
+import { SmallStudentResponse } from 'types';
+import { AvailableInfoList } from './AvailableInfoList';
 
 interface Props {
-  item: Item;
+  item: SmallStudentResponse;
+  observer: ((node: HTMLLIElement) => void) | null;
 }
 
-const titles = {
-  courseRating: 'Ocena przejścia kursu',
-  activityRating: 'Ocena aktywności i zaangażowania na kursie',
-  codeRating: 'Ocena kodu w projekcie własnym',
-  scrumRating: 'Ocena pracy w zespole Scrum',
-  preferredPlace: 'Preferowane miejsce pracy',
-  city: 'Docelowe miasto, gdzie chce pracować kandydat',
-  contractType: 'Oczekiwany typ kontraktu',
-  salary: 'Oczekiwane wynagrodzenie miesięczne brutto',
-  internship: 'Zgoda na odbycie bezpłatnych praktyk, stażu na początek',
-  commercialExp: 'Komercyjne doświadczenie w programowaniu',
-};
+export const AvailableStudentItem = ({ item, observer }: Props) => {
 
-export const AvailableStudentItem = ({item}: Props) => {
+  const { firstName, lastName, student } = item;
+  const { canTakeApprenticeship, courseCompletion, courseEngagement, expectedContractType, expectedSalary, expectedTypeWork, monthsOfCommercialExp, projectDegree, targetWorkCity, teamProjectDegree } = student;
+
   const [isStudentInfoOpen, setIsStudentInfoOpen] = useState(false);
 
-  const handleIsInfoOpen = () => {
-    setIsStudentInfoOpen((value) => !value);
-  };
-
   return (
-    <li className='list-item'>
+    <li ref={observer} className="hr-list__item">
       <AvailableStudentsHeader
-        itemName={item.name}
+        name={`${firstName} ${(lastName as string)[0]}.`}
         isStudentInfoOpen={isStudentInfoOpen}
-        handleIsInfoOpen={handleIsInfoOpen}
+        setIsStudentInfoOpen={setIsStudentInfoOpen}
       />
       {isStudentInfoOpen && (
-        <AvailableInfoList titles={titles} item={item} />
+        <AvailableInfoList
+          canTakeApprenticeship={canTakeApprenticeship}
+          courseCompletion={courseCompletion}
+          courseEngagement={courseEngagement}
+          expectedContractType={expectedContractType}
+          expectedSalary={expectedSalary}
+          expectedTypeWork={expectedTypeWork}
+          monthsOfCommercialExp={monthsOfCommercialExp}
+          projectDegree={projectDegree}
+          targetWorkCity={targetWorkCity ?? 'Brak'}
+          teamProjectDegree={teamProjectDegree}
+        />
       )}
-      <div className='list-item-separator' />
     </li>
   );
 };

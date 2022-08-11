@@ -1,6 +1,7 @@
 import { Select } from "../../components/common/Select/Select";
 import { InputFormPart } from "../../components/common/InputFormPart/InputFormPart";
 import { ContractType } from "./ProfileEditForm";
+import { contractType } from "../../utils/enumsHelper";
 
 interface Props {
     value: ContractType;
@@ -14,12 +15,7 @@ export const ExpectedContractTypeFormPart = ({ handleChange, value }: Props) => 
                 name="expectedContractType"
                 value={value}
                 change={handleChange}
-                options={[
-                    "Brak preferencji",
-                    "Tylko UoP",
-                    "Możliwe B2B",
-                    "Możliwe UZ/UoD",
-                ]}
+                options={contractType}
             />
         </InputFormPart>
     );

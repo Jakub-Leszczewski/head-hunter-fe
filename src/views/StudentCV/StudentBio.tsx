@@ -1,23 +1,39 @@
 import React from 'react';
 import { FaEnvelope, FaGithub, FaPhoneAlt } from 'react-icons/fa';
+import { useUser } from '../../hooks/useUser';
+import { GetStudentResponse, OnlyUserResponse, UserRole } from 'types';
 import { Button } from '../../components/common/Button/Button';
-import { Student } from './StudentCV';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  student:Student
+  data: GetStudentResponse;
 }
 
-export const StudentBio = ({ student }: Props) => {
+export const StudentBio = ({ data }: Props) => {
 
-  const { githubUsername, firstName, lastName, phoneNumber, email, bio, role } = student;
+  const { student, email, firstName, lastName } = data;
+
+  const user = useUser() as OnlyUserResponse;
+
+  const navigate = useNavigate();
+
+  const { githubUsername, phoneNumber, bio } = student;
+
+  const handleClick = () => {
+    console.log('wysyłamy');
+  };
+
+  const handleNavigate = () => {
+    navigate('edit');
+  };
 
   return (
     <div className="main__left">
       <div className="student">
-        <img className="student__logo" src={`https://github.com/${githubUsername}.png`} alt="Avatar studenta"/>
+        <img className="student__logo" src={`https://github.com/${githubUsername}.png`} alt="Avatar studenta" />
         <p className="student__name">{firstName} {lastName}</p>
         <div className="student__github">
-          <FaGithub className="student__github-icon"/>
+          <FaGithub className="student__github-icon" />
           <a
             className="student__github-link"
             href={`https://github.com/${githubUsername}`}
@@ -29,12 +45,12 @@ export const StudentBio = ({ student }: Props) => {
         </div>
       </div>
       <div className="student-contact">
-        <div className="student-contact__box">
-          <FaPhoneAlt className="student-contact__box-icon"/>
+        {phoneNumber && <div className="student-contact__box">
+          <FaPhoneAlt className="student-contact__box-icon" />
           <p className="student-contact__box-text">{phoneNumber}</p>
-        </div>
+        </div>}
         <div className="student-contact__box">
-          <FaEnvelope className="student-contact__box-icon"/>
+          <FaEnvelope className="student-contact__box-icon" />
           <p className="student-contact__box-text">{email}</p>
         </div>
       </div>
@@ -43,10 +59,13 @@ export const StudentBio = ({ student }: Props) => {
         <p className="student-info-text">{bio}</p>
       </div>
       <div className="btn-box">
-        <Button
-          textName={role === 'student'? "Edytuj Profil":"Brak zainteresowania"}
+        {user.role === UserRole.Student && <Button className="btn" textName="Edytuj Profil" click={handleNavigate} />}
+        {user.role === UserRole.Hr && <Button
+          textName="Brak zainteresowania"
           className="btn"
-        />
+          click={handleClick}
+          preventDefault
+        />}
         <Button
           textName="Zatrudniony"
           className="btn"

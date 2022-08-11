@@ -5,6 +5,7 @@ import { UpdateStudentDtoInterface } from 'types';
 import { Label } from '../../components/common/Label/Label';
 import { Select } from '../../components/common/Select/Select';
 import { Input } from '../../components/common/Input/Input';
+import { canTakeApprenticeshipData, contractType, workType } from '../../utils/enumsHelper';
 
 interface Props {
   student: Omit<UpdateStudentDtoInterface, 'email' | 'password'>;
@@ -21,23 +22,6 @@ export const DataForWork = ({ student, changeStudent }: Props) => {
     monthsOfCommercialExp,
   } = student;
   const [canTakeApprenticeshipText, setCanTakeApprenticeshipText] = useState('');
-  const workType = [
-    { name: 'Irrelevant', value: 'Bez znaczenia' },
-    { name: 'OnSite', value: 'Na miejscu' },
-    { name: 'ReadyToMoving', value: 'Gotowość do przeprowadzki' },
-    { name: 'Remote', value: 'Wyłącznie zdalnie' },
-    { name: 'Hybrid', value: 'Hybrydowo' },
-  ];
-  const contractType = [
-    { name: 'Irrelevant', value: 'Brak preferencji' },
-    { name: 'EmploymentContract', value: 'Tylko UoP' },
-    { name: 'PossibleB2BContract', value: 'Możliwe B2B' },
-    { name: 'PossibleMandate', value: 'Możliwe UZ/UoD' },
-  ];
-  const canTakeApprenticeshipData = [
-    { name: '', value: 'NIE' },
-    { name: 'tak', value: 'TAK' },
-  ];
 
   useEffect(() => {
     if (canTakeApprenticeshipText === '') {

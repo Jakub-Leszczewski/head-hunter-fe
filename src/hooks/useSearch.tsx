@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import axios, { Canceler, AxiosError } from 'axios';
 import { apiUrl } from '../config';
+import { FindAllQueryFilter } from 'types';
+import { FreeInternship, StudentsFilterState } from '../reducers/studentsFilterReducer';
 
-// Wszystkie możliwe właściwoście queries w filtracji kursantów
-export interface Queries {
-    // ...
-}
+const instance = axios.create();
+instance.defaults.withCredentials = true;
 
 export interface Page {
     prev: number | null;
@@ -26,11 +26,32 @@ export interface SearchResult<T> {
     setRefresh: Dispatch<SetStateAction<boolean>>;
 }
 
-export function useSearch<T>(collection: string, limit: number, queries: Queries = {}, dependencies: any[] = []): SearchResult<T> {
+const setInternship = (option: FreeInternship | undefined) => {
+    switch (option) {
+        case 'no':
+            return [false];
+        case 'yes':
+            return [true];
+        default:
+            break;
+    }
+};
 
-    const stringify = () => {
+export function useSearch<T>(collection: string, queries: Partial<StudentsFilterState> = {}, dependencies: any[] = []): SearchResult<T> {
+
+    const stringify = (): Partial<FindAllQueryFilter> => {
+        const { canTakeApprenticeship, expectedSalary, expectedTypeWork, expectedContractType, monthsOfCommercialExp, courseCompletion, courseEngagement, projectDegree, teamProjectDegree } = queries;
         return {
-            ...queries,
+            courseCompletion: courseCompletion || undefined,
+            courseEngagement: courseEngagement || undefined,
+            projectDegree: projectDegree || undefined,
+            teamProjectDegree: teamProjectDegree || undefined,
+            salaryMax: expectedSalary?.max || undefined,
+            salaryMin: expectedSalary?.min || undefined,
+            canTakeApprenticeship: setInternship(canTakeApprenticeship),
+            monthsOfCommercialExp: monthsOfCommercialExp || undefined,
+            typeWork: expectedTypeWork,
+            contractType: expectedContractType,
         };
     };
 
@@ -40,7 +61,7 @@ export function useSearch<T>(collection: string, limit: number, queries: Queries
     const [refresh, setRefresh] = useState(false);
     const [page, setPage] = useState(1);
     const [searchPhrase, setSearchPhrase] = useState('');
-    const [stringifyQueries, setstringifyQueries] = useState(stringify());
+    const [stringifyQueries, setstringifyQueries] = useState<Partial<FindAllQueryFilter>>(stringify());
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<any[]>([]);
     const [hasMore, setHasMore] = useState(false);
@@ -57,6 +78,7 @@ export function useSearch<T>(collection: string, limit: number, queries: Queries
     }, [search, stringifyQueries, refresh]);
 
     useEffect(() => {
+
         if (debounceTimeoutId.current) {
             clearTimeout(debounceTimeoutId.current);
         }
@@ -79,14 +101,13 @@ export function useSearch<T>(collection: string, limit: number, queries: Queries
             setLoading(true);
         }
         let cancel: Canceler;
-        axios({
+        instance({
             method: 'GET',
             url: `${apiUrl}/${collection}`,
             params: {
                 search: search,
                 page: page,
-                limit,
-                ...queries,
+                ...stringifyQueries,
             },
             cancelToken: new axios.CancelToken(c => cancel = c),
         })
@@ -95,8 +116,8 @@ export function useSearch<T>(collection: string, limit: number, queries: Queries
                 delayTimeoutId.current = setTimeout(() => {
                     setLoading(false);
                     setAmount(res.data.amount);
-                    setData(prev => [...prev, ...res.data.results]);
-                    setHasMore(res.data.results.length > 0);
+                    setData(prev => [...prev, ...res.data.result]);
+                    setHasMore(res.data.result.length > 0);
                 }, endTime - startTime < 500 ? 500 - (endTime - startTime) : 0);
             })
             .catch((e: AxiosError) => {

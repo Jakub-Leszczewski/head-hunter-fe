@@ -5,17 +5,18 @@ interface Props {
   password: string;
   name: string;
   changePassword: (name: string, value: string) => void;
-  className?:string;
+  className?: string;
   placeholder?: string;
   blur?: () => void;
+  containerClassName?: string;
 }
 
-export const InputPassword = ({ password, name, changePassword, className, placeholder, blur }: Props) => {
+export const InputPassword = ({ password, name, changePassword, className, placeholder, blur, containerClassName }: Props) => {
 
   const [passwordView, setPasswordView] = useState(false);
 
   return (
-    <div className="input-password">
+    <div className={`input-password${containerClassName ? ' ' + containerClassName : ''}`}>
       <input
         name={name}
         value={password}

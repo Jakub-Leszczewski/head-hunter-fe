@@ -1,36 +1,49 @@
 import { Dispatch } from "react";
-import { StudentsFilterAction, WorkPreference } from "../../../reducers/studentsFilterReducer";
+import { WorkType } from "types";
+import { StudentsFilterAction } from "../../../reducers/studentsFilterReducer";
 
 interface Props {
-    value: WorkPreference[];
-    dispatch: Dispatch<StudentsFilterAction>;
+  value: WorkType[];
+  dispatch: Dispatch<StudentsFilterAction>;
 }
 
 export const WorkplaceFormPart = ({ dispatch, value }: Props) => {
 
-    const handleWorkPreferenceChange = (preference: WorkPreference) => {
-        dispatch({ type: 'WORK_PREFERENCE_CHANGE', payload: preference });
-    };
+  const handleWorkPreferenceChange = (preference: WorkType) => {
+    dispatch({ type: 'WORK_PREFERENCE_CHANGE', payload: preference });
+  };
 
-    const isActive = (preference: WorkPreference) => value.findIndex(e => e === preference) !== -1 ? ' active' : '';
+  const isActive = (preference: WorkType) => value.findIndex(e => e === preference) !== -1 ? ' active' : '';
 
-    return (
-        <div className="students-filter__form-part">
-            <h3 className="students-filter__form-subtitle">Preferowane miejsce pracy</h3>
-            <div className="students-filter__form-container">
-                <p
-                  className={`students-filter__form-option${isActive('Praca zdalna')}`}
-                  onClick={() => handleWorkPreferenceChange('Praca zdalna')}>
-                  Praca zdalna
-                </p>
+  return (
+    <div className="students-filter__form-part">
+      <h3 className="students-filter__form-subtitle">Preferowane miejsce pracy</h3>
+      <div className="students-filter__form-container">
+        <p
+          className={`students-filter__form-option${isActive(WorkType.Remote)}`}
+          onClick={() => handleWorkPreferenceChange(WorkType.Remote)}>
+          Praca zdalna
+        </p>
 
-                <p
-                  className={`students-filter__form-option${isActive('Praca w biurze')}`}
-                  onClick={() => handleWorkPreferenceChange('Praca w biurze')}
-                >
-                  Praca w biurze
-                </p>
-            </div>
-        </div>
-    );
+        <p
+          className={`students-filter__form-option${isActive(WorkType.OnSite)}`}
+          onClick={() => handleWorkPreferenceChange(WorkType.OnSite)}
+        >
+          Praca w biurze
+        </p>
+        <p
+          className={`students-filter__form-option${isActive(WorkType.Hybrid)}`}
+          onClick={() => handleWorkPreferenceChange(WorkType.Hybrid)}
+        >
+          Hybrydowo
+        </p>
+        <p
+          className={`students-filter__form-option${isActive(WorkType.ReadyToMoving)}`}
+          onClick={() => handleWorkPreferenceChange(WorkType.ReadyToMoving)}
+        >
+          Gotowość do przeprowadzki
+        </p>
+      </div>
+    </div>
+  );
 };

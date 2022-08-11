@@ -1,9 +1,9 @@
+import { CreateStudentDtoInterface } from "types";
 import { AddStudentsList } from "./AddStudentsList";
 import { AddStudentsListLegend } from "./AddStudentsListLegend";
-import { AddedStudent } from "./AddStudents";
 
 interface Props {
-    addedStudents: AddedStudent[];
+    addedStudents: CreateStudentDtoInterface[];
 }
 
 export const AddStudentsTable = ({ addedStudents }: Props) => {

@@ -1,93 +1,47 @@
-import React from 'react';
-
+import { FormEvent, useReducer, useState } from 'react';
 import { InterviewStudentItem } from '../../components/InterviewStudentItem/InterviewStudentItem';
-
-export interface StudentsToTalk {
-  id: string
-  reservation: string;
-  githubName: string;
-  firstName: string;
-  lastName: string;
-  courseCompletion: number;
-  courseEngagement: number;
-  projectDegree: number;
-  teamProjectDegree: number;
-  expectedTypeWork: string;
-  targetWorkCity: string;
-  expectedContractType: string;
-  expectedSalary: number;
-  canTakeApprenticeship: boolean;
-  monthsOfCommercialExp: number;
-}
+import { useSearch } from '../../hooks/useSearch';
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
+import { STUDENTS_LIMIT } from '../../utils/dataLimits';
+import { studentsFilterReducer } from '../../reducers/studentsFilterReducer';
+import { studentsFilterDefault } from '../AvailableStudents/AvailableStudents';
+import { OnlyUserResponse, SmallStudentResponse } from 'types';
+import { StudentsList } from '../../components/StudentsList/StudentsList';
+import { useUser } from '../../hooks/useUser';
 
 export const StudentInterview = () => {
 
-  const studentListDefault = [
-    {
-      id: 'vsndiufhw487hfw9',
-      reservation: '11.07.2022',
-      githubName: 'Ami777',
-      firstName: 'Jan',
-      lastName: 'Kowalski',
-      courseCompletion: 4,
-      courseEngagement: 4,
-      projectDegree: 5,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: 0,
-    },
-    {
-      id: 'oijnunwe3iu45h98',
-      reservation: '11.07.2022',
-      githubName: 'Przekol',
-      firstName: 'Paweł',
-      lastName: 'Szymański',
-      courseCompletion: 5,
-      courseEngagement: 5,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Zdalnie',
-      targetWorkCity: '',
-      expectedContractType: 'BTB',
-      expectedSalary: 10000,
-      canTakeApprenticeship: false,
-      monthsOfCommercialExp: 16,
-    },
-    {
-      id: 'pio345jiooi3n4',
-      reservation: '11.07.2022',
-      githubName: 'Rafal-Matras',
-      firstName: 'Mariusz',
-      lastName: 'Lipa',
-      courseCompletion: 4,
-      courseEngagement: 4,
-      projectDegree: 3,
-      teamProjectDegree: 4,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Kraków',
-      expectedContractType: 'BTB',
-      expectedSalary: 7500,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: 2,
-    },
-  ];
+  const user = useUser() as OnlyUserResponse;
+
+  const [filter, dispatch] = useReducer(studentsFilterReducer, studentsFilterDefault);
+  const [refreshFilter, setRefreshFilter] = useState(false);
+
+  const { amount, data, handleSearchPhraseChange, hasMore, loading, page, setPage, searchPhrase } = useSearch<SmallStudentResponse>(`user/${user.id}/hr/student`, filter, [refreshFilter]);
+
+  const { lastDataElementRef } = useInfiniteScroll(amount, hasMore, loading, page, STUDENTS_LIMIT, setPage);
+
+  const handleFilterSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setRefreshFilter(state => !state);
+  };
+
+  const studentsList = () => {
+    return data.map((item, i) => <InterviewStudentItem key={item.id} item={item} observer={(i + 1) % STUDENTS_LIMIT === 0 ? lastDataElementRef : null} />);
+  }
 
   return (
-    <div className="to-talk-list-container">
-      <div className="filter-container">
-        <p>search</p>
-        <p>filter</p>
+    <StudentsList
+      dispatch={dispatch}
+      filter={filter}
+      handleFilterSubmit={handleFilterSubmit}
+      handleSearchPhraseChange={handleSearchPhraseChange}
+      searchPhrase={searchPhrase}
+    >
+      <div className="hr-list__list-container">
+        <ul className="hr-list__list">
+          {studentsList()}
+        </ul>
       </div>
-      {studentListDefault.map(item =>
-        <InterviewStudentItem
-          key={item.id}
-          students={item}
-        />,
-      )}
-    </div>
+    </StudentsList>
   );
 };

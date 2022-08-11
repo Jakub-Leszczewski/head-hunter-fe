@@ -1,59 +1,41 @@
-import React, { useState } from 'react';
-
-import { IoChevronDownSharp, IoChevronUpSharp } from 'react-icons/io5';
-
-import { TitleItem } from '../TitleItem/TitleItem';
-import { InterviewInfoList } from '../InterviewInfoList/InterviewInfoList';
-import { Button } from '../common/Button/Button'
-import { StudentsToTalk } from '../../views/StudentInterview/StudentInterview'
+import { useState } from 'react';
+import { SmallStudentResponse } from 'types';
+import { AvailableInfoList } from '../AvailableStudentItem/AvailableInfoList';
+import { InterviewStudentHeader } from './InterviewStudentHeader';
 
 interface Props {
-  students: StudentsToTalk
+  item: SmallStudentResponse;
+  observer: ((node: HTMLLIElement) => void) | null;
 }
 
-export const InterviewStudentItem = ({ students }: Props) => {
+export const InterviewStudentItem = ({ item, observer }: Props) => {
 
-  const { reservation, githubName, firstName, lastName, } = students;
-  const [moreInfo, setMoreInfo] = useState(false);
+  const { firstName, lastName, student } = item;
+  const { canTakeApprenticeship, courseCompletion, courseEngagement, expectedContractType, expectedSalary, expectedTypeWork, monthsOfCommercialExp, projectDegree, targetWorkCity, teamProjectDegree, githubUsername } = student;
+  const [isStudentInfoOpen, setIsStudentInfoOpen] = useState(false);
 
   return (
-    <div className="hr-student-to-talk">
-      <div className="hr-student-to-talk-box">
-        <div className="student">
-          <div className="student__reservation">
-            <TitleItem
-              title="Rezerwacja do"
-            >
-              <p className="title-item__date">{reservation} r.</p>
-            </TitleItem>
-          </div>
-          <div className="student__info">
-            <img className="student__info-img" src={`https://github.com/${githubName}.png`} alt="Avatar użytkownika"/>
-            <p className="student__info-name">{firstName} {lastName}</p>
-          </div>
-        </div>
-        <div className="buttons">
-          <Button
-            textName="Pokaż CV"
-          />
-          <Button
-            textName="Brak zainteresowania"
-          />
-          <Button
-            textName="Zatrudniony"
-          />
-          {moreInfo
-            ? <IoChevronUpSharp className="buttons__icon" onClick={() => setMoreInfo(!moreInfo)}/>
-            : <IoChevronDownSharp className="buttons__icon" onClick={() => setMoreInfo(!moreInfo)}/>
-          }
-        </div>
-      </div>
-      {moreInfo
-        ? <InterviewInfoList
-        students={students}
-        />
-        : null
-      }
-    </div>
+    <li ref={observer} className="hr-list__item">
+      <InterviewStudentHeader
+        firstName={firstName ?? ''}
+        githubUsername={githubUsername ?? ''}
+        isStudentInfoOpen={isStudentInfoOpen}
+        lastName={lastName ?? ''}
+        reservation={'23.04.2023'}
+        setIsStudentInfoOpen={setIsStudentInfoOpen}
+      />
+      {isStudentInfoOpen && <AvailableInfoList
+        canTakeApprenticeship={canTakeApprenticeship}
+        courseCompletion={courseCompletion}
+        courseEngagement={courseEngagement}
+        expectedContractType={expectedContractType}
+        expectedSalary={expectedSalary}
+        expectedTypeWork={expectedTypeWork}
+        monthsOfCommercialExp={monthsOfCommercialExp}
+        projectDegree={projectDegree}
+        targetWorkCity={targetWorkCity ?? 'Brak'}
+        teamProjectDegree={teamProjectDegree}
+      />}
+    </li>
   );
 };

@@ -1,6 +1,7 @@
-import { AddedStudent } from "./AddStudents";
+import { CreateStudentDtoInterface } from "types";
+
 interface Props {
-    addedStudent: AddedStudent;
+    addedStudent: CreateStudentDtoInterface;
 }
 
 export const AddStudentsItem = ({ addedStudent }: Props) => {

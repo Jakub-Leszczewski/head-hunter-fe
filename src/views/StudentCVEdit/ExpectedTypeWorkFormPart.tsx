@@ -1,6 +1,7 @@
 import { Select } from "../../components/common/Select/Select";
 import { InputFormPart } from "../../components/common/InputFormPart/InputFormPart";
 import { ExpectedTypeWork } from "./ProfileEditForm";
+import { workType } from "../../utils/enumsHelper";
 
 interface Props {
     value: ExpectedTypeWork;
@@ -14,13 +15,7 @@ export const ExpectedTypeWorkFormPart = ({ handleChange, value }: Props) => {
                 name="expectedTypeWork"
                 value={value}
                 change={handleChange}
-                options={[
-                    "Bez znaczenia",
-                    "Na miejscu",
-                    "Gotowość do przeprowadzki",
-                    "Wyłącznie zdalnie",
-                    "Hybrydowo",
-                ]}
+                options={workType}
             />
         </InputFormPart>
     );

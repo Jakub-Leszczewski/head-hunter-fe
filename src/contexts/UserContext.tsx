@@ -22,8 +22,8 @@ interface UserContextType {
 export const UserContext = createContext<UserContextType>({
   user: null,
   data: null,
-  refreshUser: () => {},
-  saveUserData: (user: GetUserResponse | null) => {},
+  refreshUser: () => { },
+  saveUserData: (user: GetUserResponse | null) => { },
 });
 
 export const UserProvider = ({ children }: Props) => {
@@ -54,7 +54,7 @@ export const UserProvider = ({ children }: Props) => {
   };
 
   const saveUserData = (user: GetUserResponse | null) => {
-    if(user) {
+    if (user) {
       switch (user.role) {
         case UserRole.Admin: {
           setUser(user);
@@ -62,13 +62,13 @@ export const UserProvider = ({ children }: Props) => {
           break;
         }
         case UserRole.Student: {
-          const {student, ...userData} = user;
+          const { student, ...userData } = user;
           setUser(userData);
           setData(student);
           break;
         }
         case UserRole.Hr: {
-          const {hr, ...userData} = user;
+          const { hr, ...userData } = user;
           setUser(userData);
           setData(hr);
           break;
