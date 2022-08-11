@@ -8,8 +8,13 @@ import { PersonalData } from './PersonalData';
 import { DataForWork } from './DataForWork';
 import { LongText } from './LongText';
 import { ProjectsUrls } from './ProjectsUrls';
+import { fetchTool } from '../../utils/fetchHelpers';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const StudentRegistration = () => {
+
+  const { userId, token } = useParams();
+  const navigate = useNavigate();
 
   const [student, setStudent] = useState<Omit<UpdateStudentDtoInterface, 'email' | 'password'>>({
     lastName: '',
@@ -34,9 +39,9 @@ export const StudentRegistration = () => {
 
   const changeStudent = (name: string, value: string | number | boolean) => {
     (setStudent(student => ({
-        ...student,
-        [name]: value,
-      }))
+      ...student,
+      [name]: value,
+    }))
     );
   };
 
@@ -64,20 +69,15 @@ export const StudentRegistration = () => {
     }));
   };
 
-  const sendForm = async (e:React.FormEvent) => {
+  const sendForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(validation){
-    // await fetch('',{
-    //   method:'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body:JSON.stringify(student)
-    // });
-    }
-
+    if (!validation) return;
+    const response = await fetchTool(`user/${userId}/student`, 'PATCH', student);
+    if (!response.status) return console.log('Coś poszło nie tak.');
+    console.log('Poprawnie zarejestrowano kursanta.');
+    navigate(`/student/${userId}`);
   };
-  console.log('validation',validation)
+
   return (
     <div className="student-registration">
       <h2 className="student-registration__title">

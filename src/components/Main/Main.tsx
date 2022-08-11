@@ -11,6 +11,7 @@ import { HREditPassword } from '../../views/HREditPassword/HREditPassword';
 import { ForgotPassword } from '../../views/ForgotPassword/ForgotPassword';
 import { NewPassword } from '../../views/NewPassword/NewPassword';
 import { Login } from '../../views/Login/Login';
+import { StudentRegistration } from '../../views/StudentRegistration/StudentRegistration';
 
 export const Main = () => {
   return (
@@ -18,7 +19,8 @@ export const Main = () => {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/password/forgot' element={<ForgotPassword />} />
-        <Route path='/password/set' element={<NewPassword />} />
+        <Route path='/registration/hr/:userId' element={<NewPassword />} />
+        <Route path='/registration/student/:userId/:token' element={<StudentRegistration />} />
         {/* Ścieżki kursanta */}
         <Route path='/student/:studentId' element={<StudentCV />} />
         <Route path='/student/:studentId/edit' element={<StudentCVEdit />} />

@@ -7,7 +7,7 @@ import { Button } from '../../components/common/Button/Button'
 
 interface NewPassword {
   password: string;
-  confirmPassword:string;
+  confirmPassword: string;
 }
 
 export const NewPassword = () => {
@@ -16,7 +16,7 @@ export const NewPassword = () => {
 
   const [newPassword, setNewPassword] = useState<NewPassword>({
     password: '',
-    confirmPassword:'',
+    confirmPassword: '',
   });
 
   const newPasswordHandler = (name: string, value: string | number) => {
@@ -29,7 +29,10 @@ export const NewPassword = () => {
   const submitForgotPasswordHandler = (e: FormEvent): void => {
     e.preventDefault();
     toast.success('Twoje hasło zostało pomyślnie zresetowane.');
-    navigate('/login');
+    setTimeout(() => {
+      navigate('/login');
+
+    }, 2000);
   };
 
   return (
