@@ -58,7 +58,7 @@ export const Login = () => {
         containerClassName="login__input-container"
       />
       <div className='login__container'>
-        <Link className='login__link' to='/'>
+        <Link className='login__link' to='/password/forgot'>
           Zapomniałeś hasła?
         </Link>
         <Button textName='Zaloguj się' type='submit' className='login__btn' />

@@ -3,14 +3,18 @@ import { StudentRegistration } from "../../views/StudentRegistration/StudentRegi
 import { Login } from "../../views/Login/Login";
 import { NewPassword } from "../../views/NewPassword/NewPassword";
 import { Home } from "../Home/Home";
+import { ForgotPassword } from "../../views/ForgotPassword/ForgotPassword";
+import { HRRegistration } from "../../views/HRRegistration/HRRegistration";
 
 export const LogoutRouter = () => {
     return (
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path='/password/forgot' element={<ForgotPassword />} />
             <Route path="/signup/student/:token" element={<StudentRegistration />} />
-            <Route path='/signup/hr/:token' element={<NewPassword />} />
+            <Route path='/signup/hr/:token' element={<HRRegistration />} />
+            <Route path='/password/:token' element={<NewPassword />} />
         </Routes>
     );
 };
