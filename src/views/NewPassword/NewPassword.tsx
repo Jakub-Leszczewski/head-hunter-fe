@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react';
 import { FiKey } from 'react-icons/fi';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { Input } from '../../components/common/Input/Input'
-import { Button } from '../../components/common/Button/Button'
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Button } from '../../components/common/Button/Button';
+import { fetchTool } from '../../utils/fetchHelpers';
+import { InputPassword } from '../../components/common/InputPassword/InputPassword';
 
 interface NewPassword {
   password: string;
@@ -13,11 +13,13 @@ interface NewPassword {
 export const NewPassword = () => {
 
   const navigate = useNavigate();
+  const { token } = useParams();
 
   const [newPassword, setNewPassword] = useState<NewPassword>({
     password: '',
     confirmPassword: '',
   });
+  const { confirmPassword, password } = newPassword;
 
   const newPasswordHandler = (name: string, value: string | number) => {
     setNewPassword((newPassword) => ({
@@ -26,13 +28,13 @@ export const NewPassword = () => {
     }));
   };
 
-  const submitForgotPasswordHandler = (e: FormEvent): void => {
+  const submitForgotPasswordHandler = async (e: FormEvent) => {
     e.preventDefault();
-    toast.success('Twoje hasło zostało pomyślnie zresetowane.');
-    setTimeout(() => {
-      navigate('/login');
-
-    }, 2000);
+    if (password !== confirmPassword) return console.log('Podano różne hasła.');
+    const response = await fetchTool(`auth/password/${token}`, 'PUT', { newPassword: password });
+    if (!response.status) return console.log('Coś się popsuło i nie było mnie słychać');
+    console.log('Hasło zostało zmienione.');
+    navigate('/login');
   };
 
   return (
@@ -50,24 +52,22 @@ export const NewPassword = () => {
         <label htmlFor='new-password' className='forgot__form-label'>
           Hasło
         </label>
-        <Input
+        <InputPassword
           className='forgot__form-input'
           name='password'
-          type='password'
           placeholder='Wpisz nowe hasło'
-          value={newPassword.password}
-          change={newPasswordHandler}
+          password={newPassword.password}
+          changePassword={newPasswordHandler}
         />
         <label htmlFor='confirm_password' className='forgot_form_label'>
           Potwierdź hasło
         </label>
-        <Input
+        <InputPassword
           className='forgot__form-input'
           name='confirmPassword'
-          type='password'
           placeholder='Potwierdź nowe hasło'
-          value={newPassword.confirmPassword}
-          change={newPasswordHandler}
+          password={newPassword.confirmPassword}
+          changePassword={newPasswordHandler}
         />
         <Button type='submit' className='forgot__form-btn' textName='Resetuj' />
       </form>
