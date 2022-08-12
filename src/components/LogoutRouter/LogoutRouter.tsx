@@ -5,6 +5,7 @@ import { NewPassword } from "../../views/NewPassword/NewPassword";
 import { Home } from "../Home/Home";
 import { ForgotPassword } from "../../views/ForgotPassword/ForgotPassword";
 import { HRRegistration } from "../../views/HRRegistration/HRRegistration";
+import { WithResponseInfoToast } from '../../hoc/WithResponseInfoToast'
 
 export const LogoutRouter = () => {
     return (
