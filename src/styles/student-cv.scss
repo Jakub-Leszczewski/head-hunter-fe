@@ -11,16 +11,6 @@
     max-width: 1430px;
     margin: 0 auto;
 
-    &__go-back {
-      position: absolute;
-      left: -75px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 60px;
-      cursor: pointer;
-    }
-
     @media(max-width: 1350px) {
       &__go-back {
         left: 10px;

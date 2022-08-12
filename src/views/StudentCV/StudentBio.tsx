@@ -5,6 +5,7 @@ import { GetStudentResponse, OnlyUserResponse, UserRole } from 'types';
 import { Button } from '../../components/common/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTool } from '../../utils/fetchHelpers';
+import { useRefreshUser } from '../../hooks/useRefreshUser';
 
 interface Props {
   data: GetStudentResponse;
@@ -18,6 +19,7 @@ export const StudentBio = ({ data }: Props) => {
   const user = useUser() as OnlyUserResponse;
   const navigate = useNavigate();
   const { studentId } = useParams();
+  const refreshUser = useRefreshUser();
 
   const handleNoneInterested = async () => {
     const response = await fetchTool(`user/${studentId}/student/interview`, 'DELETE', { hrId: user.id });
@@ -33,8 +35,14 @@ export const StudentBio = ({ data }: Props) => {
   const handleEmployment = async () => {
     const response = await fetchTool(`user/${studentId}/student/employed`, 'PATCH');
     if (!response.status) return console.log('Coś poszło nie tak.');
+    if (user.role === UserRole.Student) {
+      const logout = await fetchTool(`auth/logout`, 'DELETE');
+      if (!logout.status) return console.log('Coś poszło nie tak.');
+      refreshUser();
+      navigate('/login');
+    }
     console.log('Zatrudniono.');
-    navigate('/login');
+    navigate(-1);
   };
 
   return (
@@ -77,7 +85,7 @@ export const StudentBio = ({ data }: Props) => {
           preventDefault
         />}
         <Button
-          textName="Zatrudniony"
+          textName={user.role === UserRole.Student ? "Zatrudniony" : "Zatrudnij"}
           className="btn"
           click={handleEmployment}
           preventDefault
