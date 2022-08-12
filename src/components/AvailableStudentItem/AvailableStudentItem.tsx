@@ -20,6 +20,7 @@ export const AvailableStudentItem = ({ item, observer }: Props) => {
       <AvailableStudentsHeader
         name={`${firstName} ${(lastName as string)[0]}.`}
         isStudentInfoOpen={isStudentInfoOpen}
+        id={item.id}
         setIsStudentInfoOpen={setIsStudentInfoOpen}
       />
       {isStudentInfoOpen && (

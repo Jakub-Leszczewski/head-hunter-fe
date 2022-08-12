@@ -1,51 +1,39 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
+import { fetchTool } from '../../utils/fetchHelpers';
+import { CreateHrDtoInterface } from 'types';
 
 import { AddHrForm } from '../../components/form/AddHrForm/AddHrForm';
-import { Button } from '../../components/common/Button/Button'
-
-export interface HrData {
-  email: string;
-  fullName: string;
-  company: string;
-  maxReservedStudents: number;
-}
 
 export const AddHr = () => {
 
-  // const [hrData, setHrData] = useState<HrInterface>({
-  //   id:'',
-  //   company:'',
-  //   maxReservedStudents:1,
-  //   user:{
-  //     id:'',
-  //     lastName: '',
-  //     firstName: '',
-  //     email: '',
-  //     hashPwd: '',
-  //     role: UserRole.Hr,
-  //     isActive: false,
-  //     userToken: '',
-  //     jwtId: '',
-  //   }
-  // });
-
-  const [hrData, setHrData] = useState<HrData>({
+  const [hrData, setHrData] = useState<CreateHrDtoInterface>({
     email: '',
-    fullName: '',
+    firstName: '',
+    lastName: '',
     company: '',
     maxReservedStudents: 1,
   });
 
   const changeHr = (name: string, value: string | number) => {
     (setHrData(hrData => ({
-        ...hrData,
-        [name]: value,
-      }))
+      ...hrData,
+      [name]: value,
+    }))
     );
   };
 
-  const handleAddHr = () => {
-
+  const handleAddHr = async (e: FormEvent) => {
+    e.preventDefault();
+    const response = await fetchTool('hr', 'POST', hrData);
+    if (!response.status) return console.log('coś poszło nie tak');
+    console.log('Dodano HRa');
+    setHrData({
+      email: '',
+      firstName: '',
+      lastName: '',
+      company: '',
+      maxReservedStudents: 1,
+    })
   };
 
   return (
@@ -55,11 +43,6 @@ export const AddHr = () => {
         hrData={hrData}
         changeHr={changeHr}
         handleAddHr={handleAddHr}
-      />
-      <Button
-        textName="Dodaj"
-        className="add-hr__btn"
-        click={handleAddHr}
       />
     </div>
   );

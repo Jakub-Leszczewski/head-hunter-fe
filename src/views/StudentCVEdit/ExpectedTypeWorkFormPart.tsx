@@ -1,10 +1,10 @@
 import { Select } from "../../components/common/Select/Select";
 import { InputFormPart } from "../../components/common/InputFormPart/InputFormPart";
-import { ExpectedTypeWork } from "./ProfileEditForm";
 import { workType } from "../../utils/enumsHelper";
+import { WorkType } from "types";
 
 interface Props {
-    value: ExpectedTypeWork;
+    value: WorkType;
     handleChange: (name: string, value: string | number) => void;
 }
 

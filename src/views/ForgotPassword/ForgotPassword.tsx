@@ -1,27 +1,26 @@
 import { FormEvent, useState } from 'react';
 import { GiThink } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Input } from '../../components/common/Input/Input'
 import { Button } from '../../components/common/Button/Button'
-
-interface Email {
-  email: string;
-}
+import { fetchTool } from '../../utils/fetchHelpers';
 
 export const ForgotPassword = () => {
-  const [email, setEmail] = useState<Email>({
-    email: '',
-  });
+
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
 
   const emailHandler = (name: string, value: string | number) => {
-    setEmail((email) => ({
-      ...email,
-      [name]: value,
-    }));
+    setEmail((email) => (value as string));
   };
 
-  const submitForgotPasswordHandler = (e: FormEvent): void => {
+  const submitForgotPasswordHandler = async (e: FormEvent) => {
     e.preventDefault();
+    if (!email) return;
+    const response = await fetchTool('auth/password', 'DELETE', { email });
+    if (!response.status) return console.log('Coś się popsuło i nie było mnie słychać');
+    navigate('/login');
   };
 
   return (
@@ -45,7 +44,7 @@ export const ForgotPassword = () => {
           name='email'
           type='email'
           placeholder='Wpisz swój email'
-          value={email.email}
+          value={email}
           change={emailHandler}
         />
         <Button

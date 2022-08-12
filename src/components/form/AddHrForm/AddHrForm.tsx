@@ -1,16 +1,34 @@
-import React from 'react';
-
-import { HrData } from '../../../views/AddHr/AddHr';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Label } from '../../common/Label/Label'
 import { Input } from '../../common/Input/Input'
+import { Button } from '../../../components/common/Button/Button';
+import { CreateHrDtoInterface } from 'types';
 
 interface Props {
-  hrData: HrData;
+  hrData: CreateHrDtoInterface;
   changeHr: (name: string, value: string | number) => void;
-  handleAddHr:()=>void;
+  handleAddHr: (e: FormEvent) => void;
 }
 
-export const AddHrForm = ({ hrData, changeHr,handleAddHr }: Props) => {
+export const AddHrForm = ({ hrData, changeHr, handleAddHr }: Props) => {
+
+  const [fullName, setFullName] = useState('');
+
+  const handleFullNameChange = (name: string, value: string | number) => {
+    setFullName(value as string);
+  };
+
+  useEffect(() => {
+    const fullNameArr = fullName.split(' ');
+    changeHr('firstName', fullNameArr[0]);
+    changeHr('lastName', fullNameArr[1] || '');
+  }, [fullName]);
+
+  useEffect(() => {
+    if (hrData.firstName === '' && hrData.lastName === '') {
+      setFullName('');
+    }
+  }, [hrData]);
 
   return (
     <form className="add-hr__form" onSubmit={handleAddHr}>
@@ -36,8 +54,8 @@ export const AddHrForm = ({ hrData, changeHr,handleAddHr }: Props) => {
         />
         <Input
           name="fullName"
-          value={hrData.fullName}
-          change={changeHr}
+          value={fullName}
+          change={handleFullNameChange}
           required={true}
         />
       </div>
@@ -70,6 +88,10 @@ export const AddHrForm = ({ hrData, changeHr,handleAddHr }: Props) => {
           required={true}
         />
       </div>
+      <Button
+        textName="Dodaj"
+        className="add-hr__btn"
+      />
     </form>
   );
 };

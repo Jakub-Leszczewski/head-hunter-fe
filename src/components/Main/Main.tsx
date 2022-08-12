@@ -8,17 +8,13 @@ import { NotFound } from '../../views/NotFound/NotFound'
 import { AvailableStudents } from '../../views/AvailableStudents/AvailableStudents'
 import { StudentInterview } from '../../views/StudentInterview/StudentInterview'
 import { HREditPassword } from '../../views/HREditPassword/HREditPassword';
-import { ForgotPassword } from '../../views/ForgotPassword/ForgotPassword';
-import { NewPassword } from '../../views/NewPassword/NewPassword';
-import { Login } from '../../views/Login/Login';
+import { Home } from '../Home/Home';
 
 export const Main = () => {
   return (
     <main className='main'>
       <Routes>
-        <Route path='/login' element={<Login />} />
-        <Route path='/password/forgot' element={<ForgotPassword />} />
-        <Route path='/password/set' element={<NewPassword />} />
+        <Route path='/' element={<Home />} />
         {/* Ścieżki kursanta */}
         <Route path='/student/:studentId' element={<StudentCV />} />
         <Route path='/student/:studentId/edit' element={<StudentCVEdit />} />

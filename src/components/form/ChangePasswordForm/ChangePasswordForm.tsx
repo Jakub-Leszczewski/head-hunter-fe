@@ -1,4 +1,7 @@
 import { FormEvent, useState } from "react";
+import { OnlyUserResponse } from "types";
+import { useUser } from "../../../hooks/useUser";
+import { fetchTool } from "../../../utils/fetchHelpers";
 import { Button } from "../../common/Button/Button";
 import { InputFormPart } from "../../common/InputFormPart/InputFormPart";
 import { InputPassword } from "../../common/InputPassword/InputPassword";
@@ -17,11 +20,18 @@ const changePasswordDefaultState: ChangePasswordState = {
 
 export const ChangePasswordForm = () => {
 
-    const [changePassword, setChangePassword] = useState<ChangePasswordState>(changePasswordDefaultState);
+    const user = useUser() as OnlyUserResponse;
 
-    const handleSubmit = (e: FormEvent) => {
+    const [changePassword, setChangePassword] = useState<ChangePasswordState>(changePasswordDefaultState);
+    const { newPassword, newPasswordRepeat, actualPassword } = changePassword;
+
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log('Zmiana hasła', changePassword);
+        if (newPassword !== newPasswordRepeat) return console.log('Podano różne hasła.');
+        const response = await fetchTool(`user/${user.id}/password`, 'PATCH', { password: actualPassword, newPassword });
+        if (!response.status) return console.log('Coś poszło nie tak.');
+        console.log('Hasło zostało zmienione.');
+        setChangePassword(changePasswordDefaultState);
     };
 
     const handleChange = (name: string, value: string | number) => {

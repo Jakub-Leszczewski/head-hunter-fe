@@ -1,4 +1,9 @@
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
+import { OnlyUserResponse, StudentResponseData, UpdateStudentDtoInterface, UpdateStudentResponse } from "types";
+import { useUserData } from "../../hooks/useUserData";
+import { useUser } from "../../hooks/useUser";
+import { fetchTool } from "../../utils/fetchHelpers";
+
 import { Button } from "../../components/common/Button/Button";
 import { BioFormPart } from "./BioFormPart";
 import { CanTakeApprenticeshipFormPart } from "./CanTakeApprenticeshipFormPart";
@@ -15,58 +20,42 @@ import { PortfolioUrlsFormPart } from "./PortfolioUrlsFormPart";
 import { ProjectUrlsFormPart } from "./ProjectUrlsFormPart";
 import { TargetWorkCityFormPart } from "./TargetWorkCityFormPart";
 import { WorkExperienceFormPart } from "./WorkExperienceFormPart";
-
-export type ContractType = 'Brak preferencji' | 'Tylko UoP' | 'Możliwe B2B' | 'Możliwe UZ/UoD';
-export type ExpectedTypeWork = 'Bez znaczenia' | 'Na miejscu' | 'Gotowość do przeprowadzki' | 'Wyłącznie zdalnie' | 'Hybrydowo';
-
-interface ProfileEditState {
-    phone: string;
-    firstName: string;
-    lastName: string;
-    githubUsername: string;
-    portfolioUrls: string[];
-    projectUrls: string[];
-    bio: string;
-    expectedTypeWork: ExpectedTypeWork;
-    targetWorkCity: string;
-    expectedContractType: ContractType;
-    expectedSalary: number;
-    canTakeApprenticeship: boolean;
-    monthsOfCommercialExp: number;
-    education: string;
-    workExperience: string;
-    courses: string;
-}
-
-const profileEditDefaultState: ProfileEditState = {
-    bio: '',
-    canTakeApprenticeship: false,
-    courses: '',
-    education: '',
-    expectedContractType: 'Brak preferencji',
-    expectedSalary: 0,
-    expectedTypeWork: 'Bez znaczenia',
-    firstName: '',
-    githubUsername: '',
-    lastName: '',
-    monthsOfCommercialExp: 0,
-    phone: '',
-    portfolioUrls: [],
-    projectUrls: [],
-    targetWorkCity: '',
-    workExperience: '',
-};
+import { useSaveUserData } from "../../hooks/useSaveUserData";
 
 export const ProfileEditForm = () => {
 
-    // const componentRef = useRef(null);
-    // const { data } = useData<ProfileEditState>('student/profile-data', componentRef);
+    const user = useUser() as OnlyUserResponse;
+    const studentData = useUserData() as StudentResponseData;
+    const refreshUserData = useSaveUserData();
+    const { bio, canTakeApprenticeship, courses, education, expectedContractType, expectedSalary, expectedTypeWork, monthsOfCommercialExp, githubUsername, phoneNumber, portfolioUrls, projectUrls, targetWorkCity, workExperience } = studentData;
+    const profileEditDefaultState: Omit<UpdateStudentDtoInterface, 'email' | 'password' | 'newPassword'> = useMemo(() => ({
+        bio: bio ?? '',
+        canTakeApprenticeship,
+        courses: courses ?? '',
+        education: education ?? '',
+        expectedContractType,
+        expectedSalary,
+        expectedTypeWork,
+        firstName: user.firstName ?? '',
+        githubUsername: githubUsername ?? '',
+        lastName: user.lastName ?? '',
+        monthsOfCommercialExp,
+        phoneNumber: phoneNumber ?? '',
+        portfolioUrls: portfolioUrls.map(url => url.url),
+        projectUrls: projectUrls.map(url => url.url),
+        targetWorkCity: targetWorkCity ?? '',
+        workExperience: workExperience ?? '',
+    }), [studentData, user]);
 
-    const [profileEditState, setProfileEditState] = useState<ProfileEditState>(profileEditDefaultState);
+    const [profileEditState, setProfileEditState] = useState<Omit<UpdateStudentDtoInterface, 'email' | 'password' | 'newPassword'>>(profileEditDefaultState);
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log('Edycja profilu...', profileEditState);
+        if (projectUrls.length < 1) return;
+        const response = await fetchTool<UpdateStudentResponse>(`user/${user.id}/student`, 'PATCH', profileEditState);
+        if (!response.status) return console.log('Coś poszło nie tak.');
+        console.log('Profil został zaktualizowany.');
+        refreshUserData(response.results);
     };
 
     const handleChange = (name: string, value: string | number) => {
@@ -107,28 +96,121 @@ export const ProfileEditForm = () => {
         }));
     };
 
-    const nameComponent = useMemo(() => <NameFormPart firstName={profileEditState.firstName} lastName={profileEditState.lastName} handleChange={handleChange} />, [profileEditState.firstName, profileEditState.lastName]);
-    const phoneComponent = useMemo(() => <PhoneFormPart handleChange={handleChange} value={profileEditState.phone} />, [profileEditState.phone]);
-    const githubLoginComponent = useMemo(() => <GithubLoginFormPart handleChange={handleChange} value={profileEditState.githubUsername} />, [profileEditState.githubUsername]);
-    const portfolioUrlsComponent = useMemo(() => <PortfolioUrlsFormPart handleAdd={handleArrayItemAdd} handleChange={handleArrayChange} handleDelete={handleArrayItemDelete} value={profileEditState.portfolioUrls} />, [profileEditState.portfolioUrls]);
-    const projectUrlsComponent = useMemo(() => <ProjectUrlsFormPart handleAdd={handleArrayItemAdd} handleChange={handleArrayChange} handleDelete={handleArrayItemDelete} value={profileEditState.projectUrls} />, [profileEditState.projectUrls]);
-    const bioComponent = useMemo(() => <BioFormPart handleChange={handleChange} value={profileEditState.bio} />, [profileEditState.bio]);
-    const expectedTypeWorkComponent = useMemo(() => <ExpectedTypeWorkFormPart handleChange={handleChange} value={profileEditState.expectedTypeWork} />, [profileEditState.expectedTypeWork]);
-    const targetWorkCityComponent = useMemo(() => <TargetWorkCityFormPart handleChange={handleChange} value={profileEditState.targetWorkCity} />, [profileEditState.targetWorkCity]);
-    const expectedContractTypeComponent = useMemo(() => <ExpectedContractTypeFormPart handleChange={handleChange} value={profileEditState.expectedContractType} />, [profileEditState.expectedContractType]);
-    const expectedSalaryComponent = useMemo(() => <ExpectedSalaryFormPart handleChange={handleChange} value={profileEditState.expectedSalary} />, [profileEditState.expectedSalary]);
-    const canTakeApprenticeshipComponent = useMemo(() => <CanTakeApprenticeshipFormPart handleChange={handleRadioChange} value={profileEditState.canTakeApprenticeship} />, [profileEditState.canTakeApprenticeship]);
-    const monthsOfCommercialExpComponent = useMemo(() => <MonthsOfCommercialExpFormPart handleChange={handleChange} value={profileEditState.monthsOfCommercialExp} />, [profileEditState.monthsOfCommercialExp]);
-    const educationComponent = useMemo(() => <EducationFormPart handleChange={handleChange} value={profileEditState.education} />, [profileEditState.education]);
-    const workExperienceComponent = useMemo(() => <WorkExperienceFormPart handleChange={handleChange} value={profileEditState.workExperience} />, [profileEditState.workExperience]);
-    const coursesComponent = useMemo(() => <CoursesFormPart handleChange={handleChange} value={profileEditState.courses} />, [profileEditState.courses]);
+    const nameComponent = useMemo(() => (
+        <NameFormPart
+            firstName={profileEditState.firstName}
+            lastName={profileEditState.lastName}
+            handleChange={handleChange}
+        />
+    ), [profileEditState.firstName, profileEditState.lastName]);
 
-    // useEffect(() => {
-    //     setProfileEditState(data);
-    // }, [data]);
+    const phoneComponent = useMemo(() => (
+        <PhoneFormPart
+            handleChange={handleChange}
+            value={profileEditState.phoneNumber}
+        />
+    ), [profileEditState.phoneNumber]);
+
+    const githubLoginComponent = useMemo(() => (
+        <GithubLoginFormPart
+            handleChange={handleChange}
+            value={profileEditState.githubUsername}
+        />
+    ), [profileEditState.githubUsername]);
+
+    const portfolioUrlsComponent = useMemo(() => (
+        <PortfolioUrlsFormPart
+            handleAdd={handleArrayItemAdd}
+            handleChange={handleArrayChange}
+            handleDelete={handleArrayItemDelete}
+            value={profileEditState.portfolioUrls}
+        />
+    ), [profileEditState.portfolioUrls]);
+
+    const projectUrlsComponent = useMemo(() => (
+        <ProjectUrlsFormPart
+            handleAdd={handleArrayItemAdd}
+            handleChange={handleArrayChange}
+            handleDelete={handleArrayItemDelete}
+            value={profileEditState.projectUrls}
+        />
+    ), [profileEditState.projectUrls]);
+
+    const bioComponent = useMemo(() => (
+        <BioFormPart
+            handleChange={handleChange}
+            value={profileEditState.bio}
+        />
+    ), [profileEditState.bio]);
+
+    const expectedTypeWorkComponent = useMemo(() => (
+        <ExpectedTypeWorkFormPart
+            handleChange={handleChange}
+            value={profileEditState.expectedTypeWork}
+        />
+    ), [profileEditState.expectedTypeWork]);
+
+    const targetWorkCityComponent = useMemo(() => (
+        <TargetWorkCityFormPart
+            handleChange={handleChange}
+            value={profileEditState.targetWorkCity}
+        />
+    ), [profileEditState.targetWorkCity]);
+
+    const expectedContractTypeComponent = useMemo(() => (
+        <ExpectedContractTypeFormPart
+            handleChange={handleChange}
+            value={profileEditState.expectedContractType}
+        />
+    ), [profileEditState.expectedContractType]);
+
+    const expectedSalaryComponent = useMemo(() => (
+        <ExpectedSalaryFormPart
+            handleChange={handleChange}
+            value={profileEditState.expectedSalary}
+        />
+    ), [profileEditState.expectedSalary]);
+
+    const canTakeApprenticeshipComponent = useMemo(() => (
+        <CanTakeApprenticeshipFormPart
+            handleChange={handleRadioChange}
+            value={profileEditState.canTakeApprenticeship}
+        />
+    ), [profileEditState.canTakeApprenticeship]);
+
+    const monthsOfCommercialExpComponent = useMemo(() => (
+        <MonthsOfCommercialExpFormPart
+            handleChange={handleChange}
+            value={profileEditState.monthsOfCommercialExp}
+        />
+    ), [profileEditState.monthsOfCommercialExp]);
+
+    const educationComponent = useMemo(() => (
+        <EducationFormPart
+            handleChange={handleChange}
+            value={profileEditState.education}
+        />
+    ), [profileEditState.education]);
+
+    const workExperienceComponent = useMemo(() => (
+        <WorkExperienceFormPart
+            handleChange={handleChange}
+            value={profileEditState.workExperience}
+        />
+    ), [profileEditState.workExperience]);
+
+    const coursesComponent = useMemo(() => (
+        <CoursesFormPart
+            handleChange={handleChange}
+            value={profileEditState.courses}
+        />
+    ), [profileEditState.courses]);
+
+    useEffect(() => {
+        setProfileEditState(profileEditDefaultState);
+    }, [profileEditDefaultState]);
 
     return (
-        // <form ref={componentRef} className="form" onSubmit={handleSubmit}>
         <form className="form" onSubmit={handleSubmit}>
             <div className="profile-edit__form-section profile-edit__form-section--flex">
                 {nameComponent}

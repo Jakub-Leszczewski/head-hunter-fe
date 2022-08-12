@@ -40,7 +40,7 @@ export const AvailableStudents = () => {
     loading,
     page,
     searchPhrase,
-    setPage
+    setPage,
   } = useSearch<SmallStudentResponse>('student', filter, [refreshFilter]);
 
   const { lastDataElementRef } = useInfiniteScroll(amount, hasMore, loading, page, STUDENTS_LIMIT, setPage);

@@ -67,11 +67,11 @@ export const StudentMainCv = ({ data }: Props) => {
         urls={portfolioUrls}
       />}
       {projectUrls.length > 0 && <LinksList
-        title="Projekt w zespole Scrum"
+        title="Projekt na zaliczenie"
         urls={projectUrls}
       />}
       {bonusProjectUrls.length > 0 && <LinksList
-        title="Projekt na zaliczenie"
+        title="Projekt w zespole Scrum"
         urls={bonusProjectUrls}
       />}
     </div>
