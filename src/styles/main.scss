@@ -62,3 +62,13 @@ body {
     margin: 0 auto;
   }
 }
+
+.main__go-back {
+  position: absolute;
+  left: -75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60px;
+  cursor: pointer;
+}
