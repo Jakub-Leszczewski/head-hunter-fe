@@ -81,6 +81,8 @@ export const DataForWork = ({ student, changeStudent }: Props) => {
           change={changeStudent}
           type="number"
           min="0"
+          max="9999999"
+          step={100}
         />
       </div>
       <div className="student-registration__form-input">

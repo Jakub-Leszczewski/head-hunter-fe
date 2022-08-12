@@ -13,7 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 export const StudentRegistration = () => {
 
-  const { userId, token } = useParams();
+  const { token } = useParams();
   const navigate = useNavigate();
 
   const [student, setStudent] = useState<Omit<UpdateStudentDtoInterface, 'email' | 'password'>>({
@@ -72,10 +72,10 @@ export const StudentRegistration = () => {
   const sendForm = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validation) return;
-    const response = await fetchTool(`user/${userId}/student`, 'PATCH', student);
-    if (!response.status) return console.log('Coś poszło nie tak.');
+    const response = await fetchTool(`student/${token}`, 'PATCH', student);
+    if (!response.status) return console.log('Coś poszło nie tak.', response.error);
     console.log('Poprawnie zarejestrowano kursanta.');
-    navigate(`/student/${userId}`);
+    navigate(`/login`);
   };
 
   return (
