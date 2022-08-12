@@ -8,6 +8,7 @@ export const HrNavList = () => {
     <>
       <CustomLink path="/student">Dostępni kursanci</CustomLink>
       <CustomLink path="/student-on-interview">Do rozmowy</CustomLink>
+      <CustomLink path="/password/edit">Zmiana hasła</CustomLink>
     </>
   );
 };
