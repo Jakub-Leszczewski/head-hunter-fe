@@ -4,6 +4,8 @@ import { OnlyUserResponse } from 'types';
 import { useUser } from '../../hooks/useUser';
 import { fetchTool } from '../../utils/fetchHelpers';
 import { Button } from '../common/Button/Button';
+import { setError } from '../../utils/setError'
+import { useResponseContext } from '../../contexts/PopupResponseContext'
 
 interface Props {
   name: string;
@@ -18,13 +20,19 @@ export const AvailableStudentsHeader = ({
   id,
   setIsStudentInfoOpen,
 }: Props) => {
-
+  const { setErrorHandler, setLoadingHandler } = useResponseContext();
   const user = useUser() as OnlyUserResponse;
 
   const handleBook = async () => {
+    setLoadingHandler(true);
     const response = await fetchTool(`user/${id}/student/interview`, 'PATCH', { hrId: user.id });
-    if (!response.status) return console.log('Coś poszło nie tak.');
-    console.log('Dodano kursanta do listy do rozmowy.');
+    if (!response.status) {
+      setErrorHandler(setError(response.message))
+      setLoadingHandler(false);
+      return;
+    }
+
+    setLoadingHandler(false);
   };
 
   return (

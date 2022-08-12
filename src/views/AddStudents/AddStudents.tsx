@@ -8,18 +8,26 @@ import { Button } from '../../components/common/Button/Button';
 import { CreateStudentDtoInterface, CreateStudentsResponse } from 'types';
 import { fetchTool } from "../../utils/fetchHelpers";
 import { StudentProfileSection } from "../../components/common/StudentProfileSection/StudentProfileSection";
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 type CreateStudentPapaparse = Record<keyof CreateStudentDtoInterface, string>;
 
 export const AddStudents = () => {
-
+    const { setErrorHandler, setLoadingHandler } = useResponseContext();
     const [addedStudents, setAddedStudents] = useState<CreateStudentDtoInterface[]>([]);
 
     const handleSave = async () => {
+        setLoadingHandler(true);
         const results = await fetchTool<CreateStudentsResponse>('student', 'POST', addedStudents);
-        if (!results.status) return; //Popup error
-        // Popup succes
+        if (!results.status) {
+            setErrorHandler(setError(results.message));
+            setLoadingHandler(false);
+            return;
+        }
+
         setAddedStudents([]);
+        setLoadingHandler(false);
     };
 
     const setNewStudents = (results: ParseResult<CreateStudentPapaparse>) => {

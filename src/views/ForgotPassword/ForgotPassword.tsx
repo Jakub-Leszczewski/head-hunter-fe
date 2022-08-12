@@ -4,11 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Input } from '../../components/common/Input/Input'
 import { Button } from '../../components/common/Button/Button'
 import { fetchTool } from '../../utils/fetchHelpers';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 export const ForgotPassword = () => {
-
   const navigate = useNavigate();
-
+  const { setErrorHandler, setLoadingHandler } = useResponseContext();
   const [email, setEmail] = useState('');
 
   const emailHandler = (name: string, value: string | number) => {
@@ -17,10 +18,15 @@ export const ForgotPassword = () => {
 
   const submitForgotPasswordHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    setLoadingHandler(true);
     const response = await fetchTool('auth/password', 'DELETE', { email });
-    if (!response.status) return console.log('Coś się popsuło i nie było mnie słychać');
+    if (!response.status) {
+      setErrorHandler(setError(response.message))
+      setLoadingHandler(false);
+      return;
+    }
     navigate('/login');
+    setLoadingHandler(false);
   };
 
   return (
@@ -46,6 +52,7 @@ export const ForgotPassword = () => {
           placeholder='Wpisz swój email'
           value={email}
           change={emailHandler}
+          required
         />
         <Button
           type='submit'

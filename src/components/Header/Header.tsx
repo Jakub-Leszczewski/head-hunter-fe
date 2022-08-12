@@ -9,9 +9,11 @@ import { useRefreshUser } from '../../hooks/useRefreshUser';
 
 import logo from '../../assets/images/logo.png';
 import avatar from '../../assets/images/avatar.png';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 export const Header = () => {
-
+  const { setErrorHandler, setLoadingHandler } = useResponseContext();
   const user = useUser() as OnlyUserResponse;
   const userData = useUserData() as StudentResponseData;
   const refreshUser = useRefreshUser();
@@ -20,10 +22,17 @@ export const Header = () => {
   const avatarImg = role === UserRole.Student ? `https://github.com/${userData.githubUsername}.png` : avatar;
 
   const handleLogout = async () => {
+    setLoadingHandler(true);
     const response = await fetchTool('auth/logout', 'DELETE');
-    if (!response.status) return;
+    if (!response.status) {
+      setErrorHandler(setError(response.message))
+      setLoadingHandler(false);
+      return;
+    }
+
     refreshUser();
     navigate('/login');
+    setLoadingHandler(false);
   };
 
   return (

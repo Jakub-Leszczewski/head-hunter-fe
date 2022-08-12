@@ -3,8 +3,11 @@ import { fetchTool } from '../../utils/fetchHelpers';
 import { CreateHrDtoInterface } from 'types';
 
 import { AddHrForm } from '../../components/form/AddHrForm/AddHrForm';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 export const AddHr = () => {
+  const { setErrorHandler, setLoadingHandler } = useResponseContext();
 
   const [hrData, setHrData] = useState<CreateHrDtoInterface>({
     email: '',
@@ -24,9 +27,15 @@ export const AddHr = () => {
 
   const handleAddHr = async (e: FormEvent) => {
     e.preventDefault();
+    setLoadingHandler(true);
     const response = await fetchTool('hr', 'POST', hrData);
-    if (!response.status) return console.log('coś poszło nie tak');
-    console.log('Dodano HRa');
+    if (!response.status) {
+      console.log(setError(response.message))
+      setErrorHandler(setError(response.message))
+      setLoadingHandler(false);
+      return;
+    }
+
     setHrData({
       email: '',
       firstName: '',
@@ -34,6 +43,7 @@ export const AddHr = () => {
       company: '',
       maxReservedStudents: 1,
     })
+    setLoadingHandler(false);
   };
 
   return (

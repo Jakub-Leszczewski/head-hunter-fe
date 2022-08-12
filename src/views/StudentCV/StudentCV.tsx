@@ -6,9 +6,9 @@ import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import { useUser } from '../../hooks/useUser';
 import { GoBack } from '../../components/GoBack/GoBack';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
 
 export const StudentCV = () => {
-
   const user = useUser() as OnlyUserResponse;
 
   const { studentId } = useParams();

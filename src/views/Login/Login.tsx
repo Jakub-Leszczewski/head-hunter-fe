@@ -1,23 +1,15 @@
-import React, { FormEvent, useMemo, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { fetchTool } from '../../utils/fetchHelpers';
 import { LoginResponse } from 'types';
 import { useSaveUserData } from '../../hooks/useSaveUserData';
 
 import { LoginForm } from '../../components/form/LoginForm/LoginForm'
-import { WithResponseInfoToast } from '../../hoc/WithResponseInfoToast'
-import { UseResponseInfo } from '../../hooks/useResponseInfo'
 import { useResponseContext } from '../../contexts/PopupResponseContext'
 
 export interface Consumer {
   email: string;
   password: string;
-}
-
-interface LoginFormProps {
-  submitLoginHandler: (e: FormEvent) => void;
-  form: Consumer,
-  editFormHandler: (name: string, value: string | number) => void;
 }
 
 export const Login = () => {

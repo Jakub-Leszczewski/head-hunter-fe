@@ -6,6 +6,7 @@ import { STUDENTS_LIMIT } from '../../utils/dataLimits';
 import { FormEvent, useReducer, useState } from 'react';
 import { studentsFilterReducer, StudentsFilterState } from '../../reducers/studentsFilterReducer';
 import { StudentsList } from '../../components/StudentsList/StudentsList';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
 
 export const studentsFilterDefault: StudentsFilterState = {
   courseEngagement: 0,
@@ -23,7 +24,6 @@ export const studentsFilterDefault: StudentsFilterState = {
 }
 
 export const AvailableStudents = () => {
-
   const [filter, dispatch] = useReducer(studentsFilterReducer, studentsFilterDefault);
   const [refreshFilter, setRefreshFilter] = useState(false);
 
@@ -71,3 +71,5 @@ export const AvailableStudents = () => {
     </StudentsList>
   );
 };
+
+//@TODO dodać loading spinner do listy

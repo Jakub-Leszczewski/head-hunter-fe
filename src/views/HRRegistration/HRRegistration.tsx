@@ -5,6 +5,8 @@ import { Button } from '../../components/common/Button/Button';
 import { fetchTool } from '../../utils/fetchHelpers';
 import { useNavigate, useParams } from 'react-router-dom';
 import { InputPassword } from '../../components/common/InputPassword/InputPassword';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 interface Passwords {
   password: string;
@@ -12,7 +14,7 @@ interface Passwords {
 }
 
 export const HRRegistration = () => {
-
+  const { setErrorHandler, setLoadingHandler } = useResponseContext();
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -32,10 +34,15 @@ export const HRRegistration = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) return console.log('Podano rózne hasła.');
+    setLoadingHandler(true);
     const response = await fetchTool(`hr/${token}`, 'PATCH', { newPassword: password });
-    if (!response.status) return console.log('Coś się popsuło i nie było mnie słychać');
-    console.log('Zarejestrowano HRa');
+    if (!response.status) {
+      setErrorHandler(setError(response.message));
+      setLoadingHandler(false);
+      return;
+    }
+
+    setLoadingHandler(false);
     navigate('/login');
   };
 
@@ -74,6 +81,7 @@ export const HRRegistration = () => {
         <div className="hr-registration__form-button">
           <Button
             textName="Potwierdz"
+            disabled={password !== confirmPassword}
           />
         </div>
       </form>

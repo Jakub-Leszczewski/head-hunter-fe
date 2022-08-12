@@ -1,5 +1,6 @@
 import { Dispatch, RefObject, SetStateAction } from "react";
 import { fetchApiTool } from "./fetchHelpers";
+import { setError } from './setError'
 
 interface Options {
     setStateData: Dispatch<SetStateAction<any>>;
@@ -15,7 +16,7 @@ export const getData = async (path: string, options: Options) => {
     const response = await fetchApiTool(path);
     if(!ref.current) return;
     if (!response.status) {
-        setStateError(response.error);
+        setStateError(setError(response.error));
         setStateLoading(false);
         return
     }
@@ -23,6 +24,5 @@ export const getData = async (path: string, options: Options) => {
     setTimeout(() => {
         if (!ref.current) return;
         setStateData(response.results);
-        setStateLoading(false);
     }, endTime - startTime < 500 ? 500 - (endTime - startTime) : 0);
 };

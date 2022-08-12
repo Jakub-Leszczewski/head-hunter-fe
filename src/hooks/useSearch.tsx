@@ -3,6 +3,7 @@ import axios, { Canceler, AxiosError } from 'axios';
 import { apiUrl } from '../config';
 import { FindAllQueryFilter } from 'types';
 import { FreeInternship, StudentsFilterState } from '../reducers/studentsFilterReducer';
+import { useResponseContext } from '../contexts/PopupResponseContext'
 
 const instance = axios.create();
 instance.defaults.withCredentials = true;
@@ -39,7 +40,7 @@ const setInternship = (option: FreeInternship | undefined) => {
 };
 
 export function useSearch<T>(collection: string, queries: Partial<StudentsFilterState> = {}, dependencies: any[] = []): SearchResult<T> {
-
+    const { setErrorHandler } = useResponseContext();
     const stringify = (): Partial<FindAllQueryFilter> => {
         const { canTakeApprenticeship, expectedSalary, expectedTypeWork, expectedContractType, monthsOfCommercialExp, courseCompletion, courseEngagement, projectDegree, teamProjectDegree } = queries;
         return {
@@ -128,7 +129,7 @@ export function useSearch<T>(collection: string, queries: Partial<StudentsFilter
                 delayTimeoutId.current = setTimeout(() => {
                     if (axios.isCancel(e)) return;
                     setLoading(false);
-                    setError('Coś poszło nie tak, spróbuj później.');
+                    setErrorHandler('Przepraszamy wystąpił błąd, spróbuj ponownie później.')
                 }, endTime - startTime < 500 ? 500 - (endTime - startTime) : 0);
         });
 

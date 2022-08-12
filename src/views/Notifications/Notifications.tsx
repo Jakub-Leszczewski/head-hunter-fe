@@ -34,3 +34,5 @@ export const Notifications = () => {
         </div>
     );
 };
+
+//@TODO dodać spinner w liście

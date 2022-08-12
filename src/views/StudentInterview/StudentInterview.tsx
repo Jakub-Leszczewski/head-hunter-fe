@@ -63,3 +63,5 @@ export const StudentInterview = () => {
     </StudentsList>
   );
 };
+
+//@TODO spinner w liście

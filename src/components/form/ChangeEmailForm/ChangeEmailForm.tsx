@@ -6,6 +6,8 @@ import { Button } from "../../common/Button/Button";
 import { Input } from "../../common/Input/Input";
 import { InputFormPart } from "../../common/InputFormPart/InputFormPart";
 import { InputPassword } from "../../../components/common/InputPassword/InputPassword";
+import { useResponseContext } from '../../../contexts/PopupResponseContext'
+import { setError } from '../../../utils/setError'
 
 interface ChangeEmailState {
     actualPassword: string;
@@ -18,16 +20,24 @@ const changeEmailDefaultState: ChangeEmailState = {
 };
 
 export const ChangeEmailForm = () => {
-
+    const { setErrorHandler, setLoadingHandler } = useResponseContext();
     const user = useUser() as OnlyUserResponse;
 
     const [changeEmail, setChangeEmail] = useState<ChangeEmailState>(changeEmailDefaultState);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        const response = await fetchTool(`user/${user.id}/student`, 'PATCH', { email: changeEmail.email, password: changeEmail.actualPassword });
-        if (!response.status) return console.log('Coś poszło nie tak.');
-        console.log('Email został zmieniony.');
+        setLoadingHandler(true);
+        const response = await fetchTool(`user/${user.id}/student`, 'PATCH', {
+            email: changeEmail.email,
+            password: changeEmail.actualPassword
+        });
+        if (!response.status) {
+            setErrorHandler(setError(response.message))
+            setLoadingHandler(false);
+            return;
+        }
+        setLoadingHandler(false);
         setChangeEmail(changeEmailDefaultState);
     };
 

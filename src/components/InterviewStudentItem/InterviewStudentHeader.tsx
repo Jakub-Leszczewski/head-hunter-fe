@@ -6,6 +6,8 @@ import { fetchTool } from "../../utils/fetchHelpers";
 import { Button } from "../common/Button/Button";
 import { TitleItem } from "../TitleItem/TitleItem";
 import { useNavigate } from "react-router-dom";
+import { setError } from '../../utils/setError'
+import { useResponseContext } from '../../contexts/PopupResponseContext'
 
 interface Props {
     firstName: string;
@@ -28,7 +30,7 @@ export const InterviewStudentHeader = ({
     setIsStudentInfoOpen,
     setRefresh,
 }: Props) => {
-
+    const { setErrorHandler, setLoadingHandler } = useResponseContext();
     const user = useUser() as OnlyUserResponse;
     const navigate = useNavigate();
 
@@ -36,15 +38,27 @@ export const InterviewStudentHeader = ({
         navigate(`/student/${id}`);
     };
     const handleNonInterested = async () => {
+        setLoadingHandler(true);
         const response = await fetchTool(`user/${id}/student/interview`, 'DELETE', { hrId: user.id });
-        if (!response.status) return console.log('Coś poszło nie tak.');
-        console.log('Usunięto kursanta z listy do rozmowy.');
+        if (!response.status) {
+            setErrorHandler(setError(response.message))
+            setLoadingHandler(false);
+            return;
+        }
+
+        setLoadingHandler(false);
         setRefresh(state => !state);
     };
     const handleEmployemnt = async () => {
+        setLoadingHandler(true);
         const response = await fetchTool(`user/${id}/student/employed`, 'PATCH');
-        if (!response.status) return console.log('Coś poszło nie tak.');
-        console.log('Zatrudniono kursanta.');
+        if (!response.status) {
+            setErrorHandler(setError(response.message))
+            setLoadingHandler(false);
+            return;
+        }
+
+        setLoadingHandler(false);
         setRefresh(state => !state);
     };
 
