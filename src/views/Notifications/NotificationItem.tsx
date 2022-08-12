@@ -10,7 +10,7 @@ export const NotificationItem = ({ notification, observer }: Props) => {
     return (
         <li ref={observer || null} className="notifications__item">
             <p className="notifications__text">{message}</p>
-            <time className="notifications__date">{createdAt.toLocaleString()}</time>
+            <time className="notifications__date">{new Date(createdAt).toLocaleString()}</time>
         </li>
     );
 }; 
