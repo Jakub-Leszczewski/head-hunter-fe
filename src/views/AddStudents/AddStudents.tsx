@@ -14,7 +14,7 @@ import { setError } from '../../utils/setError'
 type CreateStudentPapaparse = Record<keyof CreateStudentDtoInterface, string>;
 
 export const AddStudents = () => {
-    const { setErrorHandler, setLoadingHandler } = useResponseContext();
+    const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
     const [addedStudents, setAddedStudents] = useState<CreateStudentDtoInterface[]>([]);
 
     const handleSave = async () => {
@@ -26,6 +26,7 @@ export const AddStudents = () => {
             return;
         }
 
+        setMessageHandler(`Pomyślnie dodano ${results.results.length} kursantów`);
         setAddedStudents([]);
         setLoadingHandler(false);
     };

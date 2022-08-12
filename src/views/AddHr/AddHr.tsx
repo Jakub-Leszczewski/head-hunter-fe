@@ -7,7 +7,7 @@ import { useResponseContext } from '../../contexts/PopupResponseContext'
 import { setError } from '../../utils/setError'
 
 export const AddHr = () => {
-  const { setErrorHandler, setLoadingHandler } = useResponseContext();
+  const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
 
   const [hrData, setHrData] = useState<CreateHrDtoInterface>({
     email: '',
@@ -30,7 +30,6 @@ export const AddHr = () => {
     setLoadingHandler(true);
     const response = await fetchTool('hr', 'POST', hrData);
     if (!response.status) {
-      console.log(setError(response.message))
       setErrorHandler(setError(response.message))
       setLoadingHandler(false);
       return;
@@ -42,7 +41,8 @@ export const AddHr = () => {
       lastName: '',
       company: '',
       maxReservedStudents: 1,
-    })
+    });
+    setMessageHandler('Pomyślnie dodano HR.');
     setLoadingHandler(false);
   };
 

@@ -30,7 +30,7 @@ export const InterviewStudentHeader = ({
     setIsStudentInfoOpen,
     setRefresh,
 }: Props) => {
-    const { setErrorHandler, setLoadingHandler } = useResponseContext();
+    const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
     const user = useUser() as OnlyUserResponse;
     const navigate = useNavigate();
 
@@ -46,6 +46,7 @@ export const InterviewStudentHeader = ({
             return;
         }
 
+        setMessageHandler('Kursant został wyrzucony z listy "Do rozmów"');
         setLoadingHandler(false);
         setRefresh(state => !state);
     };
@@ -58,6 +59,7 @@ export const InterviewStudentHeader = ({
             return;
         }
 
+        setMessageHandler('Zatrudniono kursanta');
         setLoadingHandler(false);
         setRefresh(state => !state);
     };

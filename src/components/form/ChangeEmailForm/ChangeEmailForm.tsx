@@ -20,7 +20,7 @@ const changeEmailDefaultState: ChangeEmailState = {
 };
 
 export const ChangeEmailForm = () => {
-    const { setErrorHandler, setLoadingHandler } = useResponseContext();
+    const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
     const user = useUser() as OnlyUserResponse;
 
     const [changeEmail, setChangeEmail] = useState<ChangeEmailState>(changeEmailDefaultState);
@@ -37,6 +37,8 @@ export const ChangeEmailForm = () => {
             setLoadingHandler(false);
             return;
         }
+
+        setMessageHandler('Email został zmieniony.');
         setLoadingHandler(false);
         setChangeEmail(changeEmailDefaultState);
     };
@@ -55,6 +57,7 @@ export const ChangeEmailForm = () => {
                     <Input
                         name="email"
                         required
+                        type="email"
                         placeholder="Nowy e-mail"
                         value={changeEmail.email}
                         change={handleChange}

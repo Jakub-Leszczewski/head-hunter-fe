@@ -25,7 +25,7 @@ import { useResponseContext } from '../../contexts/PopupResponseContext'
 import { setError } from '../../utils/setError'
 
 export const ProfileEditForm = () => {
-    const { setErrorHandler, setLoadingHandler } = useResponseContext();
+    const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
     const user = useUser() as OnlyUserResponse;
     const studentData = useUserData() as StudentResponseData;
     const refreshUserData = useSaveUserData();
@@ -61,6 +61,7 @@ export const ProfileEditForm = () => {
             return;
         }
 
+        setMessageHandler('Profil kursanta został zaktualizowany.');
         setLoadingHandler(false);
         refreshUserData(response.results);
     };
@@ -252,7 +253,7 @@ export const ProfileEditForm = () => {
             <div className="profile-edit__form-section profile-edit__form-section--flex">
                 {coursesComponent}
             </div>
-            <Button disabled={projectUrls.length < 1} textName="Zapisz" className="profile-edit__button" />
+            <Button disabled={profileEditState.projectUrls.length < 1} textName="Zapisz" className="profile-edit__button" />
         </form>
     );
 };

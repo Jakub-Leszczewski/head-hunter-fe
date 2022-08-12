@@ -21,7 +21,7 @@ const changePasswordDefaultState: ChangePasswordState = {
 };
 
 export const ChangePasswordForm = () => {
-    const { setErrorHandler, setLoadingHandler } = useResponseContext();
+    const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
     const user = useUser() as OnlyUserResponse;
 
     const [changePassword, setChangePassword] = useState<ChangePasswordState>(changePasswordDefaultState);
@@ -37,6 +37,7 @@ export const ChangePasswordForm = () => {
             return;
         }
 
+        setMessageHandler('Hasło zostało zmienione.')
         setLoadingHandler(false);
         setChangePassword(changePasswordDefaultState);
     };

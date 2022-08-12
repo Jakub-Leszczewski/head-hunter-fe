@@ -1,4 +1,4 @@
-import { FormEvent, useReducer, useState } from 'react';
+import React, { FormEvent, useReducer, useState } from 'react';
 import { InterviewStudentItem } from '../../components/InterviewStudentItem/InterviewStudentItem';
 import { useSearch } from '../../hooks/useSearch';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
@@ -8,6 +8,7 @@ import { studentsFilterDefault } from '../AvailableStudents/AvailableStudents';
 import { OnlyUserResponse, SmallStudentResponse } from 'types';
 import { StudentsList } from '../../components/StudentsList/StudentsList';
 import { useUser } from '../../hooks/useUser';
+import { PulseLoader } from 'react-spinners'
 
 export const StudentInterview = () => {
 
@@ -58,10 +59,9 @@ export const StudentInterview = () => {
       <div className="hr-list__list-container">
         <ul className="hr-list__list">
           {studentsList()}
+          {loading && <PulseLoader className="loading__spinner" color="#E02735"/>}
         </ul>
       </div>
     </StudentsList>
   );
 };
-
-//@TODO spinner w liście

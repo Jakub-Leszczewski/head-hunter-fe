@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const StudentBio = ({ data }: Props) => {
-  const { setErrorHandler, setLoadingHandler } = useResponseContext();
+  const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
 
   const { student, email, firstName, lastName } = data;
   const { githubUsername, phoneNumber, bio } = student;
@@ -32,8 +32,10 @@ export const StudentBio = ({ data }: Props) => {
       setLoadingHandler(false);
       return;
     }
-    navigate(-1);
+
+    setMessageHandler('Kursant został wyrzucony z listy "Do rozmów".');
     setLoadingHandler(false);
+    navigate(-1);
   };
 
   const handleNavigate = () => {
@@ -49,9 +51,11 @@ export const StudentBio = ({ data }: Props) => {
       setLoadingHandler(false);
       return;
     }
+
     setLoadingHandler(false);
 
     if (user.role === UserRole.Student) {
+      setMessageHandler('Zostałeś zatrudniony');
       setLoadingHandler(true);
       const logout = await fetchTool(`auth/logout`, 'DELETE');
 
@@ -64,7 +68,9 @@ export const StudentBio = ({ data }: Props) => {
       setLoadingHandler(false);
       refreshUser();
       navigate('/login');
+      return;
     }
+    setMessageHandler('Kursant został zatrudniony.');
     navigate(-1);
   };
 

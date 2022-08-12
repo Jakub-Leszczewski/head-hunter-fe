@@ -20,7 +20,7 @@ export const AvailableStudentsHeader = ({
   id,
   setIsStudentInfoOpen,
 }: Props) => {
-  const { setErrorHandler, setLoadingHandler } = useResponseContext();
+  const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
   const user = useUser() as OnlyUserResponse;
 
   const handleBook = async () => {
@@ -32,6 +32,7 @@ export const AvailableStudentsHeader = ({
       return;
     }
 
+    setMessageHandler('Kursant został wzięty na rozmowę.')
     setLoadingHandler(false);
   };
 
