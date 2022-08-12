@@ -1,7 +1,11 @@
 import { FormEvent, useState } from "react";
+import { useUser } from "../../../hooks/useUser";
+import { OnlyUserResponse } from "types";
+import { fetchTool } from "../../../utils/fetchHelpers";
 import { Button } from "../../common/Button/Button";
 import { Input } from "../../common/Input/Input";
 import { InputFormPart } from "../../common/InputFormPart/InputFormPart";
+import { InputPassword } from "../../../components/common/InputPassword/InputPassword";
 
 interface ChangeEmailState {
     actualPassword: string;
@@ -15,11 +19,16 @@ const changeEmailDefaultState: ChangeEmailState = {
 
 export const ChangeEmailForm = () => {
 
+    const user = useUser() as OnlyUserResponse;
+
     const [changeEmail, setChangeEmail] = useState<ChangeEmailState>(changeEmailDefaultState);
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log('Zmiana hasła', changeEmail);
+        const response = await fetchTool(`user/${user.id}/student`, 'PATCH', { email: changeEmail.email, password: changeEmail.actualPassword });
+        if (!response.status) return console.log('Coś poszło nie tak.');
+        console.log('Email został zmieniony.');
+        setChangeEmail(changeEmailDefaultState);
     };
 
     const handleChange = (name: string, value: string | number) => {
@@ -42,12 +51,11 @@ export const ChangeEmailForm = () => {
                     />
                 </InputFormPart>
                 <InputFormPart title="Aktualne hasło">
-                    <Input
+                    <InputPassword
                         name="actualPassword"
                         placeholder="Aktualne hasło"
-                        required
-                        value={changeEmail.actualPassword}
-                        change={handleChange}
+                        changePassword={handleChange}
+                        password={changeEmail.actualPassword}
                     />
                 </InputFormPart>
             </div>
