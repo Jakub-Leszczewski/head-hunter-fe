@@ -1,7 +1,7 @@
 import { Select } from "../../components/common/Select/Select";
 import { InputFormPart } from "../../components/common/InputFormPart/InputFormPart";
-import { ContractType } from "./ProfileEditForm";
 import { contractType } from "../../utils/enumsHelper";
+import { ContractType } from "types";
 
 interface Props {
     value: ContractType;
