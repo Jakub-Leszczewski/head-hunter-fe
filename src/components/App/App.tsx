@@ -1,6 +1,5 @@
 import { Header } from '../Header/Header';
 import { Main } from '../Main/Main';
-import { Login } from '../../views/Login/Login';
 import { useIsAuth } from '../../hooks/useIsAuth';
 import { Navbar } from '../Navbar/Navbar';
 import { useUser } from '../../hooks/useUser';

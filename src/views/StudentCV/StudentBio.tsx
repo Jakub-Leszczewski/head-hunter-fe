@@ -6,12 +6,15 @@ import { Button } from '../../components/common/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTool } from '../../utils/fetchHelpers';
 import { useRefreshUser } from '../../hooks/useRefreshUser';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 interface Props {
   data: GetStudentResponse;
 }
 
 export const StudentBio = ({ data }: Props) => {
+  const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
 
   const { student, email, firstName, lastName } = data;
   const { githubUsername, phoneNumber, bio } = student;
@@ -21,10 +24,17 @@ export const StudentBio = ({ data }: Props) => {
   const { studentId } = useParams();
   const refreshUser = useRefreshUser();
 
-  const handleNoneInterested = async () => {
+  const handleNonInterested = async () => {
+    setLoadingHandler(true);
     const response = await fetchTool(`user/${studentId}/student/interview`, 'DELETE', { hrId: user.id });
-    if (!response.status) return console.log('Coś poszło nie tak.');
-    console.log('Usunięto kursanta z listy do rozmowy.');
+    if (!response.status) {
+      setErrorHandler(setError(response.message));
+      setLoadingHandler(false);
+      return;
+    }
+
+    setMessageHandler('Kursant został wyrzucony z listy "Do rozmów".');
+    setLoadingHandler(false);
     navigate(-1);
   };
 
@@ -33,15 +43,34 @@ export const StudentBio = ({ data }: Props) => {
   };
 
   const handleEmployment = async () => {
+    setLoadingHandler(true);
     const response = await fetchTool(`user/${studentId}/student/employed`, 'PATCH');
-    if (!response.status) return console.log('Coś poszło nie tak.');
+
+    if (!response.status) {
+      setErrorHandler(setError(response.message));
+      setLoadingHandler(false);
+      return;
+    }
+
+    setLoadingHandler(false);
+
     if (user.role === UserRole.Student) {
+      setMessageHandler('Zostałeś zatrudniony');
+      setLoadingHandler(true);
       const logout = await fetchTool(`auth/logout`, 'DELETE');
-      if (!logout.status) return console.log('Coś poszło nie tak.');
+
+      if (!logout.status) {
+        setErrorHandler(setError(logout.message));
+        setLoadingHandler(false);
+        return;
+      }
+
+      setLoadingHandler(false);
       refreshUser();
       navigate('/login');
+      return;
     }
-    console.log('Zatrudniono.');
+    setMessageHandler('Kursant został zatrudniony.');
     navigate(-1);
   };
 
@@ -81,7 +110,7 @@ export const StudentBio = ({ data }: Props) => {
         {user.role === UserRole.Hr && <Button
           textName="Brak zainteresowania"
           className="btn"
-          click={handleNoneInterested}
+          click={handleNonInterested}
           preventDefault
         />}
         <Button

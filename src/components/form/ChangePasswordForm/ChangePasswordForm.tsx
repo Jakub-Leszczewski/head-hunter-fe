@@ -5,6 +5,8 @@ import { fetchTool } from "../../../utils/fetchHelpers";
 import { Button } from "../../common/Button/Button";
 import { InputFormPart } from "../../common/InputFormPart/InputFormPart";
 import { InputPassword } from "../../common/InputPassword/InputPassword";
+import { useResponseContext } from '../../../contexts/PopupResponseContext'
+import { setError } from '../../../utils/setError'
 
 interface ChangePasswordState {
     actualPassword: string;
@@ -19,7 +21,7 @@ const changePasswordDefaultState: ChangePasswordState = {
 };
 
 export const ChangePasswordForm = () => {
-
+    const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
     const user = useUser() as OnlyUserResponse;
 
     const [changePassword, setChangePassword] = useState<ChangePasswordState>(changePasswordDefaultState);
@@ -27,10 +29,16 @@ export const ChangePasswordForm = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (newPassword !== newPasswordRepeat) return console.log('Podano różne hasła.');
+        setLoadingHandler(true);
         const response = await fetchTool(`user/${user.id}/password`, 'PATCH', { password: actualPassword, newPassword });
-        if (!response.status) return console.log('Coś poszło nie tak.');
-        console.log('Hasło zostało zmienione.');
+        if (!response.status) {
+            setErrorHandler(setError(response.message));
+            setLoadingHandler(false);
+            return;
+        }
+
+        setMessageHandler('Hasło zostało zmienione.')
+        setLoadingHandler(false);
         setChangePassword(changePasswordDefaultState);
     };
 
@@ -69,7 +77,7 @@ export const ChangePasswordForm = () => {
                     />
                 </InputFormPart>
             </div>
-            <Button textName="Zapisz" className="profile-edit__button" />
+            <Button textName="Zapisz" className="profile-edit__button" disabled={newPassword !== newPasswordRepeat}/>
         </form>
     );
 };

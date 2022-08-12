@@ -3,9 +3,11 @@ import { useSearch } from '../../hooks/useSearch';
 import { SmallStudentResponse } from 'types';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { STUDENTS_LIMIT } from '../../utils/dataLimits';
-import { FormEvent, useReducer, useState } from 'react';
+import React, { FormEvent, useReducer, useState } from 'react';
 import { studentsFilterReducer, StudentsFilterState } from '../../reducers/studentsFilterReducer';
 import { StudentsList } from '../../components/StudentsList/StudentsList';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { PulseLoader } from 'react-spinners'
 
 export const studentsFilterDefault: StudentsFilterState = {
   courseEngagement: 0,
@@ -23,7 +25,6 @@ export const studentsFilterDefault: StudentsFilterState = {
 }
 
 export const AvailableStudents = () => {
-
   const [filter, dispatch] = useReducer(studentsFilterReducer, studentsFilterDefault);
   const [refreshFilter, setRefreshFilter] = useState(false);
 
@@ -66,6 +67,7 @@ export const AvailableStudents = () => {
       <div className="hr-list__list-container">
         <ul className="hr-list__list">
           {studentsList()}
+          {loading && <PulseLoader className="loading__spinner" color="#E02735"/>}
         </ul>
       </div>
     </StudentsList>

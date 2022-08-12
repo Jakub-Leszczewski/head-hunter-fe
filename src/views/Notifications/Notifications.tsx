@@ -3,6 +3,8 @@ import { useSearch } from '../../hooks/useSearch';
 import { NOTIFICATIONS_LIMIT } from '../../utils/dataLimits';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { Search } from "../../components/common/Search/Search";
+import { PulseLoader } from 'react-spinners'
+import React from 'react'
 
 export interface Notification {
     id: string;
@@ -27,9 +29,9 @@ export const Notifications = () => {
                 <Search handleChange={handleSearchPhraseChange} value={searchPhrase} />
             </div>
             <ul className="notifications__list">
-                {notificationsList()}
-                {amount === 0 && <span>Brak powiadomień</span>}
-                {loading && <span>Trwa ładowanie...</span>}
+              {notificationsList()}
+              {!loading && amount === 0 && <span>Brak powiadomień</span>}
+              {loading && <PulseLoader className="loading__spinner" color="#E02735"/>}
             </ul>
         </div>
     );

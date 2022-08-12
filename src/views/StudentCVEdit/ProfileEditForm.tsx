@@ -21,9 +21,11 @@ import { ProjectUrlsFormPart } from "./ProjectUrlsFormPart";
 import { TargetWorkCityFormPart } from "./TargetWorkCityFormPart";
 import { WorkExperienceFormPart } from "./WorkExperienceFormPart";
 import { useSaveUserData } from "../../hooks/useSaveUserData";
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 export const ProfileEditForm = () => {
-
+    const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
     const user = useUser() as OnlyUserResponse;
     const studentData = useUserData() as StudentResponseData;
     const refreshUserData = useSaveUserData();
@@ -51,10 +53,16 @@ export const ProfileEditForm = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (projectUrls.length < 1) return;
+        setLoadingHandler(true);
         const response = await fetchTool<UpdateStudentResponse>(`user/${user.id}/student`, 'PATCH', profileEditState);
-        if (!response.status) return console.log('Coś poszło nie tak.');
-        console.log('Profil został zaktualizowany.');
+        if (!response.status) {
+            setErrorHandler(setError(response.message))
+            setLoadingHandler(false);
+            return;
+        }
+
+        setMessageHandler('Profil kursanta został zaktualizowany.');
+        setLoadingHandler(false);
         refreshUserData(response.results);
     };
 
@@ -245,7 +253,7 @@ export const ProfileEditForm = () => {
             <div className="profile-edit__form-section profile-edit__form-section--flex">
                 {coursesComponent}
             </div>
-            <Button textName="Zapisz" className="profile-edit__button" />
+            <Button disabled={profileEditState.projectUrls.length < 1} textName="Zapisz" className="profile-edit__button" />
         </form>
     );
 };

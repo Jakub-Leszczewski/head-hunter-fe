@@ -10,9 +10,11 @@ import { LongText } from './LongText';
 import { ProjectsUrls } from './ProjectsUrls';
 import { fetchTool } from '../../utils/fetchHelpers';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 export const StudentRegistration = () => {
-
+  const { setErrorHandler, setLoadingHandler } = useResponseContext();
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -71,10 +73,15 @@ export const StudentRegistration = () => {
 
   const sendForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validation) return;
+    setLoadingHandler(true);
     const response = await fetchTool(`student/${token}`, 'PATCH', student);
-    if (!response.status) return console.log('Coś poszło nie tak.', response.error);
-    console.log('Poprawnie zarejestrowano kursanta.');
+    if (!response.status) {
+      setErrorHandler(setError(response.message))
+      setLoadingHandler(false);
+      return;
+    }
+
+    setLoadingHandler(false);
     navigate(`/login`);
   };
 
@@ -109,6 +116,7 @@ export const StudentRegistration = () => {
         />
         <div className="student-registration__form-button">
           <Button
+            disabled={!validation}
             textName="Potwierdz"
             type='submit'
           />

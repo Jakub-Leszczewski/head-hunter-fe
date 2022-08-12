@@ -3,6 +3,7 @@ import axios, { Canceler, AxiosError } from 'axios';
 import { apiUrl } from '../config';
 import { FindAllQueryFilter } from 'types';
 import { FreeInternship, StudentsFilterState } from '../reducers/studentsFilterReducer';
+import { useResponseContext } from '../contexts/PopupResponseContext'
 
 const instance = axios.create();
 instance.defaults.withCredentials = true;
@@ -16,6 +17,7 @@ export interface Page {
 export interface SearchResult<T> {
     data: T[];
     loading: boolean;
+    error: string | null;
     hasMore: boolean;
     amount: number;
     page: number;
@@ -38,7 +40,7 @@ const setInternship = (option: FreeInternship | undefined) => {
 };
 
 export function useSearch<T>(collection: string, queries: Partial<StudentsFilterState> = {}, dependencies: any[] = []): SearchResult<T> {
-
+    const { setErrorHandler } = useResponseContext();
     const stringify = (): Partial<FindAllQueryFilter> => {
         const { canTakeApprenticeship, expectedSalary, expectedTypeWork, expectedContractType, monthsOfCommercialExp, courseCompletion, courseEngagement, projectDegree, teamProjectDegree } = queries;
         return {
@@ -61,8 +63,9 @@ export function useSearch<T>(collection: string, queries: Partial<StudentsFilter
     const [refresh, setRefresh] = useState(false);
     const [page, setPage] = useState(1);
     const [searchPhrase, setSearchPhrase] = useState('');
-    const [stringifyQueries, setstringifyQueries] = useState<Partial<FindAllQueryFilter>>(stringify());
+    const [stringifyQueries, setStringifyQueries] = useState<Partial<FindAllQueryFilter>>(stringify());
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [data, setData] = useState<any[]>([]);
     const [hasMore, setHasMore] = useState(false);
     const [amount, setAmount] = useState(0);
@@ -86,13 +89,14 @@ export function useSearch<T>(collection: string, queries: Partial<StudentsFilter
             setPage(1);
             setSearch(searchPhrase);
             if (JSON.stringify(stringifyQueries) !== JSON.stringify(stringify())) {
-                setstringifyQueries(stringify());
+                setStringifyQueries(stringify());
             }
         }, 500);
         return clearTimeout();
     }, [searchPhrase, ...dependencies]);
 
     useEffect(() => {
+        setError(null);
         const startTime = new Date().valueOf();
         if (delayTimeoutId.current) {
             clearTimeout(delayTimeoutId.current);
@@ -124,10 +128,10 @@ export function useSearch<T>(collection: string, queries: Partial<StudentsFilter
                 const endTime = new Date().valueOf();
                 delayTimeoutId.current = setTimeout(() => {
                     if (axios.isCancel(e)) return;
-                    console.warn(e.message);
                     setLoading(false);
+                    setErrorHandler('Przepraszamy wystąpił błąd, spróbuj ponownie później.')
                 }, endTime - startTime < 500 ? 500 - (endTime - startTime) : 0);
-            });
+        });
 
         return () => {
             if (delayTimeoutId.current) {
@@ -138,5 +142,5 @@ export function useSearch<T>(collection: string, queries: Partial<StudentsFilter
 
     }, [search, page, collection, stringifyQueries, refresh]);
 
-    return { loading, data, hasMore, amount, page, refresh, searchPhrase, setPage, setRefresh, handleSearchPhraseChange };
+    return { loading, error, data, hasMore, amount, page, refresh, searchPhrase, setPage, setRefresh, handleSearchPhraseChange };
 };

@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/common/Button/Button';
 import { fetchTool } from '../../utils/fetchHelpers';
 import { InputPassword } from '../../components/common/InputPassword/InputPassword';
+import { useResponseContext } from '../../contexts/PopupResponseContext'
+import { setError } from '../../utils/setError'
 
 interface NewPassword {
   password: string;
@@ -11,7 +13,7 @@ interface NewPassword {
 }
 
 export const NewPassword = () => {
-
+  const { setErrorHandler, setLoadingHandler } = useResponseContext();
   const navigate = useNavigate();
   const { token } = useParams();
 
@@ -30,10 +32,15 @@ export const NewPassword = () => {
 
   const submitForgotPasswordHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) return console.log('Podano różne hasła.');
+    setLoadingHandler(true);
     const response = await fetchTool(`auth/password/${token}`, 'PUT', { newPassword: password });
-    if (!response.status) return console.log('Coś się popsuło i nie było mnie słychać');
-    console.log('Hasło zostało zmienione.');
+    if (!response.status) {
+      setErrorHandler(setError(response.message))
+      setLoadingHandler(false);
+      return;
+    }
+
+    setLoadingHandler(false);
     navigate('/login');
   };
 
@@ -69,7 +76,7 @@ export const NewPassword = () => {
           password={newPassword.confirmPassword}
           changePassword={newPasswordHandler}
         />
-        <Button type='submit' className='forgot__form-btn' textName='Resetuj' />
+        <Button disabled={password !== confirmPassword} type='submit' className='forgot__form-btn' textName='Resetuj' />
       </form>
       <Link to='/login' className='forgot__link'>
         ← Wróć do logowania
