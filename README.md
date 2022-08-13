@@ -54,26 +54,26 @@
   <summary>Spis treści</summary>
   <ol>
     <li>
-      <a href="#about-the-project">O projekcie</a>
+      <a href="#o-projekcie">O projekcie</a>
       <ul>
-        <li><a href="#built-with">Technologie</a></li>
+        <li><a href="#technologie">Technologie</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Jak zacząć</a>
+      <a href="#jak-zacząć">Jak zacząć</a>
       <ul>
-        <li><a href="#prerequisites">Warunki wstępne</a></li>
-        <li><a href="#installation">Instalacja</a></li>
+        <li><a href="#warunki-wstepne">Warunki wstępne</a></li>
+        <li><a href="#instalacja">Instalacja</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Użycie</a></li>
+    <li><a href="#użycie">Użycie</a></li>
   </ol>
 </details>
 
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## O projekcie
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
@@ -86,7 +86,7 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
 
 
 
-### Built With
+### Technologie
 [![React][React.js]][React-url]
 [![Typescript][Typescript]][Typescript-url]
 [![Sass][Sass]][Sass-url]
