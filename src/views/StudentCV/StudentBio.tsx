@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FaEnvelope, FaGithub, FaPhoneAlt } from 'react-icons/fa';
 import { useUser } from '../../hooks/useUser';
 import { GetStudentResponse, OnlyUserResponse, UserRole } from 'types';
@@ -8,6 +8,8 @@ import { fetchTool } from '../../utils/fetchHelpers';
 import { useRefreshUser } from '../../hooks/useRefreshUser';
 import { useResponseContext } from '../../contexts/PopupResponseContext'
 import { setError } from '../../utils/setError'
+import { Id, toast } from 'react-toastify';
+import { ConfirmToast } from '../../components/ConfirmToast/ConfirmToast';
 
 interface Props {
   data: GetStudentResponse;
@@ -23,6 +25,7 @@ export const StudentBio = ({ data }: Props) => {
   const navigate = useNavigate();
   const { studentId } = useParams();
   const refreshUser = useRefreshUser();
+  const toastId = useRef<Id | undefined>(undefined);
 
   const handleNonInterested = async () => {
     setLoadingHandler(true);
@@ -42,7 +45,7 @@ export const StudentBio = ({ data }: Props) => {
     navigate('edit');
   };
 
-  const handleEmployment = async () => {
+  const handleConfirm = async () => {
     setLoadingHandler(true);
     const response = await fetchTool(`user/${studentId}/student/employed`, 'PATCH');
 
@@ -72,6 +75,20 @@ export const StudentBio = ({ data }: Props) => {
     }
     setMessageHandler('Kursant został zatrudniony.');
     navigate(-1);
+  };
+
+  const handleEmployment = async () => {
+    if (user.role === UserRole.Student) {
+      toastId.current = toast(
+        <ConfirmToast
+          question="Czy napewno chcesz się zatrudnić? Spowoduje to wylogowanie z aplikacji i uniemożliwi ponowne zalogowanie się."
+          reject={() => toast.dismiss(toastId.current)}
+          resolve={handleConfirm}
+        />
+      )
+      return;
+    }
+    handleConfirm();
   };
 
   return (
@@ -114,7 +131,7 @@ export const StudentBio = ({ data }: Props) => {
           preventDefault
         />}
         <Button
-          textName={user.role === UserRole.Student ? "Zatrudniony" : "Zatrudnij"}
+          textName={user.role === UserRole.Student ? "Zatrudnij się" : "Zatrudnij"}
           className="btn"
           click={handleEmployment}
           preventDefault
