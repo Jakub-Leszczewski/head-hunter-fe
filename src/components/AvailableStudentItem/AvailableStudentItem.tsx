@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react'
 import { AvailableStudentsHeader } from './AvailableStudentsHeader';
 import { SmallStudentResponse } from 'types';
 import { AvailableInfoList } from './AvailableInfoList';
@@ -6,9 +6,10 @@ import { AvailableInfoList } from './AvailableInfoList';
 interface Props {
   item: SmallStudentResponse;
   observer: ((node: HTMLLIElement) => void) | null;
+  setRefresh: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AvailableStudentItem = ({ item, observer }: Props) => {
+export const AvailableStudentItem = ({ item, observer, setRefresh }: Props) => {
 
   const { firstName, lastName, student } = item;
   const { canTakeApprenticeship, courseCompletion, courseEngagement, expectedContractType, expectedSalary, expectedTypeWork, monthsOfCommercialExp, projectDegree, targetWorkCity, teamProjectDegree } = student;
@@ -18,6 +19,7 @@ export const AvailableStudentItem = ({ item, observer }: Props) => {
   return (
     <li ref={observer} className="hr-list__item">
       <AvailableStudentsHeader
+        setRefresh={setRefresh}
         name={`${firstName} ${(lastName as string)[0]}.`}
         isStudentInfoOpen={isStudentInfoOpen}
         id={item.id}

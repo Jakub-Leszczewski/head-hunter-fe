@@ -27,7 +27,7 @@ export const StudentInterview = () => {
     setPage,
     searchPhrase,
     setRefresh,
-  } = useSearch<SmallStudentResponse>(`user/${user.id}/hr/student`, filter, [refreshFilter]);
+  } = useSearch<SmallStudentResponse>(`user/${user.id}/hr/student/interview`, filter, [refreshFilter]);
 
   const { lastDataElementRef } = useInfiniteScroll(amount, hasMore, loading, page, STUDENTS_LIMIT, setPage);
 

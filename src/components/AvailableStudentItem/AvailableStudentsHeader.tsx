@@ -12,6 +12,7 @@ interface Props {
   isStudentInfoOpen: boolean;
   id: string;
   setIsStudentInfoOpen: Dispatch<SetStateAction<boolean>>;
+  setRefresh: Dispatch<SetStateAction<boolean>>;
 }
 
 export const AvailableStudentsHeader = ({
@@ -19,6 +20,7 @@ export const AvailableStudentsHeader = ({
   isStudentInfoOpen,
   id,
   setIsStudentInfoOpen,
+  setRefresh
 }: Props) => {
   const { setErrorHandler, setLoadingHandler, setMessageHandler } = useResponseContext();
   const user = useUser() as OnlyUserResponse;
@@ -32,6 +34,7 @@ export const AvailableStudentsHeader = ({
       return;
     }
 
+    setRefresh((prev) => !prev)
     setMessageHandler('Kursant został wzięty na rozmowę.')
     setLoadingHandler(false);
   };

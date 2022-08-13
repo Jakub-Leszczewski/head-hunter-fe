@@ -1,13 +1,14 @@
 import { AvailableStudentItem } from '../../components/AvailableStudentItem/AvailableStudentItem';
 import { useSearch } from '../../hooks/useSearch';
-import { SmallStudentResponse } from 'types';
+import { OnlyUserResponse, SmallStudentResponse } from 'types';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { STUDENTS_LIMIT } from '../../utils/dataLimits';
 import React, { FormEvent, useReducer, useState } from 'react';
 import { studentsFilterReducer, StudentsFilterState } from '../../reducers/studentsFilterReducer';
 import { StudentsList } from '../../components/StudentsList/StudentsList';
-import { useResponseContext } from '../../contexts/PopupResponseContext'
-import { PulseLoader } from 'react-spinners'
+import { useResponseContext } from '../../contexts/PopupResponseContext';
+import { PulseLoader } from 'react-spinners';
+import { useUser } from '../../hooks/useUser';
 
 export const studentsFilterDefault: StudentsFilterState = {
   courseEngagement: 0,
@@ -25,6 +26,7 @@ export const studentsFilterDefault: StudentsFilterState = {
 }
 
 export const AvailableStudents = () => {
+  const user = useUser() as OnlyUserResponse;
   const [filter, dispatch] = useReducer(studentsFilterReducer, studentsFilterDefault);
   const [refreshFilter, setRefreshFilter] = useState(false);
 
@@ -42,13 +44,15 @@ export const AvailableStudents = () => {
     page,
     searchPhrase,
     setPage,
-  } = useSearch<SmallStudentResponse>('student', filter, [refreshFilter]);
+    setRefresh
+  } = useSearch<SmallStudentResponse>(`user/${user.id}/hr/student`, filter, [refreshFilter]);
 
   const { lastDataElementRef } = useInfiniteScroll(amount, hasMore, loading, page, STUDENTS_LIMIT, setPage);
 
   const studentsList = () => {
     return data.map((item, i) => (
       <AvailableStudentItem
+        setRefresh={setRefresh}
         item={item}
         key={item.id}
         observer={(i + 1) % STUDENTS_LIMIT === 0 ? lastDataElementRef : null}
