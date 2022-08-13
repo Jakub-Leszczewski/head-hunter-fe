@@ -66,7 +66,14 @@
         <li><a href="#instalacja">Instalacja</a></li>
       </ul>
     </li>
-    <li><a href="#użycie">Użycie</a></li>
+    <li>
+      <a href="#użycie">Użycie</a>
+      <ul>
+        <li><a href="#admin">Admin</a></li>
+        <li><a href="#hr">Hr</a></li>
+        <li><a href="#kursant">Kursant</a></li>
+      </ul>
+    </li>
   </ol>
 </details>
 
@@ -75,7 +82,7 @@
 <!-- ABOUT THE PROJECT -->
 ## O projekcie
 
-[![Product Name Screen Shot][product-screenshot]]
+![Product Name Screen Shot][product-screenshot]
 
 Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursantom w znalezieniu pracy, a firmom w znalezieniu zdolnych, początkujących programistów. Aplikacja zawiera trzy role.
 1. **Admin** - czuwa nad przebiegiem rekrutacji
@@ -167,6 +174,32 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
    <br />
 
 ### Hr
+1. **Dostępni kursanci - Hr ma możliwość przeglądania dostępnych kursantów i zarezerwowania go na rozmowę.**
+   <br />
+   <br />
+   ![product-screenshot]
+   <br />
+   <br />
+2. **Do rozmowy - znajdują się tu wszystkie osoby zaproszone wcześniej na rozmowę. Hr może zatrudnić daną osobę, zrezygnować z zatrudnienia lub otworzyć cv danego kursanta**
+   <br />
+   <br />
+   ![interview-screenshot]
+   <br />
+   <br />
+3. **Zmiana hasła - Hr ma możliwość zmiany hasła**
+   <br />
+   <br />
+   ![hr-change-password-screenshot]
+   <br />
+   <br />
+4. **Cv kursanta - hr może wyświetlić cv kursantów**
+   <br />
+   <br />
+   ![cv-screenshot]
+   <br />
+   <br />
+
+### Kursant
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -207,4 +240,7 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
 [add-hr-screenshot]: images/add-hr.png
 [admin-change-password-screenshot]: images/admin-change-password.png
 [notification-screenshot]: images/notification.png
+[interview-screenshot]: images/interview.png
+[hr-change-password-screenshot]: images/hr-change-password.png
+[cv-screenshot]: images/cv.png
 
