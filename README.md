@@ -75,7 +75,7 @@
 <!-- ABOUT THE PROJECT -->
 ## O projekcie
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]]
 
 Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursantom w znalezieniu pracy, a firmom w znalezieniu zdolnych, początkujących programistów. Aplikacja zawiera trzy role.
 1. **Admin** - czuwa nad przebiegiem rekrutacji
@@ -137,10 +137,36 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
 <!-- USAGE EXAMPLES -->
 ## Użycie
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### Admin
+1. **Dodawanie kursantów - należy przenieść i upuścić plik csv, a następnie zapisać przyciskiem "zapisz"**.
+<br/>
+<br/>
+![add-students-screenshot] 
+![add-students-2-screenshot]
+![csv-screenshot]
+*Przykładowy plik csv ^*
+<br/>
+<br/>
+2. **Dodawanie hr - należy wypełnić wszystkie dane i kliknąć przycisk "Dodaj"**
+    <br />
+    <br />
+    ![add-hr-screenshot]
+    <br />
+    <br />
+3. **Zmiana hasła - Admin ma możliwość zmiany swojego hasła**
+   <br />
+   <br />
+   ![admin-change-password-screenshot]
+   <br />
+   <br />
+4. **Powiadomienia - akcje, o których admin musi, wiedzieć zostają wyświetlone w zakładce powiadomienia. Można je wyszukiwać, używając imienia, nazwiska lub id użytkownika**
+   <br />
+   <br />
+   ![notification-screenshot]
+   <br />
+   <br />
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
+### Hr
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -155,7 +181,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 [stars-url]: https://github.com/ezterr/head-hunter-fe/stargazers
 [issues-shield]: https://img.shields.io/github/issues/ezterr/head-hunter-fe.svg?style=for-the-badge
 [issues-url]: https://github.com/ezterr/head-hunter-fe/issues
-[product-screenshot]: images/available.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
 [Sass]: https://img.shields.io/badge/sass-20232A?style=for-the-badge&logo=sass&logoColor=d5699f
@@ -175,4 +200,11 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 [Reactpopup]: https://img.shields.io/badge/reactjs%20popup-20232A?style=for-the-badge&logo=reactjs-popup&logoColor=fff
 [Reactpopup-url]: https://react-popup.elazizi.com/
 [Reactrouter]: https://img.shields.io/badge/react%20spinners-20232A
+[product-screenshot]: images/available.png
+[add-students-screenshot]: images/add-students.png
+[add-students-2-screenshot]: images/add-students-2.png
+[csv-screenshot]: images/csv.png
+[add-hr-screenshot]: images/add-hr.png
+[admin-change-password-screenshot]: images/admin-change-password.png
+[notification-screenshot]: images/notification.png
 
