@@ -145,21 +145,21 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
 ## Użycie
 
 ### Admin
-1. **Dodawanie kursantów - należy przenieść i upuścić plik csv, a następnie zapisać przyciskiem "zapisz"**.
-<br/>
-<br/>
-![add-students-screenshot] 
-![add-students-2-screenshot]
-![csv-screenshot]
-*Przykładowy plik csv ^*
-<br/>
-<br/>
-2. **Dodawanie hr - należy wypełnić wszystkie dane i kliknąć przycisk "Dodaj"**
-    <br />
-    <br />
-    ![add-hr-screenshot]
-    <br />
-    <br />
+1. **Dodawanie kursantów - należy przenieść i upuścić plik csv, a następnie zapisać przyciskiem "zapisz". Po tym do wszystkich kursantów zostanie wysłany link z dokończeniem rejestracji.**.
+   <br/>
+   <br/>
+   ![add-students-screenshot]
+   ![add-students-2-screenshot]
+   ![csv-screenshot]
+   *Przykładowy plik csv ^*
+   <br/>
+   <br/>
+2. **Dodawanie hr - należy wypełnić wszystkie dane i kliknąć przycisk "Dodaj". Po tym zostanie wysłany link rejestracyjny na podanego maila.**
+   <br />
+   <br />
+   ![add-hr-screenshot]
+   <br />
+   <br />
 3. **Zmiana hasła - Admin ma możliwość zmiany swojego hasła**
    <br />
    <br />
@@ -200,6 +200,18 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
    <br />
 
 ### Kursant
+1. **CV - kursant widzi swoje cv**
+   <br />
+   <br />
+   ![cv-screenshot]
+   <br />
+   <br />
+2. **Edycja konta - kursant ma możliwość edycji swojego CV, a także zmianę innych danych jak np. hasło lub email.**
+   <br />
+   <br />
+   ![student-edit-screenshot]
+   <br />
+   <br />
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -243,4 +255,5 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
 [interview-screenshot]: images/interview.png
 [hr-change-password-screenshot]: images/hr-change-password.png
 [cv-screenshot]: images/cv.png
+[student-edit-screenshot]: images/student-edit.png
 
