@@ -87,7 +87,7 @@
 Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursantom w znalezieniu pracy, a firmom w znalezieniu zdolnych, początkujących programistów. Aplikacja zawiera trzy role.
 1. **Admin** - czuwa nad przebiegiem rekrutacji
 2. **Hr** - posiada uprawnienia do wyświetlania listy kursantów, brania kursantów na rozmowy oraz ich zatrudniania.
-3. **Kursant** - posiada możliwość wyświetlania własnego profilu, a także możliwość edytowania go.
+3. **Kursant** - posiada możliwość wyświetlania własnego profilu, a także możliwość edytowania go. Kursant ma również możliwość zmiany statusu konta na "zatrudniony"
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -145,7 +145,7 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
 ## Użycie
 
 ### Admin
-1. **Dodawanie kursantów - należy przenieść i upuścić plik csv, a następnie zapisać przyciskiem "zapisz". Po tym do wszystkich kursantów zostanie wysłany link z dokończeniem rejestracji.**.
+1. **Dodawanie kursantów - należy przenieść i upuścić plik csv lub nacisnąć przycisk "upuść plik csv" i wybrać plik. Następnie zapisać przyciskiem "zapisz". Po tym do wszystkich kursantów zostanie wysłany link z dokończeniem rejestracji.**.
    <br/>
    <br/>
    ![add-students-screenshot]
