@@ -172,6 +172,7 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
    ![notification-screenshot]
    <br />
    <br />
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Hr
 1. **Dostępni kursanci - Hr ma możliwość przeglądania dostępnych kursantów i zarezerwowania go na rozmowę.**
@@ -198,6 +199,7 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
    ![cv-screenshot]
    <br />
    <br />
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Kursant
 1. **CV - kursant widzi swoje cv**
