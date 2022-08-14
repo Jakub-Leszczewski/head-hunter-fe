@@ -247,15 +247,15 @@ Projekt został stworzony na potrzeby MegaK. Aplikacja ma na celu pomóc kursant
 [Reactpopup]: https://img.shields.io/badge/reactjs%20popup-20232A?style=for-the-badge&logo=reactjs-popup&logoColor=fff
 [Reactpopup-url]: https://react-popup.elazizi.com/
 [Reactrouter]: https://img.shields.io/badge/react%20spinners-20232A
-[product-screenshot]: images/available.png
-[add-students-screenshot]: images/add-students.png
-[add-students-2-screenshot]: images/add-students-2.png
-[csv-screenshot]: images/csv.png
-[add-hr-screenshot]: images/add-hr.png
-[admin-change-password-screenshot]: images/admin-change-password.png
-[notification-screenshot]: images/notification.png
-[interview-screenshot]: images/interview.png
-[hr-change-password-screenshot]: images/hr-change-password.png
-[cv-screenshot]: images/cv.png
-[student-edit-screenshot]: images/student-edit.png
+[product-screenshot]: readme/available.png
+[add-students-screenshot]: readme/add-students.png
+[add-students-2-screenshot]: readme/add-students-2.png
+[csv-screenshot]: readme/csv.png
+[add-hr-screenshot]: readme/add-hr.png
+[admin-change-password-screenshot]: readme/admin-change-password.png
+[notification-screenshot]: readme/notification.png
+[interview-screenshot]: readme/interview.png
+[hr-change-password-screenshot]: readme/hr-change-password.png
+[cv-screenshot]: readme/cv.png
+[student-edit-screenshot]: readme/student-edit.png
 
