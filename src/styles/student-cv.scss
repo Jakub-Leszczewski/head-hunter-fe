@@ -2,7 +2,7 @@
   margin: 0 auto;
   width: 100%;
   max-width: 1430px;
-  height: 100vh;
+  min-height: 100vh;
 
   .main {
     position: relative;
@@ -10,16 +10,6 @@
     align-items: start;
     max-width: 1430px;
     margin: 0 auto;
-
-    &__go-back {
-      position: absolute;
-      left: -75px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 60px;
-      cursor: pointer;
-    }
 
     @media(max-width: 1350px) {
       &__go-back {
@@ -108,6 +98,7 @@
         width: 80%;
 
         .btn {
+          display: block;
           margin-bottom: 15px;
           width: 100%;
         }

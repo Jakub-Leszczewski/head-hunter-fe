@@ -11,7 +11,9 @@ interface Props {
 
 export const FileDrop = ({ customClassName, defaultValue, fileType, multiple = false, handler }: Props) => {
 
-    const { className, files, value, getInputProps, getRootProps, resetValue } = useFileDrop(defaultValue, fileType, multiple, customClassName);
+    const {
+        className, files, value, getInputProps, getRootProps, resetValue
+    } = useFileDrop(defaultValue, fileType, multiple, customClassName);
 
     useEffect(() => {
         if (!files) return;

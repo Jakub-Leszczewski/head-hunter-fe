@@ -1,0 +1,39 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 2px;
+  padding-top: 10px;
+  width: 100%;
+  max-width: 1430px;
+
+  .nav {
+    margin-bottom: 3px;
+    height: 72px;
+    background-color: #292A2B;
+
+    &__list {
+      display: flex;
+      height: 100%;
+
+      &-item {
+        padding: 23px 34px 28px;
+        font-size: 18px;
+        border-bottom: 3px solid transparent;
+        background-color: transparent;
+        cursor: pointer;
+        transition: border-bottom-color .3s linear;
+
+        &-link {
+          text-decoration: none;
+          color: #CFCFCF;
+          transition: color .5s linear;
+        }
+      }
+
+      .active {
+        color: #F7F7F7;
+        border-color: #C92929;
+      }
+    }
+  }
+}

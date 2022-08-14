@@ -1,23 +1,28 @@
-import { useUser } from "../../contexts/UserContext";
-import { Header } from "../Header/Header";
-import { Main } from "../Main/Main";
-import { Login } from "../views/Login/Login";
+import { Header } from '../Header/Header';
+import { Main } from '../Main/Main';
+import { useIsAuth } from '../../hooks/useIsAuth';
+import { Navbar } from '../Navbar/Navbar';
+import { useUser } from '../../hooks/useUser';
+import { OnlyUserResponse, UserRole } from 'types';
+import { useScrollUp } from '../../hooks/useScrollUp';
+import { LogoutRouter } from '../LogoutRouter/LogoutRouter';
 
 export const App = () => {
 
-    const { user } = useUser();
+  const isAuth = useIsAuth();
+  const user = useUser();
+  useScrollUp();
 
-    // useAuthorization();
-
-    return (
-        <div className="app">
-            {user.isLogged ?
-                <>
-                    <Header />
-                    <Main />
-                </> :
-                <Login />
-            }
-        </div>
-    );
+  return (
+    <div className="app">
+      {isAuth
+        ? <>
+          <Header />
+          {[UserRole.Admin, UserRole.Hr].includes((user as OnlyUserResponse).role) && <Navbar />}
+          <Main />
+        </>
+        : <LogoutRouter />
+      }
+    </div>
+  );
 };

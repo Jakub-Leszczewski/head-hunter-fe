@@ -19,6 +19,7 @@
 @import 'select';
 @import 'textarea';
 @import 'filedrop';
+@import 'search';
 @import 'table';
 @import 'header';
 @import '404';
@@ -32,8 +33,11 @@
 @import 'hr-student-to-talk-list';
 @import 'add-students';
 @import 'students-filter';
-@import 'available-students';
+@import 'hr-list';
 @import 'profile-edit';
 @import 'notifications';
 @import 'hr-edit-password';
 @import 'add-hr';
+@import 'navbar';
+@import "loading";
+@import "confirm-toast";

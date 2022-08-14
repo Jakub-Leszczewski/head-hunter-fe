@@ -1,13 +1,13 @@
-export type WorkPreference = '' | 'Praca zdalna' | 'Praca w biurze';
-export type ContractType = '' | 'Umowa o pracę' | 'B2B' | 'Umowa zlecenie' | 'Umowa o dzieło';
+import { ContractType, WorkType } from "types";
+
 export type FreeInternship = '' | 'yes' | 'no';
 
 export interface StudentsFilterState {
     courseCompletion: number;
-    courseEngagment: number;
+    courseEngagement: number;
     projectDegree: number;
     teamProjectDegree: number;
-    expectedTypeWork: WorkPreference[];
+    expectedTypeWork: WorkType[];
     expectedContractType: ContractType[];
     expectedSalary: {
         min: number | '';
@@ -41,7 +41,7 @@ interface WorkInScrumRateChange {
 
 interface WorkPreferenceChange {
     type: 'WORK_PREFERENCE_CHANGE';
-    payload: WorkPreference;
+    payload: WorkType;
 }
 
 interface ContractTypeChange {
@@ -112,7 +112,7 @@ export const studentsFilterReducer = (state: StudentsFilterState, action: Studen
             return { ...state, expectedTypeWork: [...state.expectedTypeWork, payload] };
         }
         case 'ACTIVITY_RATE_CHANGE': {
-            return { ...state, courseEngagment: action.payload };
+            return { ...state, courseEngagement: action.payload };
         }
         case 'CODE_QUALITY_RATE_CHANGE': {
             return { ...state, projectDegree: action.payload };
