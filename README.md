@@ -28,10 +28,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/ezterr/head-hunter-fe">
-    <img src="./images/logo.png" alt="Logo" width="226" height="160">
+    <img src="./readme/logo.png" alt="Logo" width="226" height="160">
   </a>
 
-<h1 align="center">MegaK - Head Hunter</h1>
+<h1 align="center">[FE] MegaK - Head Hunter</h1>
 
   <p align="center">
     Aplikacja "MegaK - Head Hunter" została stworzona aby łączyć kursantów MegaK z potencjalnymi pracodawcami, którzy szukają uzdolnionych i ambitnych programistów.
